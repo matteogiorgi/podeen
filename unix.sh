@@ -64,7 +64,7 @@ function store-conf () {
 
 warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-"${SCRIPTPATH}/fetch.sh"
+"${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y git xclip trash-cli htop bash bash-completion python3 vim-gtk3 tmux \
       wamerican fd-find fzy fonts-firacode input-remapper diodon || error-echo "installing from apt"
@@ -77,7 +77,7 @@ cp "${SCRIPTPATH}/unix/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/unix/.vimrc" "${HOME}/"
 # ---
 command mkdir -p "${HOME}/.local/bin/"
-cp "${SCRIPTPATH}/fetch.sh" "${HOME}/.local/bin/"
+cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
 
 
 

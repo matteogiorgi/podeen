@@ -46,7 +46,7 @@ function reset-plugin () {
 #######################
 
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-"${SCRIPTPATH}/fetch.sh"
+"${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get install -qq -y git python3 python3-pip python3-pylsp python3-jedi pyflakes3 \
       black golang-go gopls nodejs exuberant-ctags pandoc || error-echo "installing from apt"
 
