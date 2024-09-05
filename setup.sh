@@ -15,9 +15,9 @@
 RED='\033[1;36m'
 NC='\033[0m'
 # ---
-if [[ -d "${HOME}/.pderestore-base" ]]; then
-    printf "\n${RED}%s${NC}"   "══════════ Warning: pde-base already set ══════════"
-    printf "\n${RED}%s${NC}\n" "Remove ~/.pderestore-base and run this script again"
+if [[ -d "${HOME}/.podeen-recovery" ]]; then
+    printf "\n${RED}%s${NC}"   "════════════════ Warning: podeen already set ════════════════"
+    printf "\n${RED}%s${NC}\n" "Remove ~/.podeen-recovery directory and run this script again"
     exit 1
 fi
 # ---
@@ -47,7 +47,7 @@ function store-conf () {
             fi
         fi
     }
-    RESTORE="${HOME}/.pderestore-base" && command mkdir -p "${RESTORE}"
+    RESTORE="${HOME}/.podeen-recovery" && command mkdir -p "${RESTORE}"
     backup-conf "${HOME}/.bash_logout"
     backup-conf "${HOME}/.bashrc"
     backup-conf "${HOME}/.profile"
