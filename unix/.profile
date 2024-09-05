@@ -9,30 +9,24 @@
 
 
 
-### Bourn-Again Shell
-#####################
-
-if [ -n "$BASH_VERSION" ]; then
-    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
-fi
-
-
-
-
-### $PATH (include ~/.local/bin)
-################################
-
-mkdir -p "$HOME/.local/bin"
-PATH="$PATH:$HOME/.local/bin"
-
-
-
-
-### Env-Variables
-#################
+### Env-Variables (include ~/.local/bin in PATH)
+################################################
 
 export TERM='xterm-256color'
 export SHELL='/usr/bin/bash'
 export PAGER='/usr/bin/less'
-export EDITOR="/usr/bin/vi"
-export VISUAL="/usr/bin/vi"
+export EDITOR='/usr/bin/vi'
+export VISUAL='/usr/bin/vi'
+# ---
+mkdir -p "$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+
+
+
+### Bourn-Again Shell integration
+#################################
+
+if [ -n "$BASH_VERSION" ]; then
+    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+fi
