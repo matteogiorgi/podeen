@@ -70,11 +70,11 @@ command sudo apt-get install -qq -y git xclip trash-cli htop bash bash-completio
       wamerican fd-find fzy fonts-firacode input-remapper diodon || error-echo "installing from apt"
 # ---
 store-conf
-cp "${SCRIPTPATH}/bash/.bash_logout" "${HOME}/"
-cp "${SCRIPTPATH}/bash/.bashrc" "${HOME}/"
-cp "${SCRIPTPATH}/bash/.profile" "${HOME}/"
-cp "${SCRIPTPATH}/tmux/.tmux.conf" "${HOME}/"
-cp "${SCRIPTPATH}/vim/.vimrc" "${HOME}/"
+cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"
+cp "${SCRIPTPATH}/unix/.bashrc" "${HOME}/"
+cp "${SCRIPTPATH}/unix/.profile" "${HOME}/"
+cp "${SCRIPTPATH}/unix/.tmux.conf" "${HOME}/"
+cp "${SCRIPTPATH}/unix/.vimrc" "${HOME}/"
 # ---
 command mkdir -p "${HOME}/.local/bin/"
 cp "${SCRIPTPATH}/fetch.sh" "${HOME}/.local/bin/"
