@@ -85,4 +85,4 @@ cp "${SCRIPTPATH}/fetch.sh" "${HOME}/.local/bin/"
 ### Finish
 ##########
 
-printf "${RED}%s${NC}\n" "setup complete"
+printf "\n${RED}%s${NC}\n" "setup complete"
