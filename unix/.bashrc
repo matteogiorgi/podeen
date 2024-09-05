@@ -203,16 +203,6 @@ fi
 
 
 
-### Env-variables
-#################
-
-export TERM='xterm-256color'
-export SHELL='/usr/bin/bash'
-export PAGER='/usr/bin/less -~'
-
-
-
-
 ### Color-support
 #################
 

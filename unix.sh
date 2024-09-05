@@ -68,6 +68,7 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y git xclip trash-cli htop bash bash-completion python3 vim-gtk3 tmux \
       wamerican fd-find fzy fonts-firacode input-remapper diodon || error-echo "installing from apt"
+command chsh -s /usr/bin/bash
 # ---
 store-conf
 cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"

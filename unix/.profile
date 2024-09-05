@@ -31,5 +31,8 @@ PATH="$PATH:$HOME/.local/bin"
 ### Env-Variables
 #################
 
+export TERM='xterm-256color'
+export SHELL='/usr/bin/bash'
+export PAGER='/usr/bin/less'
 export EDITOR="/usr/bin/vi"
 export VISUAL="/usr/bin/vi"
