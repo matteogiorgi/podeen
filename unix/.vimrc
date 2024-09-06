@@ -77,8 +77,8 @@ set nowrap nospell
 set ignorecase smartcase smartindent
 set noswapfile nobackup
 set showmode showcmd
-set cursorline noerrorbells novisualbell
-set cursorlineopt=number,line
+set noerrorbells novisualbell
+set cursorline cursorlineopt=number,line
 set splitbelow splitright
 set equalalways
 set matchpairs+=<:>
@@ -177,7 +177,8 @@ augroup netrw_prettyfier
           \ setlocal bufhidden=wipe|
           \ setlocal nobuflisted|
           \ setlocal colorcolumn=|
-          \ setlocal nocursorline
+          \ setlocal nocursorline|
+          \ setlocal nonu nornu
     autocmd VimEnter *
           \ if !argc() && exists(':Explore')|
           \     Explore|
@@ -213,25 +214,7 @@ augroup fold_autoload
           \ endif
 augroup end
 " ---
-augroup linenumber_prettyfier
-    autocmd!
-    autocmd WinEnter,BufWinEnter,FocusGained,InsertLeave *
-          \ if mode() !=# 'i' && mode() !=# 'R'|
-          \     if &number == 1|
-          \         setlocal relativenumber|
-          \     endif|
-          \     setlocal cursorline|
-          \ endif
-    autocmd WinLeave,BufLeave,FocusLost,InsertEnter *
-          \ if mode() !=# 'i' && mode() !=# 'R'|
-          \     if &number == 1|
-          \         setlocal norelativenumber|
-          \     endif|
-          \     setlocal nocursorline|
-          \ endif
-augroup end
-" ---
-augroup cursorcolumn_prettyfier
+augroup colorcolumn_prettyfier
     autocmd!
     autocmd InsertEnter *
           \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
@@ -241,6 +224,20 @@ augroup cursorcolumn_prettyfier
           \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
           \     setlocal colorcolumn=|
           \ endif
+augroup end
+" ---
+augroup linenumber_prettyfier
+    autocmd!
+    autocmd InsertEnter *
+          \ if &number == 1|
+          \     setlocal norelativenumber|
+          \ endif|
+          \ setlocal nocursorline
+    autocmd InsertLeave *
+          \ if &number == 1|
+          \     setlocal relativenumber|
+          \ endif|
+          \ setlocal cursorline
 augroup end
 " ---
 augroup writer_filetype
