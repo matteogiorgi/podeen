@@ -80,8 +80,8 @@ cp "${SCRIPTPATH}/unix/.profile" "${HOME}/"
 cp "${SCRIPTPATH}/unix/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/unix/.vimrc" "${HOME}/"
 # ---
-command mkdir -p "${HOME}/.local/bin/" && cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
-command chsh -s /usr/bin/bash
+command mkdir -p "${HOME}/.local/bin/"
+cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
 
 
 
