@@ -221,14 +221,14 @@ augroup linenumber_prettyfier
           \         setlocal relativenumber|
           \     endif|
           \     setlocal cursorline|
-          \ endif|
+          \ endif
     autocmd WinLeave,BufLeave,FocusLost,InsertEnter *
           \ if mode() !=# 'i' && mode() !=# 'R'|
           \     if &number == 1|
           \         setlocal norelativenumber|
           \     endif|
           \     setlocal nocursorline|
-          \ endif|
+          \ endif
 augroup end
 " ---
 augroup cursorcolumn_prettyfier
