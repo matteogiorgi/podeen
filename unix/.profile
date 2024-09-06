@@ -9,8 +9,8 @@
 
 
 
-### Env-Variables (include ~/.local/bin in PATH)
-################################################
+### Env-Variables (extend $PATH)
+################################
 
 export TERM='xterm-256color'
 export SHELL='/usr/bin/bash'
