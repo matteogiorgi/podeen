@@ -174,11 +174,11 @@ endfunction
 augroup netrw_prettyfier
     autocmd!
     autocmd FileType netrw
-          \ setlocal bufhidden=wipe|
-          \ setlocal nobuflisted|
-          \ setlocal colorcolumn=|
           \ setlocal nocursorline|
-          \ setlocal nonu nornu
+          \ setlocal nonu nornu|
+          \ setlocal colorcolumn=|
+          \ setlocal bufhidden=wipe|
+          \ setlocal nobuflisted
     autocmd VimEnter *
           \ if !argc() && exists(':Explore')|
           \     Explore|
@@ -214,36 +214,28 @@ augroup fold_autoload
           \ endif
 augroup end
 " ---
-augroup colorcolumn_prettyfier
+augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
+          \ setlocal nocursorline|
           \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
+          \     setlocal norelativenumber|
           \     let &colorcolumn = '121,'.join(range(121,999),',')|
           \ endif
     autocmd InsertLeave *
+          \ setlocal cursorline|
           \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
+          \     setlocal relativenumber|
           \     setlocal colorcolumn=|
           \ endif
 augroup end
 " ---
-augroup linenumber_prettyfier
-    autocmd!
-    autocmd InsertEnter *
-          \ if &number == 1|
-          \     setlocal norelativenumber|
-          \ endif|
-          \ setlocal nocursorline
-    autocmd InsertLeave *
-          \ if &number == 1|
-          \     setlocal relativenumber|
-          \ endif|
-          \ setlocal cursorline
-augroup end
-" ---
 augroup writer_filetype
     autocmd!
-    autocmd FileType markdown,tex,text
+    autocmd FileType text,markdown,tex
+          \ setlocal cursorline|
           \ setlocal nonu nornu|
+          \ setlocal colorcolumn=|
           \ setlocal formatoptions=|
           \ setlocal wrap conceallevel=2|
           \ setlocal foldenable foldcolumn=1 foldmethod=manual|
