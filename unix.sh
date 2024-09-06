@@ -66,9 +66,12 @@ warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y git xclip trash-cli htop bash bash-completion python3 vim-gtk3 tmux \
-      wamerican fd-find fzy fonts-firacode input-remapper diodon || error-echo "installing from apt"
-command chsh -s /usr/bin/bash
+command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion python3 python3-pip
+      vim-gtk3 tmux wamerican fd-find fzy htop fonts-firacode || error-echo "installing from apt"
+# ---
+if command cat /proc/version | grep -oE '[Dd]ebian' &>/dev/null || command cat /proc/version | grep -oE '[Uu]buntu' &>/dev/null; then
+    command sudo apt-get install -qq -y input-remapper diodon || error-echo "installing from apt"
+fi
 # ---
 store-conf
 cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"
@@ -77,8 +80,8 @@ cp "${SCRIPTPATH}/unix/.profile" "${HOME}/"
 cp "${SCRIPTPATH}/unix/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/unix/.vimrc" "${HOME}/"
 # ---
-command mkdir -p "${HOME}/.local/bin/"
-cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
+command mkdir -p "${HOME}/.local/bin/" && cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
+command chsh -s /usr/bin/bash
 
 
 
