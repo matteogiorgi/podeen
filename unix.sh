@@ -73,7 +73,7 @@ printf "\n"
 while read -p "$(echo -e "${RED}Would you like to install extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y input-remapper diodon || error-echo "installing extras"
+            command sudo apt-get install -qq -y diodon input-remapper xournalpp || error-echo "installing extras"
             echo "Installed the following extras: input-remapper, diodon"
             break;;
         [Nn] | [Nn][Oo])
