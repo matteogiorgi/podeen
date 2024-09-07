@@ -64,13 +64,25 @@ function store-conf () {
 
 warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
+"${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion python3 python3-pip \
       vim-gtk3 tmux wamerican fd-find fzy htop fonts-firacode || error-echo "installing from apt"
 # ---
-if command cat /proc/version | grep -oE '[Dd]ebian' &>/dev/null || command cat /proc/version | grep -oE '[Uu]buntu' &>/dev/null; then
-    command sudo apt-get install -qq -y input-remapper diodon || error-echo "installing from apt"
-fi
+printf "\n"
+while read -p "$(echo -e "${RED}Would you like to install extras? (yes/no): ${NC}")" EXTRAS; do
+    case "$EXTRAS" in
+        [Yy] | [Yy][Ee][Ss])
+            command sudo apt-get install -qq -y input-remapper diodon || error-echo "installing extras"
+            echo "Installed the following extras: input-remapper, diodon"
+            break;;
+        [Nn] | [Nn][Oo])
+            echo "Skipping extras installation"
+            break;;
+        *)
+            echo "Invalid input. Answer with 'yes' or 'no'";;
+    esac
+done
 # ---
 store-conf
 cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"
