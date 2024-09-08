@@ -69,8 +69,7 @@ command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncin
 command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion python3 python3-pip \
       vim-gtk3 tmux wamerican fd-find fzy htop fonts-firacode || error-echo "installing from apt"
 # ---
-printf "\n"
-while read -p "$(echo -e "${RED}Would you like to install extras? (yes/no): ${NC}")" EXTRAS; do
+while read -p "$(echo -e "\n${RED}Would you like to install extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
             command sudo apt-get install -qq -y diodon input-remapper xournalpp || error-echo "installing extras"
