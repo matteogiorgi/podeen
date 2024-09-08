@@ -199,7 +199,8 @@ augroup syntax_prettyfier
     autocmd!
     autocmd VimEnter,ColorScheme *
           \ hi! MatchParen cterm=underline ctermbg=NONE gui=underline guibg=NONE|
-          \ hi! VertSplit ctermbg=NONE guibg=NONE
+          \ hi! VertSplit ctermbg=NONE guibg=NONE|
+          \ hi! Cursor gui=NONE guibg=lightred guifg=black
 augroup end
 " ---
 augroup fold_autoload
