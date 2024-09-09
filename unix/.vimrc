@@ -174,7 +174,7 @@ endfunction
 augroup netrw_prettyfier
     autocmd!
     autocmd FileType netrw
-          \ setlocal nocursorline|
+          \ setlocal cursorline|
           \ setlocal nonu nornu|
           \ setlocal colorcolumn=|
           \ setlocal bufhidden=wipe|
