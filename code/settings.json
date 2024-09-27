@@ -58,7 +58,7 @@
     "workbench.list.openMode": "doubleClick",
     "workbench.tree.renderIndentGuides": "none",
     "workbench.tree.indent": 20,
-    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.colorTheme": "Default Dark Modern",
     "workbench.iconTheme": "vs-seti",
     "workbench.productIconTheme": "Default",
     "[python]": {
