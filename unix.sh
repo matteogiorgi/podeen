@@ -72,8 +72,8 @@ command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion pyt
 while read -p "$(echo -e "\n${RED}Would you like to install extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y diodon flameshot input-remapper xournalpp || error-echo "installing extras"
-            echo "Installed the following extras: diodon, flameshot, input-remapper, xournalpp"
+            command sudo apt-get install -qq -y diodon flameshot input-remapper xournalpp terminator || error-echo "installing extras"
+            echo "Installed the following extras: diodon, flameshot, input-remapper, xournalpp terminator"
             break;;
         [Nn] | [Nn][Oo])
             echo "Skipping extras installation"
