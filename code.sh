@@ -39,7 +39,7 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y gnome-keyring git bash dash golang-go gopls python3 \
-      python3-pip black jupyter fonts-firacode || error-echo "installing from apt"
+      python3-pip black jupyter texlive-full fonts-firacode || error-echo "installing from apt"
 
 
 
@@ -57,6 +57,7 @@ command code --install-extension golang.go &>/dev/null
 command code --install-extension ms-python.python &>/dev/null
 command code --install-extension ms-python.black-formatter &>/dev/null
 command code --install-extension ms-toolsai.jupyter &>/dev/null
+command code --install-extension james-yu.latex-workshop &>/dev/null
 cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
 cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 
