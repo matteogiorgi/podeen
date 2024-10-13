@@ -47,8 +47,8 @@ function reset-plugin () {
 
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
-command sudo apt-get install -qq -y git python3 python3-pylsp python3-jedi pyflakes3 black \
-      golang-go gopls nodejs exuberant-ctags pandoc || error-echo "installing from apt"
+command sudo apt-get install -qq -y git python3 python3-pylsp python3-jedi pyflakes3 \
+      black golang-go gopls exuberant-ctags pandoc || error-echo "installing from apt"
 
 
 
@@ -103,7 +103,23 @@ reset-plugin
 OPERATION="RESETTING COPILOT"
 REPOSITORY="https://github.com/github/copilot.vim.git"
 PLUGIN="${START}/copilot"
-reset-plugin
+if [[ -d "${START}/copilot" ]]; then
+    reset-plugin
+else
+    while read -p "$(echo -e "\n${RED}Would you like to install copilot plugin? (yes/no): ${NC}")" COPILOT; do
+        case "$COPILOT" in
+            [Yy] | [Yy][Ee][Ss])
+                command sudo apt-get install -qq -y nodejs || error-echo "installing from apt"
+                reset-plugin
+                break;;
+            [Nn] | [Nn][Oo])
+                echo "Skipping copilot plugin installation"
+                break;;
+            *)
+                echo "Invalid input. Answer with 'yes' or 'no'";;
+        esac
+    done
+fi
 
 
 
