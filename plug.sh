@@ -100,17 +100,17 @@ REPOSITORY="https://github.com/ctrlpvim/ctrlp.vim.git"
 PLUGIN="${START}/ctrlp"
 reset-plugin
 # ---
-OPERATION="RESETTING COPILOT"
-REPOSITORY="https://github.com/github/copilot.vim.git"
 PLUGIN="${START}/copilot"
-if [[ -d "${START}/copilot" ]]; then
-    reset-plugin
+if [[ -d "${PLUGIN}" ]]; then
+    printf "\n${RED}%s${NC}\n" "RESETTING COPILOT"
+    command git -C "${PLUGIN}" pull
 else
     while read -p "$(echo -e "\n${RED}Would you like to install copilot plugin? (yes/no): ${NC}")" COPILOT; do
         case "$COPILOT" in
             [Yy] | [Yy][Ee][Ss])
+                printf "\n${RED}%s${NC}\n" "INSTALLING COPILOT"
                 command sudo apt-get install -qq -y nodejs || error-echo "installing from apt"
-                reset-plugin
+                command git clone "https://github.com/github/copilot.vim.git" "${PLUGIN}"
                 break;;
             [Nn] | [Nn][Oo])
                 echo "Skipping copilot plugin installation"
