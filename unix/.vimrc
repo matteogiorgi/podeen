@@ -233,6 +233,7 @@ augroup end
 " ---
 augroup writer_filetype
     autocmd!
+    autocmd FileType plaintex setfiletype=tex
     autocmd FileType text,markdown,tex
           \ setlocal cursorline|
           \ setlocal nonu nornu|

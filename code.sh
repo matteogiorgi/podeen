@@ -52,12 +52,12 @@ for EXTENSION in $(command code --list-extensions); do
     command code --uninstall-extension "${EXTENSION}" &>/dev/null
 done
 # ---
-command code --install-extension github.copilot &>/dev/null
-command code --install-extension golang.go &>/dev/null
-command code --install-extension ms-python.python &>/dev/null
-command code --install-extension ms-python.black-formatter &>/dev/null
-command code --install-extension ms-toolsai.jupyter &>/dev/null
-command code --install-extension james-yu.latex-workshop &>/dev/null
+command code --install-extension github.copilot
+command code --install-extension golang.go
+command code --install-extension ms-python.python
+command code --install-extension ms-python.black-formatter
+command code --install-extension ms-toolsai.jupyter
+command code --install-extension james-yu.latex-workshop
 cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
 cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 
