@@ -42,7 +42,7 @@ function! s:MakeNote()
     echo 'notes archived in ' . l:path_notes
 endfunction
 " ---
-nnoremap <leader>n :call <SID>MakeNote()<CR>
+nnoremap <localleader>n :call <SID>MakeNote()<CR>
 "}}}
 
 
@@ -134,7 +134,7 @@ if &rtp =~ 'ctrlp'
               \ endif
     augroup end
     " ---
-    command! Ctags call s:Ctags()
+    nnoremap <localleader>t :call <SID>Ctags()<CR>
     nnoremap <leader>a :CtrlPQuickfix<CR>
     nnoremap <leader>u :CtrlPUndo<CR>
     nnoremap <leader>i :CtrlPChange<CR>
