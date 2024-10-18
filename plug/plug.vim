@@ -42,7 +42,7 @@ function! s:MakeNote()
     echo 'notes archived in ' . l:path_notes
 endfunction
 " ---
-command! MakeNote call <SID>MakeNote()
+nnoremap <leader>n :call <SID>MakeNote()<CR>
 "}}}
 
 
