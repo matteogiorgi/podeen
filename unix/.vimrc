@@ -73,7 +73,7 @@ set ruler scrolloff=8 sidescrolloff=16
 set autoindent
 set formatoptions+=l
 set hlsearch incsearch
-set nowrap nospell
+set nowrap nospell conceallevel=0
 set ignorecase smartcase smartindent
 set noswapfile nobackup
 set showmode showcmd
@@ -239,7 +239,8 @@ augroup writer_filetype
           \ setlocal nonu nornu|
           \ setlocal colorcolumn=|
           \ setlocal formatoptions=|
-          \ setlocal wrap conceallevel=2|
+          \ setlocal wrap spell conceallevel=2|
+          \ setlocal spelllang=en_us|
           \ setlocal foldenable foldcolumn=1 foldmethod=manual|
           \ noremap <buffer> j gj|
           \ noremap <buffer> k gk
