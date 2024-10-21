@@ -38,8 +38,8 @@ function error-echo () {
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y gnome-keyring git bash dash golang-go gopls python3 \
-      black jupyter texlive-full fonts-cascadia-code || error-echo "installing from apt"
+command sudo apt-get install -qq -y gnome-keyring git bash dash texlive-full \
+      golang-go gopls python3 black jupyter || error-echo "installing from apt"
 
 
 
