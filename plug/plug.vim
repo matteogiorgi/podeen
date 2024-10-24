@@ -43,6 +43,7 @@ function! s:MakeNote()
 endfunction
 " ---
 nnoremap <localleader>n :call <SID>MakeNote()<CR>
+nnoremap <localleader>e :!./%<CR>
 "}}}
 
 
