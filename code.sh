@@ -52,12 +52,27 @@ for EXTENSION in $(command code --list-extensions); do
     command code --uninstall-extension "${EXTENSION}" &>/dev/null
 done
 # ---
-command code --install-extension github.copilot
-command code --install-extension golang.go
-command code --install-extension ms-python.python
-command code --install-extension ms-python.black-formatter
-command code --install-extension ms-toolsai.jupyter
-command code --install-extension james-yu.latex-workshop
+while read -p "$(echo -e "\n${RED}Would you like to install some extensions? (yes/no): ${NC}")" EXTRAS; do
+    case "$EXTRAS" in
+        [Yy] | [Yy][Ee][Ss])
+            command sudo apt-get install -qq -y texlive-full golang-go gopls \
+                  python3 black jupyter || error-echo "installing extensions"
+            command code --install-extension github.copilot
+            command code --install-extension golang.go
+            command code --install-extension ms-python.python
+            command code --install-extension ms-python.black-formatter
+            command code --install-extension ms-toolsai.jupyter
+            command code --install-extension james-yu.latex-workshop
+            echo "Installed: copilot, golang, python, black, jupyter, latex"
+            break;;
+        [Nn] | [Nn][Oo])
+            echo "Skipping extensions installation"
+            break;;
+        *)
+            echo "Invalid input. Answer with 'yes' or 'no'";;
+    esac
+done
+# ---
 cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
 cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 

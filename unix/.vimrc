@@ -298,6 +298,7 @@ nnoremap <leader>r :call <SID>ResetQF()<CR>
 nnoremap <leader>w :call <SID>ScratchBuffer()<CR>
 " ---
 nnoremap <leader>e :Explore<CR>
+nnoremap <leader>t :terminal<CR>
 nnoremap <silent>ZU :update<CR>
 tnoremap <silent><C-x> <C-\><C-n>
 " }}}
