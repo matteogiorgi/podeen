@@ -114,8 +114,8 @@ if has('gui_running')
     set guicursor+=a:blinkon0
     set columns=130 lines=50
     set vb t_vb=
-    if system('fc-list') =~ 'Cascadia Code'
-        set guifont=Cascadia\ Code\ 10
+    if system('fc-list') =~ 'JetBrains Mono Medium'
+        set guifont=JetBrains\ Mono\ Medium\ 9.5
     else
         set guifont=monospace\ 10
     endif
