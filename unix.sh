@@ -66,8 +66,8 @@ warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmux \
-      vim-gtk3 wamerican python3 fd-find fzy htop || error-echo "installing from apt"
+command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmux vim-gtk3 wamerican \
+      python3 fd-find fzy htop fonts-jetbrains-mono || error-echo "installing from apt"
 # ---
 while read -p "$(echo -e "\n${RED}Would you like to install some gnome-extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
