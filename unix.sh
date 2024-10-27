@@ -69,12 +69,12 @@ command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncin
 command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmux vim wamerican \
       python3 fd-find fzy htop fonts-jetbrains-mono || error-echo "installing from apt"
 # ---
-while read -p "$(echo -e "\n${RED}Would you like to install some gnome-extras? (yes/no): ${NC}")" EXTRAS; do
+while read -p "$(echo -e "\n${RED}Would you like to install some gtk extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y dconf-editor gnome-shell-extension-manager \
-                  input-remapper diodon xournalpp vim-gtk3 || error-echo "installing extras"
-            echo "Installed: dconf-editor, gnome-shell-extension-manager, input-remapper, diodon, xournalpp"
+            command sudo apt-get install -qq -y diodon sakura vim-gtk3 xournalpp dconf-editor \
+                  gnome-shell-extension-manager input-remapper || error-echo "installing extras"
+            echo "Installed: diodon, sakura, gvim, xournalpp, dconf, extension-manager, input-remapper"
             break;;
         [Nn] | [Nn][Oo])
             echo "Skipping extras installation"
