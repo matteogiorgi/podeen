@@ -38,8 +38,8 @@ function error-echo () {
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y gnome-keyring git bash dash texlive-full golang-go gopls \
-      python3 black jupyter fonts-jetbrains-mono || error-echo "installing from apt"
+command sudo apt-get install -qq -y gnome-keyring git bash dash \
+      fonts-jetbrains-mono || error-echo "installing from apt"
 
 
 
@@ -55,8 +55,8 @@ done
 while read -p "$(echo -e "\n${RED}Would you like to install some extensions? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y texlive-full golang-go gopls \
-                  python3 black jupyter || error-echo "installing extensions"
+            command sudo apt-get install -qq -y golang-go gopls python3 black jupyter \
+                  texlive-full || error-echo "installing extensions"
             command code --install-extension github.copilot
             command code --install-extension golang.go
             command code --install-extension ms-python.python
