@@ -72,9 +72,9 @@ command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmu
 while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y diodon tilix vim-gtk3 xournalpp dconf-editor \
+            command sudo apt-get install -qq -y tilix vim-gtk3 xournalpp dconf-editor \
                   gnome-shell-extension-manager input-remapper || error-echo "installing extras"
-            echo "Installed: diodon, tilix, gvim, xournalpp, dconf, extension-manager, input-remapper"
+            echo "Installed: tilix, gvim, xournalpp, dconf, extension-manager, input-remapper"
             break;;
         [Nn] | [Nn][Oo])
             echo "Skipping extras installation"
