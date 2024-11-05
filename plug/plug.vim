@@ -72,6 +72,7 @@ if &rtp =~ 'ale'
     endfunction
     " ---
     augroup ale_hover
+        autocmd FileType ale-preview.message setlocal nonu nornu
         autocmd FileType python,go
               \ if g:loaded_ale == 1|
               \     nnoremap <buffer> <silent>K <CMD>ALEHover<CR>|
