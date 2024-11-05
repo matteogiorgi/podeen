@@ -163,6 +163,7 @@ function! s:ScratchBuffer()
         setlocal nobuflisted
         setlocal noswapfile
         setlocal filetype=text
+        setlocal nospell
     endif
 endfunction
 " }}}
