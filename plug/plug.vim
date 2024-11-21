@@ -24,7 +24,7 @@ let g:plugme = 1
 
 
 
-" MakeNote && Exec {{{
+" MakeNote {{{
 function! s:MakeNote()
     let l:path_file   = expand('%:p')
     let l:path_parent = expand('%:p:h')
@@ -48,7 +48,6 @@ function! s:MakeNote()
 endfunction
 " ---
 nnoremap <localleader>n :call <SID>MakeNote()<CR>
-nnoremap <localleader>e :!./%<CR>
 "}}}
 
 
