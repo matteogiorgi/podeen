@@ -24,7 +24,7 @@ let g:plugme = 1
 
 
 
-" MakeNote && ExecThis {{{
+" MakeNote && Exec {{{
 function! s:MakeNote()
     let l:path_file   = expand('%:p')
     let l:path_parent = expand('%:p:h')
@@ -47,23 +47,8 @@ function! s:MakeNote()
     echo 'notes archived in ' . l:path_notes
 endfunction
 " ---
-function! s:ExecThis()
-    if empty($TMUX)
-        echo "not in a TMUX session"
-        return
-    endif
-    let l:current_file = expand('%:p')
-    if !filereadable(l:current_file) || !executable(l:current_file)
-        echo "file not found or not executable"
-        return
-    endif
-    execute 'silent !tmux split-window "bash -c ''/' . l:current_file
-          \ . '; echo; read -n 1 -p \"EOC \"''"'
-    redraw!
-endfunction
-" ---
 nnoremap <localleader>n :call <SID>MakeNote()<CR>
-nnoremap <localleader>e :call <SID>ExecThis()<CR>
+nnoremap <localleader>e :!./%<CR>
 "}}}
 
 
