@@ -157,12 +157,6 @@ endif
 
 " Copilot {{{
 if &rtp =~ 'copilot'
-    function! s:SuggestWord()
-        let suggestion = copilot#Accept("")
-        let textsuggested = copilot#TextQueuedForInsertion()
-        return textsuggested ==# '' ? '' : split(textsuggested, '[ .()\[\]{}]\zs')[0]
-    endfunction
-    " ---
     function! s:CopilotPanel()
         let l:panel_status = len(filter(range(1, bufnr('$')),
               \ 'bufexists(v:val) && bufname(v:val) =~# "^copilot:///"')) > 0
@@ -171,14 +165,23 @@ if &rtp =~ 'copilot'
     endfunction
     " ---
     let g:copilot_enabled = v:true
-    nnoremap <localleader>c :call <SID>CopilotPanel()<CR>
+    augroup netrw_prettyfier
+        autocmd!
+        autocmd FileType copilot*
+              \ setlocal cursorline|
+              \ setlocal nonu nornu|
+              \ setlocal colorcolumn=|
+              \ setlocal bufhidden=wipe|
+              \ setlocal nobuflisted
     " ---
     inoremap <silent><C-s> <Plug>(copilot-suggest)
     inoremap <silent><C-d> <Plug>(copilot-dismiss)
     inoremap <silent><C-h> <C-w>
     inoremap <silent><C-j> <Plug>(copilot-next)
     inoremap <silent><C-k> <Plug>(copilot-previous)
-    inoremap <script><expr> <C-l> <SID>SuggestWord()
+    inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
+    inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
+    nnoremap <localleader>b :call <SID>CopilotPanel()<CR>
 endif
 " }}}
 
