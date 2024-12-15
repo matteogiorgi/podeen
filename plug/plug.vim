@@ -165,7 +165,7 @@ if &rtp =~ 'copilot'
     endfunction
     " ---
     let g:copilot_enabled = v:true
-    augroup netrw_prettyfier
+    augroup copilot_prettyfier
         autocmd!
         autocmd FileType copilot*
               \ setlocal cursorline|
@@ -173,6 +173,7 @@ if &rtp =~ 'copilot'
               \ setlocal colorcolumn=|
               \ setlocal bufhidden=wipe|
               \ setlocal nobuflisted
+    augroup end
     " ---
     inoremap <silent><C-s> <Plug>(copilot-suggest)
     inoremap <silent><C-d> <Plug>(copilot-dismiss)
