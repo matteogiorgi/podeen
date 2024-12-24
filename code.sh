@@ -38,8 +38,8 @@ function error-echo () {
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y gnome-keyring git bash dash \
-      fonts-jetbrains-mono || error-echo "installing from apt"
+command sudo apt-get install -qq -y gnome-keyring git bash dash fonts-jetbrains-mono \
+      golang-go gopls python3 black || error-echo "installing from apt"
 
 
 
@@ -52,21 +52,17 @@ for EXTENSION in $(command code --list-extensions); do
     command code --uninstall-extension "${EXTENSION}" &>/dev/null
 done
 # ---
-while read -p "$(echo -e "\n${RED}Would you like to install some extensions? (yes/no): ${NC}")" EXTRAS; do
-    case "$EXTRAS" in
+command code --install-extension ms-python.python
+command code --install-extension ms-python.black-formatter
+command code --install-extension golang.go
+# ---
+while read -p "$(echo -e "\n${RED}Would you like to install copilot extension? (yes/no): ${NC}")" COPILOT; do
+    case "$COPILOT" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y golang-go gopls python3 black jupyter \
-                  texlive-full || error-echo "installing extensions"
             command code --install-extension github.copilot
-            command code --install-extension golang.go
-            command code --install-extension ms-python.python
-            command code --install-extension ms-python.black-formatter
-            command code --install-extension ms-toolsai.jupyter
-            command code --install-extension james-yu.latex-workshop
-            echo "Installed: copilot, golang, python, black, jupyter, latex"
             break;;
         [Nn] | [Nn][Oo])
-            echo "Skipping extensions installation"
+            echo "Skipping copilot extension installation"
             break;;
         *)
             echo "Invalid input. Answer with 'yes' or 'no'";;

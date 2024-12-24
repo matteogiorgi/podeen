@@ -67,14 +67,14 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmux vim wamerican \
-      python3 fd-find fzy htop fonts-jetbrains-mono || error-echo "installing from apt"
+      python3 fd-find fzy htop || error-echo "installing from apt"
 # ---
 while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y tilix vim-gtk3 xournalpp dconf-editor \
-                  gnome-shell-extension-manager input-remapper || error-echo "installing extras"
-            echo "Installed: tilix, gvim, xournalpp, dconf, extension-manager, input-remapper"
+            command sudo apt-get install -qq -y input-remapper dconf-editor \
+                  gnome-shell-extension-manager || error-echo "installing extras"
+            echo "Installed: input-remapper, dconf-editor, extension-manager"
             break;;
         [Nn] | [Nn][Oo])
             echo "Skipping extras installation"

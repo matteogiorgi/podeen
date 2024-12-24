@@ -63,7 +63,7 @@ set exrc
 set title
 set shell=bash
 set runtimepath+=~/.vim_runtime
-set clipboard=unnamedplus
+set clipboard=unnamed
 set number relativenumber mouse=a ttymouse=sgr
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 set nofoldenable foldcolumn=0 foldmethod=indent foldlevelstart=-1 foldnestmax=10 foldminlines=1
@@ -89,7 +89,7 @@ set timeoutlen=2000
 set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
 set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize
-set colorcolumn=
+set colorcolumn=0
 set cmdheight=1
 set nrformats-=alpha
 set fillchars=vert:┃,eob:╺
@@ -108,18 +108,6 @@ set wildchar=<Tab> wildmode=full
 set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*/tmp/*,*.so,*.swp,*.zip
 set shortmess+=c
 set belloff+=ctrlg
-" ---
-if has('gui_running')
-    set guioptions=i
-    set guicursor+=a:blinkon0
-    set columns=130 lines=50
-    set vb t_vb=
-    if system('fc-list') =~ 'JetBrains Mono Medium'
-        set guifont=JetBrains\ Mono\ Medium\ 9.5
-    else
-        set guifont=monospace\ 10
-    endif
-endif
 " }}}
 
 
@@ -175,9 +163,7 @@ endfunction
 augroup netrw_prettyfier
     autocmd!
     autocmd FileType netrw
-          \ setlocal cursorline|
           \ setlocal nonu nornu|
-          \ setlocal colorcolumn=|
           \ setlocal bufhidden=wipe|
           \ setlocal nobuflisted
     autocmd VimEnter *
@@ -220,27 +206,18 @@ augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
           \ setlocal nocursorline|
-          \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
-          \     setlocal norelativenumber|
-          \     let &colorcolumn = '121,'.join(range(121,999),',')|
-          \ endif
+          \ setlocal norelativenumber
     autocmd InsertLeave *
           \ setlocal cursorline|
-          \ if &filetype != 'text' && &filetype != 'markdown' && &filetype != 'tex'|
-          \     setlocal relativenumber|
-          \     setlocal colorcolumn=|
-          \ endif
+          \ setlocal relativenumber
 augroup end
 " ---
 augroup writer_filetype
     autocmd!
     autocmd FileType plaintex setfiletype=tex
     autocmd FileType text,markdown,tex
-          \ setlocal cursorline|
-          \ setlocal nonu nornu|
-          \ setlocal colorcolumn=|
           \ setlocal formatoptions=|
-          \ setlocal wrap spell conceallevel=2|
+          \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
           \ setlocal foldenable foldcolumn=1 foldmethod=manual|
           \ noremap <buffer> j gj|
