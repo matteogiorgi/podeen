@@ -75,7 +75,7 @@ if &rtp =~ 'ale'
     inoremap <silent><C-c> :AleComplete<CR>
     nnoremap <silent><C-l> :ALENextWrap<CR>
     nnoremap <silent><C-h> :ALEPreviousWrap<CR>
-    nnoremap <localleader>a :call <SID>ToggleLL()<CR>
+    nnoremap <localleader>q :call <SID>ToggleLL()<CR>
     nnoremap <leader>s :ALEFindReferences<CR>
     nnoremap <leader>d :ALEGoToDefinition<CR>
 endif
@@ -112,7 +112,7 @@ if &rtp =~ 'ctrlp'
     augroup end
     " ---
     nnoremap <localleader>t :call <SID>Ctags()<CR>
-    nnoremap <leader>a :CtrlPQuickfix<CR>
+    nnoremap <leader>q :CtrlPQuickfix<CR>
     nnoremap <leader>u :CtrlPUndo<CR>
     nnoremap <leader>i :CtrlPChange<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
@@ -128,13 +128,6 @@ endif
 
 " Copilot {{{
 if &rtp =~ 'copilot'
-    function! s:CopilotPanel()
-        let l:panel_status = len(filter(range(1, bufnr('$')),
-              \ 'bufexists(v:val) && bufname(v:val) =~# "^copilot:///"')) > 0
-        let g:copilot_panel = l:panel_status ? 'close' : 'Copilot panel'
-        silent! execute g:copilot_panel
-    endfunction
-    " ---
     let g:copilot_enabled = v:true
     augroup copilot_prettyfier
         autocmd!
@@ -153,7 +146,6 @@ if &rtp =~ 'copilot'
     inoremap <silent><C-k> <Plug>(copilot-previous)
     inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
     inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
-    nnoremap <localleader>n :call <SID>CopilotPanel()<CR>
 endif
 " }}}
 
