@@ -6,10 +6,10 @@
 " Repeat     -> https://github.com/tpope/vim-repeat
 " Lexima     -> https://github.com/cohama/lexima.vim
 " Context    -> https://github.com/wellle/context.vim
-" Signify    -> https://github.com/mhinz/vim-signify
-" Ale        -> https://github.com/dense-analysis/ale
-" Ctrlp      -> https://github.com/ctrlpvim/ctrlp.vim
-" Copilot    -> https://github.com/github/copilot.vim
+" Signify*   -> https://github.com/mhinz/vim-signify
+" Ale*       -> https://github.com/dense-analysis/ale
+" Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
+" Copilot*   -> https://github.com/github/copilot.vim
 
 
 
@@ -19,35 +19,6 @@ if exists("g:plugme")
     finish
 endif
 let g:plugme = 1
-"}}}
-
-
-
-
-" MakeNote {{{
-function! s:MakeNote()
-    let l:path_file   = expand('%:p')
-    let l:path_parent = expand('%:p:h')
-    let l:path_notes  = l:path_parent . '/notes'
-    let $FILENOTE = fnamemodify(l:path_file, ':p')
-    let $PARENT   = fnamemodify(l:path_parent, ':p')
-    let $PREFIX   = fnamemodify(l:path_parent, ':t')
-    let $DIRNOTE  = fnamemodify(l:path_notes, ':p')
-    if empty(glob(l:path_parent . '/*.md'))
-        echo 'no markdown found inside ' . l:path_parent
-        return
-    endif
-    if !isdirectory($DIRNOTE)
-        execute 'silent !cp -R $HOME/.vim/plugin/notes $PARENT'
-    endif
-    execute 'silent !$DIRNOTE/assets/makenote %:t:r'
-    redraw!
-    redrawstatus!
-    redrawtabline
-    echo 'notes archived in ' . l:path_notes
-endfunction
-" ---
-nnoremap <localleader>n :call <SID>MakeNote()<CR>
 "}}}
 
 

@@ -215,7 +215,7 @@ augroup end
 augroup writer_filetype
     autocmd!
     autocmd FileType plaintex setfiletype=tex
-    autocmd FileType text,markdown,tex
+    autocmd FileType tex,markdown,html,text
           \ setlocal formatoptions=|
           \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
@@ -240,20 +240,17 @@ command! ClearSearch
 command! ClearSpaces
       \ silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'|
       \ echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
-command! LineWrap
-      \ silent! execute &wrap ? 'setlocal nowrap' : 'setlocal wrap'|
-      \ silent! execute &wrap ? 'noremap <buffer> j gj|noremap <buffer> k gk|noremap <buffer> 0 g0|noremap <buffer> $ g$' : 'unmap <buffer> j|unmap <buffer> k|unmap <buffer> 0|unmap <buffer> $'|
-      \ echo &wrap ? 'lines wrapped' : 'lines unwrapped'
-" ---
-if has('gui_running')
-    command! GuiFont silent! execute 'set guifont=*'
-endif
 " }}}
 
 
 
 
 " Keymaps {{{
+noremap <buffer> j gj
+noremap <buffer> k gk
+noremap <buffer> 0 g0
+noremap <buffer> $ g$
+" ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
 noremap <silent><C-j> }
