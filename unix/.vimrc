@@ -219,9 +219,7 @@ augroup writer_filetype
           \ setlocal formatoptions=|
           \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
-          \ setlocal foldenable foldcolumn=1 foldmethod=manual|
-          \ noremap <buffer> j gj|
-          \ noremap <buffer> k gk
+          \ setlocal foldenable foldcolumn=1 foldmethod=manual
 augroup end
 " ---
 augroup scratchbuffer_autosave
