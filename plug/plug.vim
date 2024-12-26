@@ -153,7 +153,7 @@ if &rtp =~ 'copilot'
     inoremap <silent><C-k> <Plug>(copilot-previous)
     inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
     inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
-    nnoremap <localleader>b :call <SID>CopilotPanel()<CR>
+    nnoremap <localleader>n :call <SID>CopilotPanel()<CR>
 endif
 " }}}
 
