@@ -66,7 +66,7 @@ set runtimepath+=~/.vim_runtime
 set clipboard=unnamed
 set number relativenumber mouse=a ttymouse=sgr
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-set nofoldenable foldcolumn=0 foldmethod=indent foldlevelstart=-1 foldnestmax=10 foldminlines=1
+set nofoldenable foldcolumn=1 foldmethod=indent foldlevelstart=99 foldnestmax=10 foldminlines=1
 set textwidth=120 wrapmargin=0
 set formatoptions=tcroqaj
 set ruler scrolloff=8 sidescrolloff=16
@@ -219,7 +219,7 @@ augroup writer_filetype
           \ setlocal formatoptions=|
           \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
-          \ setlocal foldenable foldcolumn=1 foldmethod=manual
+          \ setlocal foldenable foldmethod=manual
 augroup end
 " ---
 augroup scratchbuffer_autosave
