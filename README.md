@@ -1,4 +1,4 @@
-# `PO`rtable `DE`velopment `EN`vironment
+# POrtable DEvelopment ENvironment
 
 This repository contains a collection of configuration files and installation scripts for a complete and efficient minimal *UNIX* work environment based on any *Debian* distribution.
 
