@@ -63,7 +63,6 @@ set exrc
 set title
 set shell=bash
 set runtimepath+=~/.vim_runtime
-set clipboard=unnamed
 set number relativenumber mouse=a ttymouse=sgr
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 set foldenable foldcolumn=1 foldmethod=indent foldlevelstart=99 foldnestmax=10 foldminlines=1
@@ -238,6 +237,9 @@ command! ClearSearch
 command! ClearSpaces
       \ silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'|
       \ echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
+command! XClip
+      \ let @" = system('xclip -selection clipboard', getreg(''))|
+      \ echo 'copied to clipboard'
 " }}}
 
 
