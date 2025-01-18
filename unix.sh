@@ -66,8 +66,8 @@ warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y git xclip trash-cli bash bash-completion tmux vim wamerican \
-      python3 fd-find fzy htop || error-echo "installing from apt"
+command sudo apt-get install -qq -y tmux vim git xclip trash-cli bash bash-completion \
+      python3 fd-find fzy wamerican htop || error-echo "installing from apt"
 # ---
 while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
@@ -77,7 +77,7 @@ while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (y
             echo "Installed: input-remapper, dconf-editor, extension-manager"
             break;;
         [Nn] | [Nn][Oo])
-            echo "Skipping extras installation"
+            echo "Skipping gnome-extras installation"
             break;;
         *)
             echo "Invalid input. Answer with 'yes' or 'no'";;

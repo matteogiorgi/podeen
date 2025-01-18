@@ -128,7 +128,7 @@ endif
 
 " Copilot {{{
 if &rtp =~ 'copilot'
-    let g:copilot_enabled = v:true
+    let g:copilot_enabled = v:false
     augroup copilot_prettyfier
         autocmd!
         autocmd FileType copilot*
