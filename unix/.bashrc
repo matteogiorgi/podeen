@@ -170,9 +170,9 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias xcopy="xclip -in -selection clipboard"
 alias xpasta="xclip -out -selection clipboard"
-alias fcopy='xclip-copyfile'
-alias fpasta='xclip-pastefile'
-alias fcut='xclip-cutfile'
+alias xcopyfile='xclip-copyfile'
+alias xpastafile='xclip-pastefile'
+alias xcutfile='xclip-cutfile'
 
 
 

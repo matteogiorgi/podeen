@@ -237,7 +237,7 @@ command! ClearSearch
 command! ClearSpaces
       \ silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'|
       \ echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
-command! XClip
+command! CopyClip
       \ let @" = system('xclip -selection clipboard', getreg(''))|
       \ echo 'copied to clipboard'
 " }}}
