@@ -38,8 +38,7 @@ function error-echo () {
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y gnome-keyring git bash dash fonts-jetbrains-mono \
-      golang-go gopls python3 black || error-echo "installing from apt"
+command sudo apt-get install -qq -y bash dash git gnome-keyring fonts-jetbrains-mono || error-echo "installing from apt"
 
 
 
@@ -51,10 +50,6 @@ BASE="${HOME}/.config/Code/User" && command mkdir -p "${BASE}"
 for EXTENSION in $(command code --list-extensions); do
     command code --uninstall-extension "${EXTENSION}" &>/dev/null
 done
-# ---
-command code --install-extension ms-python.python
-command code --install-extension ms-python.black-formatter
-command code --install-extension golang.go
 # ---
 while read -p "$(echo -e "\n${RED}Would you like to install copilot extension? (yes/no): ${NC}")" COPILOT; do
     case "$COPILOT" in

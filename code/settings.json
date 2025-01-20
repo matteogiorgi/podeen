@@ -61,9 +61,5 @@
     "workbench.tree.indent": 20,
     "workbench.colorTheme": "Quiet Light",
     "workbench.iconTheme": "vs-seti",
-    "workbench.productIconTheme": "Default",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true
-    }
+    "workbench.productIconTheme": "Default"
 }
