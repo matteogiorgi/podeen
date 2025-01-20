@@ -88,6 +88,7 @@ set timeoutlen=2000
 set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
 set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize
+set viminfo='100,<50,s10,h
 set colorcolumn=0
 set cmdheight=1
 set nrformats-=alpha
@@ -205,10 +206,10 @@ augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
           \ setlocal nocursorline|
-          \ setlocal norelativenumber
+          \ setlocal number norelativenumber
     autocmd InsertLeave *
           \ setlocal cursorline|
-          \ setlocal relativenumber
+          \ setlocal number relativenumber
 augroup end
 " ---
 augroup writer_filetype
