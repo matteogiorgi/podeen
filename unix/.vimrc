@@ -226,6 +226,11 @@ augroup scratchbuffer_autosave
     autocmd!
     autocmd TextChanged,TextChangedI /tmp/scratchbuffer silent write
 augroup end
+" ---
+augroup viminfo_sync
+    autocmd!
+    autocmd TextYankPost * silent! wviminfo
+augroup end
 " }}}
 
 
@@ -257,11 +262,13 @@ noremap <silent><C-l> )
 noremap <silent><C-j> }
 noremap <silent><C-k> {
 " ---
-nnoremap <silent>Y y$
 vnoremap <silent>H <gv
 vnoremap <silent>L >gv
 xnoremap <silent>J :move '>+1<CR>gv=gv
 xnoremap <silent>K :move '<-2<CR>gv=gv
+" ---
+nnoremap <silent>Y y$
+nnoremap <silent>U :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>j :buffers!<CR>:buffer<Space>
 nnoremap <leader>k :buffer#<CR>
@@ -275,7 +282,6 @@ nnoremap <leader>w :call <SID>ScratchBuffer()<CR>
 " ---
 nnoremap <leader>e :Explore<CR>
 nnoremap <leader>t :terminal<CR>
-nnoremap <silent>ZU :update<CR>
 tnoremap <silent><C-x> <C-\><C-n>
 " }}}
 
