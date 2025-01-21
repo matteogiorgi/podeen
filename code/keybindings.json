@@ -25,20 +25,12 @@
         "when": "inlineSuggestionVisible && !editorReadonly"
     },
     {
-        "key": "alt+b",
-        "command": "workbench.action.toggleActivityBarVisibility"
-    },
-    {
-        "key": "alt+shift+b",
-        "command": "breadcrumbs.toggle"
-    },
-    {
-        "key": "alt+n",
+        "key": "alt+e",
         "command": "editor.action.marker.next",
         "when": "editorFocus"
     },
     {
-        "key": "alt+shift+n",
+        "key": "alt+shift+e",
         "command": "editor.action.marker.prev",
         "when": "editorFocus"
     }
