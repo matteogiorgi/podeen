@@ -72,9 +72,9 @@ command sudo apt-get install -qq -y bash bash-completion trash-cli fd-find xclip
 while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (yes/no): ${NC}")" EXTRAS; do
     case "$EXTRAS" in
         [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y input-remapper dconf-editor \
-                  gnome-shell-extension-manager || error-echo "installing extras"
-            echo "Installed: input-remapper, dconf-editor, extension-manager"
+            command sudo apt-get install -qq -y gnome-shell-extension-manager \
+                  dconf-editor input-remapper tilix || error-echo "installing extras"
+            echo "Installed: extension-manager, dconf-editor, input-remapper, tilix"
             break;;
         [Nn] | [Nn][Oo])
             echo "Skipping gnome-extras installation"
