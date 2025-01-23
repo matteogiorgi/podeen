@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# COMMENTARY https://github.com/tpope/vim-commentary
 # SURROUND   https://github.com/tpope/vim-surround
 # REPEAT     https://github.com/tpope/vim-repeat
+# COMMENTARY https://github.com/tpope/vim-commentary
 # LEXIMA     https://github.com/cohama/lexima.vim
 # CONTEXT    https://github.com/wellle/context.vim
 # SIGNIFY    https://github.com/mhinz/vim-signify
@@ -60,11 +60,6 @@ VIM=${HOME}/.vim && command mkdir -p "${VIM}"
 START="${VIM}/pack/plug/start" && command mkdir -p "${START}"
 [[ -d "${VIM}/plugin" ]] || cp -r "${SCRIPTPATH}/plug" "${VIM}/plugin"
 # ---
-OPERATION="RESETTING COMMENTARY"
-REPOSITORY="https://github.com/tpope/vim-commentary.git"
-PLUGIN="${START}/commentary"
-reset-plugin
-# ---
 OPERATION="RESETTING SURROUND"
 REPOSITORY="https://github.com/tpope/vim-surround.git"
 PLUGIN="${START}/surround"
@@ -73,6 +68,11 @@ reset-plugin
 OPERATION="RESETTING REPEAT"
 REPOSITORY="https://github.com/tpope/vim-repeat.git"
 PLUGIN="${START}/repeat"
+reset-plugin
+# ---
+OPERATION="RESETTING COMMENTARY"
+REPOSITORY="https://github.com/tpope/vim-commentary.git"
+PLUGIN="${START}/commentary"
 reset-plugin
 # ---
 OPERATION="RESETTING LEXIMA"

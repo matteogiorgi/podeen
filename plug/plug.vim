@@ -1,9 +1,9 @@
 " plug.vim: simple viml-script that sets basic configuration
 " for installed plugins (Vim 9.0+ required just for copilot).
 " ---
-" Commentary -> https://github.com/tpope/vim-commentary
 " Surround   -> https://github.com/tpope/vim-surround
 " Repeat     -> https://github.com/tpope/vim-repeat
+" Commentary -> https://github.com/tpope/vim-commentary
 " Lexima     -> https://github.com/cohama/lexima.vim
 " Context    -> https://github.com/wellle/context.vim
 " Signify*   -> https://github.com/mhinz/vim-signify
@@ -29,8 +29,7 @@ if &rtp =~ 'signify'
     nnoremap <silent><C-n> <plug>(signify-next-hunk)
     nnoremap <silent><C-p> <plug>(signify-prev-hunk)
     nnoremap <leader>g :SignifyDiff<CR>
-    nnoremap <leader>v :SignifyHunkDiff<CR>
-    nnoremap <leader>b :SignifyHunkUndo<CR>
+    nnoremap <leader>v :SignifyFold<CR>
 endif
 " }}}
 
