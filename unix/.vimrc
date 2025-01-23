@@ -165,7 +165,8 @@ augroup netrw_prettyfier
     autocmd FileType netrw
           \ setlocal nonu nornu|
           \ setlocal bufhidden=wipe|
-          \ setlocal nobuflisted
+          \ setlocal nobuflisted|
+          \ setlocal cursorline
     autocmd VimEnter *
           \ if !argc() && exists(':Explore')|
           \     Explore|
