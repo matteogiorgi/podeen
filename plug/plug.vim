@@ -1,8 +1,7 @@
 " plug.vim: simple viml-script that sets basic configuration
 " for installed plugins (Vim 9.0+ required just for copilot).
 " ---
-" Surround   -> https://github.com/tpope/vim-surround
-" Repeat     -> https://github.com/tpope/vim-repeat
+" Sandwich*  -> https://github.com/machakann/vim-sandwich
 " Commentary -> https://github.com/tpope/vim-commentary
 " Lexima     -> https://github.com/cohama/lexima.vim
 " Context    -> https://github.com/wellle/context.vim
@@ -19,6 +18,15 @@ if exists("g:plugme")
     finish
 endif
 let g:plugme = 1
+"}}}
+
+
+
+
+" Sandwich {{{
+if &rtp =~ 'sandwich'
+    runtime macros/sandwich/keymap/surround.vim
+endif
 "}}}
 
 

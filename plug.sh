@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# SURROUND   https://github.com/tpope/vim-surround
-# REPEAT     https://github.com/tpope/vim-repeat
+# SANDWICH   https://github.com/machakann/vim-sandwich
 # COMMENTARY https://github.com/tpope/vim-commentary
 # LEXIMA     https://github.com/cohama/lexima.vim
 # CONTEXT    https://github.com/wellle/context.vim
@@ -60,14 +59,9 @@ VIM=${HOME}/.vim && command mkdir -p "${VIM}"
 START="${VIM}/pack/plug/start" && command mkdir -p "${START}"
 [[ -d "${VIM}/plugin" ]] || cp -r "${SCRIPTPATH}/plug" "${VIM}/plugin"
 # ---
-OPERATION="RESETTING SURROUND"
-REPOSITORY="https://github.com/tpope/vim-surround.git"
-PLUGIN="${START}/surround"
-reset-plugin
-# ---
-OPERATION="RESETTING REPEAT"
-REPOSITORY="https://github.com/tpope/vim-repeat.git"
-PLUGIN="${START}/repeat"
+OPERATION="RESETTING SANDWICH"
+REPOSITORY="https://github.com/machakann/vim-sandwich.git"
+PLUGIN="${START}/sandwich"
 reset-plugin
 # ---
 OPERATION="RESETTING COMMENTARY"
