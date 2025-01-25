@@ -55,7 +55,7 @@ if &rtp =~ 'ale'
     " ---
     augroup ale_hover
         autocmd FileType ale-preview.message setlocal nonu nornu
-        autocmd FileType python,go
+        autocmd FileType c,go,sh,python
               \ if g:loaded_ale == 1|
               \     nnoremap <buffer> <silent>K <CMD>ALEHover<CR>|
               \ endif
@@ -70,12 +70,16 @@ if &rtp =~ 'ale'
     let g:ale_virtualtext_cursor = 0
     let g:ale_linters_explicit = 1
     let g:ale_linters = {
-          \      'python': ['pylsp'],
-          \      'go': ['gopls', 'gofmt']
+          \      'c': ['cc', 'ccls'],
+          \      'go': ['gopls', 'gofmt'],
+          \      'sh': ['shellcheck'],
+          \      'python': ['pylsp']
           \ }
     let g:ale_fixers = {
-          \      'python': ['black'],
+          \      'c': ['astyle'],
           \      'go': ['gofmt'],
+          \      'sh': ['shfmt'],
+          \      'python': ['black'],
           \      '*': ['remove_trailing_lines', 'trim_whitespace']
           \ }
     " ---
