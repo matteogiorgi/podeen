@@ -2,12 +2,19 @@
 
 # This base setup script will install a minimal work environment,
 # complete with all the bells and whistles needed to start working properly.
-# There are useful gui applications not included here (this is a minimal setup):
-# 'input-remapper', 'dconf-editor', 'gnome-shell-extension-manager'. They can be
-# installed from the package manager with the exact name.
 # ---
 # There are no worries of losing a potential old configuration: il will be
 # stored in a separate folder in order to be restored manually if needed.
+# ---
+# There are other applications not included here (this is a minimal setup),
+# they can be installed from apt package-manager as follows:
+# sudo apt-get install -qq -y \
+#       distrobox \
+#       input-remapper \
+#       dconf-editor \
+#       gnome-shell-extension-manager \
+#       tilix \
+#       xournalpp
 
 
 
