@@ -69,8 +69,8 @@ warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y bash bash-completion fzy fd-find xclip trash-cli git \
-      tmux vim python3 wamerican htop || error-echo "installing from apt"
+command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
+      git tmux vim python3 wamerican htop || error-echo "installing from apt"
 # ---
 store-conf
 cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"
