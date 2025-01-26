@@ -9,12 +9,9 @@
 # There are other applications not included here (this is a minimal setup),
 # they can be installed from apt package-manager as follows:
 # sudo apt-get install -qq -y \
-#       distrobox \
-#       input-remapper \
-#       dconf-editor \
+#       podman distrobox \
+#       input-remapper dconf-editor \
 #       gnome-shell-extension-manager \
-#       tilix \
-#       xournalpp
 
 
 
