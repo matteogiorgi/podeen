@@ -6,12 +6,9 @@
 # There are no worries of losing a potential old configuration: il will be
 # stored in a separate folder in order to be restored manually if needed.
 # ---
-# There are other applications not included here (this is a minimal setup),
-# they can be installed from apt package-manager as follows:
-# sudo apt-get install -qq -y \
-#       podman distrobox \
-#       input-remapper dconf-editor \
-#       gnome-shell-extension-manager \
+# Other applications not included here (this is a minimal setup) can be
+# installed manually through the apt package manager. Mind the following:
+# distrobox input-remapper dconf-editor gnome-shell-extension-manager
 
 
 
