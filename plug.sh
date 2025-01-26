@@ -46,8 +46,8 @@ function reset-plugin () {
 
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
-command sudo apt-get install -qq -y gcc ccls golang-go gopls bash shellcheck shfmt \
-      python3 python3-pylsp python3-jedi pyflakes3 black git exuberant-ctags || error-echo "installing from apt"
+command sudo apt-get install -qq -y git exuberant-ctags gcc ccls golang-go gopls bash shellcheck \
+      python3 python3-pylsp python3-jedi pyflakes3 black || error-echo "installing from apt"
 
 
 

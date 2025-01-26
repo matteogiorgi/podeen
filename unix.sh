@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# This 'pde-base' setup script will install a minimal work environment
+# This base setup script will install a minimal work environment,
 # complete with all the bells and whistles needed to start working properly.
+# There are useful gui applications not included here (this is a minimal setup):
+# 'input-remapper', 'dconf-editor', 'gnome-shell-extension-manager'. They can be
+# installed from the package manager with the exact name.
 # ---
 # There are no worries of losing a potential old configuration: il will be
 # stored in a separate folder in order to be restored manually if needed.
@@ -66,23 +69,8 @@ warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 "${SCRIPTPATH}/unix/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y python3 bash bash-completion trash-cli fd-find xclip \
-      fzy tmux vim git htop wamerican || error-echo "installing from apt"
-# ---
-while read -p "$(echo -e "\n${RED}Would you like to install few gnome-extras? (yes/no): ${NC}")" EXTRAS; do
-    case "$EXTRAS" in
-        [Yy] | [Yy][Ee][Ss])
-            command sudo apt-get install -qq -y gnome-shell-extension-manager \
-                  dconf-editor input-remapper tilix || error-echo "installing extras"
-            echo "Installed: extension-manager, dconf-editor, input-remapper, tilix"
-            break;;
-        [Nn] | [Nn][Oo])
-            echo "Skipping gnome-extras installation"
-            break;;
-        *)
-            echo "Invalid input. Answer with 'yes' or 'no'";;
-    esac
-done
+command sudo apt-get install -qq -y bash bash-completion fzy fd-find xclip trash-cli git \
+      tmux vim python3 wamerican htop || error-echo "installing from apt"
 # ---
 store-conf
 cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"

@@ -2,9 +2,6 @@
 
 # VSCode reset with just few tweaks and GitHub-Copilot extension:
 # https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
-# https://marketplace.visualstudio.com/items?itemName=ms-python.python
-# https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter
-# https://marketplace.visualstudio.com/items?itemName=golang.Go
 # ---
 # VSCode is not included in the Debian repos,
 # install it separately: https://code.visualstudio.com/.
