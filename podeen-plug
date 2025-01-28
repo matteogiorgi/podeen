@@ -5,7 +5,6 @@
 # LEXIMA     https://github.com/cohama/lexima.vim
 # CONTEXT    https://github.com/wellle/context.vim
 # SIGNIFY    https://github.com/mhinz/vim-signify
-# ALE        https://github.com/dense-analysis/ale
 # CTRLP      https://github.com/ctrlpvim/ctrlp.vim
 # COPILOT    https://github.com/github/copilot.vim
 
@@ -23,6 +22,17 @@ if [[ ! -x "$(command -v "vim")" || ! "$(command vim --version | grep -oE 'Vi IM
     printf "\n${RED}%s${NC}\n" "Install Vim9 and run this script again"
     exit 1
 fi
+# ---
+function warning-message () {
+    if [[ "$(id -u)" = 0 ]]; then
+        printf "\n${RED}%s${NC}"     "This script MUST NOT be run as root user since it makes changes"
+        printf "\n${RED}%s${NC}"     "to the \$HOME directory of the \$USER executing this script."
+        printf "\n${RED}%s${NC}"     "The \$HOME directory of the root user is, of course, '/root'."
+        printf "\n${RED}%s${NC}"     "We don't want to mess around in there. So run this script as a"
+        printf "\n${RED}%s${NC}\n" "normal user. You will be asked for a sudo password when necessary."
+        exit 1
+    fi
+}
 # ---
 function error-echo () {
     printf "${RED}ERROR: %s${NC}\n" "$1" >&2
@@ -44,10 +54,10 @@ function reset-plugin () {
 ### Path & Dependencies
 #######################
 
+warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-"${SCRIPTPATH}/unix/fetch.sh"
-command sudo apt-get install -qq -y git exuberant-ctags gcc ccls golang-go gopls bash shellcheck \
-      python3 python3-pylsp python3-jedi pyflakes3 black || error-echo "installing from apt"
+"${SCRIPTPATH}/base/fetch.sh"
+command sudo apt-get install -qq -y git exuberant-ctags || error-echo "installing from apt"
 
 
 
@@ -82,11 +92,6 @@ reset-plugin
 OPERATION="RESETTING SIGNIFY"
 REPOSITORY="https://github.com/mhinz/vim-signify.git"
 PLUGIN="${START}/signify"
-reset-plugin
-# ---
-OPERATION="RESETTING ALE"
-REPOSITORY="https://github.com/dense-analysis/ale.git"
-PLUGIN="${START}/ale"
 reset-plugin
 # ---
 OPERATION="RESETTING CTRLP"

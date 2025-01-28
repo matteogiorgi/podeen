@@ -6,7 +6,6 @@
 " Lexima     -> https://github.com/cohama/lexima.vim
 " Context    -> https://github.com/wellle/context.vim
 " Signify*   -> https://github.com/mhinz/vim-signify
-" Ale*       -> https://github.com/dense-analysis/ale
 " Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
 " Copilot*   -> https://github.com/github/copilot.vim
 
@@ -36,58 +35,6 @@ endif
 if &rtp =~ 'signify'
     nnoremap <silent><C-n> <plug>(signify-next-hunk)
     nnoremap <silent><C-p> <plug>(signify-prev-hunk)
-    nnoremap <leader>g :SignifyDiff<CR>
-    nnoremap <leader>v :SignifyFold<CR>
-endif
-" }}}
-
-
-
-
-" Ale {{{
-if &rtp =~ 'ale'
-    function! s:ToggleLL()
-        let g:quickfix = 'cclose'
-        let g:loclist = !exists("g:loclist") || g:loclist ==# 'lclose' ? 'lopen' : 'lclose'
-        silent! execute g:quickfix
-        silent! execute g:loclist
-    endfunction
-    " ---
-    augroup ale_hover
-        autocmd FileType ale-preview.message setlocal nonu nornu
-        autocmd FileType c,go,python,sh
-              \ if g:loaded_ale == 1|
-              \     nnoremap <buffer> <silent>K <CMD>ALEHover<CR>|
-              \ endif
-    augroup END
-    " ---
-    set omnifunc=ale#completion#OmniFunc
-    let g:ale_echo_msg_format = '[%linter% %severity%] %s'
-    let g:ale_completion_enabled = 1
-    let g:ale_completion_autoimport = 1
-    let g:ale_lsp_suggestions = 1
-    let g:ale_fix_on_save = 1
-    let g:ale_virtualtext_cursor = 0
-    let g:ale_linters_explicit = 1
-    let g:ale_linters = {
-          \      'c': ['cc', 'ccls'],
-          \      'go': ['gopls', 'gofmt'],
-          \      'python': ['pylsp'],
-          \      'sh': ['shellcheck']
-          \ }
-    let g:ale_fixers = {
-          \      'c': ['astyle'],
-          \      'go': ['gofmt'],
-          \      'python': ['black'],
-          \      '*': ['remove_trailing_lines', 'trim_whitespace']
-          \ }
-    " ---
-    inoremap <silent><C-c> :AleComplete<CR>
-    nnoremap <silent><C-l> :ALENextWrap<CR>
-    nnoremap <silent><C-h> :ALEPreviousWrap<CR>
-    nnoremap <localleader>q :call <SID>ToggleLL()<CR>
-    nnoremap <leader>s :ALEFindReferences<CR>
-    nnoremap <leader>d :ALEGoToDefinition<CR>
 endif
 " }}}
 
@@ -121,10 +68,16 @@ if &rtp =~ 'ctrlp'
               \ endif
     augroup end
     " ---
-    nnoremap <localleader>t :call <SID>Ctags()<CR>
-    nnoremap <leader>q :CtrlPQuickfix<CR>
-    nnoremap <leader>u :CtrlPUndo<CR>
-    nnoremap <leader>i :CtrlPChange<CR>
+    augroup ctags_onsave
+        autocmd!
+        autocmd BufWritePost *
+              \ if filereadable('tags')|
+              \     call <SID>Ctags()|
+              \ endif
+    augroup end
+    " ---
+    command! -nargs=0 Ctags call <SID>Ctags()
+    nnoremap <leader>a :CtrlPQuickfix<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>
     nnoremap <leader>j :CtrlPBuffer<CR>

@@ -163,14 +163,16 @@ endfunction
 augroup netrw_prettyfier
     autocmd!
     autocmd FileType netrw
+          \ cd %:p:h|
           \ setlocal nonu nornu|
-          \ setlocal bufhidden=wipe|
+          \ setlocal bufhidden=delete|
           \ setlocal nobuflisted|
           \ setlocal cursorline
     autocmd VimEnter *
           \ if !argc() && exists(':Explore')|
           \     Explore|
           \ endif
+    let g:netrw_keepdir = 0
     let g:netrw_banner = 0
     let g:netrw_liststyle = 4
     let g:netrw_sort_options = 'i'
@@ -270,19 +272,15 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>U :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>j :buffers!<CR>:buffer<Space>
+nnoremap <leader>j :buffers<CR>:buffer<Space>
 nnoremap <leader>k :buffer#<CR>
 nnoremap <leader>o :tabnew %<CR>
 nnoremap <leader>c :tabclose<CR>
 " ---
-nnoremap <leader>q :call <SID>ToggleQF()<CR>
-nnoremap <leader>a :call <SID>MarkLineQF()<CR>
-nnoremap <leader>r :call <SID>ResetQF()<CR>
-nnoremap <leader>w :call <SID>ScratchBuffer()<CR>
-" ---
-nnoremap <leader>e :Explore<CR>
-nnoremap <leader>t :terminal<CR>
-tnoremap <silent><C-x> <C-\><C-n>
+nnoremap <leader>a :call <SID>ToggleQF()<CR>
+nnoremap <leader>s :call <SID>MarkLineQF()<CR>
+nnoremap <leader>d :call <SID>ResetQF()<CR>
+nnoremap <leader>g :call <SID>ScratchBuffer()<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et

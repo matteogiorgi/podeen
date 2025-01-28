@@ -31,7 +31,7 @@ function warning-message () {
         printf "\n${RED}%s${NC}"     "to the \$HOME directory of the \$USER executing this script."
         printf "\n${RED}%s${NC}"     "The \$HOME directory of the root user is, of course, '/root'."
         printf "\n${RED}%s${NC}"     "We don't want to mess around in there. So run this script as a"
-        printf "\n${RED}%s${NC}\n\n" "normal user. You will be asked for a sudo password when necessary."
+        printf "\n${RED}%s${NC}\n" "normal user. You will be asked for a sudo password when necessary."
         exit 1
     fi
 }
@@ -63,25 +63,31 @@ function store-conf () {
 
 
 
-### Start
-#########
+### Path & Dependencies
+#######################
 
 warning-message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-"${SCRIPTPATH}/unix/fetch.sh"
+"${SCRIPTPATH}/base/fetch.sh"
 command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
 command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
       git tmux vim python3 wamerican htop || error-echo "installing from apt"
-# ---
+
+
+
+
+### Start
+#########
+
 store-conf
-cp "${SCRIPTPATH}/unix/.bash_logout" "${HOME}/"
-cp "${SCRIPTPATH}/unix/.bashrc" "${HOME}/"
-cp "${SCRIPTPATH}/unix/.profile" "${HOME}/"
-cp "${SCRIPTPATH}/unix/.tmux.conf" "${HOME}/"
-cp "${SCRIPTPATH}/unix/.vimrc" "${HOME}/"
+cp "${SCRIPTPATH}/base/.bash_logout" "${HOME}/"
+cp "${SCRIPTPATH}/base/.bashrc" "${HOME}/"
+cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
+cp "${SCRIPTPATH}/base/.tmux.conf" "${HOME}/"
+cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
 # ---
 command mkdir -p "${HOME}/.local/bin/"
-cp "${SCRIPTPATH}/unix/fetch.sh" "${HOME}/.local/bin/"
+cp "${SCRIPTPATH}/base/fetch.sh" "${HOME}/.local/bin/"
 
 
 
