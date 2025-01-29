@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # VSCode reset with just few tweaks and GitHub-Copilot extension:
 # https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
@@ -12,28 +12,25 @@
 ### Check & Funcs
 #################
 
-RED='\033[1;36m'
-NC='\033[0m'
-# ---
-if [[ ! -x "$(command -v "code")" ]]; then
-    printf "\n${RED}%s${NC}"   "═══════ Warning: VSCode not found ══════"
-    printf "\n${RED}%s${NC}\n" "Install VSCode and run this script again"
+if ! command -v code >/dev/null 2>&1; then
+    printf "\n%s"   "═══════ Warning: VSCode not found ══════"
+    printf "\n%s\n" "Install VSCode and run this script again"
     exit 1
 fi
 # ---
-function warning-message () {
-    if [[ "$(id -u)" = 0 ]]; then
-        printf "\n${RED}%s${NC}"     "This script MUST NOT be run as root user since it makes changes"
-        printf "\n${RED}%s${NC}"     "to the \$HOME directory of the \$USER executing this script."
-        printf "\n${RED}%s${NC}"     "The \$HOME directory of the root user is, of course, '/root'."
-        printf "\n${RED}%s${NC}"     "We don't want to mess around in there. So run this script as a"
-        printf "\n${RED}%s${NC}\n" "normal user. You will be asked for a sudo password when necessary."
+warning_message () {
+    if [ "$(id -u)" = 0 ]; then
+        printf "\n%s"   "This script MUST NOT be run as root user since it makes changes"
+        printf "\n%s"   "to the \$HOME directory of the \$USER executing this script."
+        printf "\n%s"   "The \$HOME directory of the root user is, of course, '/root'."
+        printf "\n%s"   "We don't want to mess around in there. So run this script as a"
+        printf "\n%s\n" "normal user. You will be asked for a sudo password when necessary."
         exit 1
     fi
 }
 # ---
-function error-echo () {
-    printf "${RED}ERROR: %s${NC}\n" "$1" >&2
+error_echo () {
+    printf "ERROR: %s\n" "$1" >&2
     exit 1
 }
 
@@ -43,11 +40,12 @@ function error-echo () {
 ### Path & Dependencies
 #######################
 
-warning-message
+warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-"${SCRIPTPATH}/base/fetch.sh"
-command sudo apt-get update && sudo apt-get upgrade -qq -y || error-echo "syncing repos"
-command sudo apt-get install -qq -y bash dash git gnome-keyring fonts-jetbrains-mono || error-echo "installing from apt"
+command sudo apt-get update || error_echo "update repos"
+command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
+command sudo apt-get install -qq -y dash bash git fonts-jetbrains-mono \
+      gnome-keyring || error_echo "installing packages"
 
 
 
@@ -55,24 +53,13 @@ command sudo apt-get install -qq -y bash dash git gnome-keyring fonts-jetbrains-
 ### Start
 #########
 
-BASE="${HOME}/.config/Code/User" && command mkdir -p "${BASE}"
+BASE="${HOME}/.config/Code/User"
+command mkdir -p "$BASE"
 for EXTENSION in $(command code --list-extensions); do
-    command code --uninstall-extension "${EXTENSION}" &>/dev/null
+    command code --uninstall-extension "$EXTENSION" >/dev/null 2>&1
 done
 # ---
-while read -p "$(echo -e "\n${RED}Would you like to install copilot extension? (yes/no): ${NC}")" COPILOT; do
-    case "$COPILOT" in
-        [Yy] | [Yy][Ee][Ss])
-            command code --install-extension github.copilot
-            break;;
-        [Nn] | [Nn][Oo])
-            echo "Skipping copilot extension installation"
-            break;;
-        *)
-            echo "Invalid input. Answer with 'yes' or 'no'";;
-    esac
-done
-# ---
+command code --install-extension github.copilot || error_echo "installing extansions"
 cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
 cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 
@@ -82,4 +69,4 @@ cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 ### Finish
 ##########
 
-printf "\n${RED}%s${NC}\n" "setup complete"
+printf "\n%s\n" "setup complete"
