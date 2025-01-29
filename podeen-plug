@@ -53,7 +53,7 @@ warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y git exuberant-ctags || error_echo "installing packages"
+command sudo apt-get install -qq -y git exuberant-ctags || error_echo "install packages"
 
 
 

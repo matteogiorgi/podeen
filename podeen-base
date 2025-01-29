@@ -69,7 +69,7 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
 command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
-      git tmux vim python3 wamerican htop || error_echo "installing packages"
+      git tmux vim python3 wamerican htop || error_echo "install packages"
 
 
 
@@ -84,6 +84,7 @@ cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
 cp "${SCRIPTPATH}/base/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
 # ---
+command chsh -s "$(command -v bash)" || error_echo "change shell"
 command mkdir -p "${HOME}/.local/bin/"
 cp "${SCRIPTPATH}/base/fetch.sh" "${HOME}/.local/bin/"
 
