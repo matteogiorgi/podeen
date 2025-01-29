@@ -1,13 +1,11 @@
 " plug.vim: simple viml-script that sets basic configuration
 " for installed plugins (Vim 9.0+ required just for copilot).
 " ---
+" Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
 " Sandwich*  -> https://github.com/machakann/vim-sandwich
 " Commentary -> https://github.com/tpope/vim-commentary
 " Lexima     -> https://github.com/cohama/lexima.vim
 " Context    -> https://github.com/wellle/context.vim
-" Signify*   -> https://github.com/mhinz/vim-signify
-" Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
-" Copilot*   -> https://github.com/github/copilot.vim
 
 
 
@@ -16,27 +14,12 @@
 if exists("g:plugme")
     finish
 endif
+" ---
 let g:plugme = 1
-"}}}
-
-
-
-
-" Sandwich {{{
-if &rtp =~ 'sandwich'
-    runtime macros/sandwich/keymap/surround.vim
+if exists(":MarkLineQF")
+    nnoremap <leader>d :MarkLineQF<CR>
 endif
 "}}}
-
-
-
-
-" Signify {{{
-if &rtp =~ 'signify'
-    nnoremap <silent><C-n> <plug>(signify-next-hunk)
-    nnoremap <silent><C-p> <plug>(signify-prev-hunk)
-endif
-" }}}
 
 
 
@@ -89,27 +72,10 @@ endif
 
 
 
-" Copilot {{{
-if &rtp =~ 'copilot'
-    let g:copilot_enabled = v:false
-    augroup copilot_prettyfier
-        autocmd!
-        autocmd FileType copilot*
-              \ setlocal cursorline|
-              \ setlocal nonu nornu|
-              \ setlocal colorcolumn=|
-              \ setlocal bufhidden=wipe|
-              \ setlocal nobuflisted
-    augroup end
-    " ---
-    inoremap <silent><C-s> <Plug>(copilot-suggest)
-    inoremap <silent><C-d> <Plug>(copilot-dismiss)
-    inoremap <silent><C-h> <C-w>
-    inoremap <silent><C-j> <Plug>(copilot-next)
-    inoremap <silent><C-k> <Plug>(copilot-previous)
-    inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
-    inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
+" Sandwich {{{
+if &rtp =~ 'sandwich'
+    runtime macros/sandwich/keymap/surround.vim
 endif
-" }}}
+"}}}
 
 " vim: fdm=marker:sw=2:sts=2:et

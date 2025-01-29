@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-# SANDWICH   https://github.com/machakann/vim-sandwich
-# COMMENTARY https://github.com/tpope/vim-commentary
-# LEXIMA     https://github.com/cohama/lexima.vim
-# CONTEXT    https://github.com/wellle/context.vim
-# SIGNIFY    https://github.com/mhinz/vim-signify
-# CTRLP      https://github.com/ctrlpvim/ctrlp.vim
-# COPILOT    https://github.com/github/copilot.vim
+# Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
+# Sandwich*  -> https://github.com/machakann/vim-sandwich
+# Commentary -> https://github.com/tpope/vim-commentary
+# Lexima     -> https://github.com/cohama/lexima.vim
+# Context    -> https://github.com/wellle/context.vim
 
 
 
@@ -69,6 +67,11 @@ VIM=${HOME}/.vim && command mkdir -p "${VIM}"
 START="${VIM}/pack/plug/start" && command mkdir -p "${START}"
 [[ -d "${VIM}/plugin" ]] || cp -r "${SCRIPTPATH}/plug" "${VIM}/plugin"
 # ---
+OPERATION="RESETTING CTRLP"
+REPOSITORY="https://github.com/ctrlpvim/ctrlp.vim.git"
+PLUGIN="${START}/ctrlp"
+reset-plugin
+# ---
 OPERATION="RESETTING SANDWICH"
 REPOSITORY="https://github.com/machakann/vim-sandwich.git"
 PLUGIN="${START}/sandwich"
@@ -88,37 +91,6 @@ OPERATION="RESETTING CONTEXT"
 REPOSITORY="https://github.com/wellle/context.vim.git"
 PLUGIN="${START}/context"
 reset-plugin
-# ---
-OPERATION="RESETTING SIGNIFY"
-REPOSITORY="https://github.com/mhinz/vim-signify.git"
-PLUGIN="${START}/signify"
-reset-plugin
-# ---
-OPERATION="RESETTING CTRLP"
-REPOSITORY="https://github.com/ctrlpvim/ctrlp.vim.git"
-PLUGIN="${START}/ctrlp"
-reset-plugin
-# ---
-PLUGIN="${START}/copilot"
-if [[ -d "${PLUGIN}" ]]; then
-    printf "\n${RED}%s${NC}\n" "RESETTING COPILOT"
-    command git -C "${PLUGIN}" pull
-else
-    while read -p "$(echo -e "\n${RED}Would you like to install copilot plugin? (yes/no): ${NC}")" COPILOT; do
-        case "$COPILOT" in
-            [Yy] | [Yy][Ee][Ss])
-                printf "\n${RED}%s${NC}\n" "INSTALLING COPILOT"
-                command sudo apt-get install -qq -y nodejs || error-echo "installing from apt"
-                command git clone "https://github.com/github/copilot.vim.git" "${PLUGIN}"
-                break;;
-            [Nn] | [Nn][Oo])
-                echo "Skipping copilot plugin installation"
-                break;;
-            *)
-                echo "Invalid input. Answer with 'yes' or 'no'";;
-        esac
-    done
-fi
 
 
 

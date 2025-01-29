@@ -154,6 +154,21 @@ function! s:ScratchBuffer()
         setlocal nospell
     endif
 endfunction
+" ---
+function! s:ClearSearch()
+    silent! execute 'let @/=""'
+    echo 'cleared last search'
+endfunction
+" ---
+function! s:ClearSpaces()
+    silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'
+    echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
+endfunction
+" ---
+function! s:CopyClip()
+    let @" = system('xclip -selection clipboard', getreg(''))
+    echo 'copied to clipboard'
+endfunction
 " }}}
 
 
@@ -243,16 +258,9 @@ command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 MarkLineQF call <SID>MarkLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
-" ---
-command! ClearSearch
-      \ silent! execute 'let @/=""'|
-      \ echo 'cleared last search'
-command! ClearSpaces
-      \ silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'|
-      \ echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
-command! CopyClip
-      \ let @" = system('xclip -selection clipboard', getreg(''))|
-      \ echo 'copied to clipboard'
+command! -nargs=0 ClearSearch call <SID>ClearSearch()
+command! -nargs=0 ClearSpaces call <SID>ClearSpaces()
+command! -nargs=0 CopyClip call <SID>CopyClip()
 " }}}
 
 
@@ -276,14 +284,6 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 " ---
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
-" ---
-nnoremap <leader>j :buffers<CR>:buffer<Space>
-nnoremap <leader>k :buffer#<CR>
-nnoremap <leader>o :tabnew %<CR>
-nnoremap <leader>c :tabclose<CR>
-" ---
-nnoremap <leader>i :ToggleQF<CR>
-nnoremap <leader>d :MarkLineQF<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
