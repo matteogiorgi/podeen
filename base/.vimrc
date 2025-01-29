@@ -239,6 +239,11 @@ augroup end
 
 
 " Commands {{{
+command! -nargs=0 ToggleQF call <SID>ToggleQF()
+command! -nargs=0 MarkLineQF call <SID>MarkLineQF()
+command! -nargs=0 ResetQF call <SID>ResetQF()
+command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
+" ---
 command! ClearSearch
       \ silent! execute 'let @/=""'|
       \ echo 'cleared last search'
@@ -270,17 +275,15 @@ xnoremap <silent>J :move '>+1<CR>gv=gv
 xnoremap <silent>K :move '<-2<CR>gv=gv
 " ---
 nnoremap <silent>Y y$
-nnoremap <silent>U :update<BAR>rviminfo<CR>
+nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>j :buffers<CR>:buffer<Space>
 nnoremap <leader>k :buffer#<CR>
 nnoremap <leader>o :tabnew %<CR>
 nnoremap <leader>c :tabclose<CR>
 " ---
-nnoremap <leader>a :call <SID>ToggleQF()<CR>
-nnoremap <leader>s :call <SID>MarkLineQF()<CR>
-nnoremap <leader>d :call <SID>ResetQF()<CR>
-nnoremap <leader>g :call <SID>ScratchBuffer()<CR>
+nnoremap <leader>i :ToggleQF<CR>
+nnoremap <leader>d :MarkLineQF<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et

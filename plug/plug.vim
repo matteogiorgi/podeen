@@ -77,7 +77,7 @@ if &rtp =~ 'ctrlp'
     augroup end
     " ---
     command! -nargs=0 Ctags call <SID>Ctags()
-    nnoremap <leader>a :CtrlPQuickfix<CR>
+    nnoremap <leader>i :CtrlPQuickfix<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>
     nnoremap <leader>j :CtrlPBuffer<CR>
