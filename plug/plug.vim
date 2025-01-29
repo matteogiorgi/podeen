@@ -27,13 +27,8 @@ endif
 " Ctrlp {{{
 if &rtp =~ 'ctrlp'
     function! s:Ctags()
-        if !executable('ctags')
-            echo "ctags not installed"
-            return
-        endif
         silent! execute '!ctags -R --exclude=.git'
         redraw!|redrawstatus!|redrawtabline
-        echo "ctags executed"
     endfunction
     " ---
     let g:ctrlp_map = ''
