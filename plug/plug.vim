@@ -31,7 +31,7 @@ if &rtp =~ 'ctrlp'
             echo "ctags not installed"
             return
         endif
-        execute 'silent !ctags -R --exclude=.git'
+        silent! execute '!ctags -R --exclude=.git'
         redraw!|redrawstatus!|redrawtabline
         echo "ctags executed"
     endfunction

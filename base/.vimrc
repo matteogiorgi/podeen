@@ -10,7 +10,7 @@
 if v:version < 900
     finish
 elseif !isdirectory(expand('~/.vim'))
-    execute "!mkdir -p ~/.vim &>/dev/null"
+    silent! execute "!mkdir -p ~/.vim &>/dev/null"
 endif
 " }}}
 
@@ -24,7 +24,7 @@ endif
 " ---
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
-        execute "!mkdir -p ~/.vim/undodir &>/dev/null"
+        silent! execute "!mkdir -p ~/.vim/undodir &>/dev/null"
     endif
     set undodir=${HOME}/.vim/undodir
     set undofile
@@ -144,9 +144,9 @@ function! s:ScratchBuffer()
     let target_buffer = bufnr('/tmp/scratchbuffer')
     let target_window = bufwinnr(target_buffer)
     if target_buffer != -1 && target_window != -1
-        execute target_window . 'wincmd w'
+        silent! execute target_window . 'wincmd w'
     else
-        execute 'edit /tmp/scratchbuffer'
+        silent! execute 'edit /tmp/scratchbuffer'
         setlocal bufhidden=wipe
         setlocal nobuflisted
         setlocal noswapfile
