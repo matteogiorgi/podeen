@@ -61,5 +61,11 @@
     "workbench.tree.indent": 20,
     "workbench.colorTheme": "Quiet Light",
     "workbench.iconTheme": "vs-seti",
-    "workbench.productIconTheme": "Default"
+    "workbench.productIconTheme": "Default",
+    "github.copilot.editor.enableAutoCompletions": false,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true
+    }
 }
