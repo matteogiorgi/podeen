@@ -59,7 +59,7 @@
     "workbench.list.openMode": "doubleClick",
     "workbench.tree.renderIndentGuides": "none",
     "workbench.tree.indent": 20,
-    "workbench.colorTheme": "Default Light Modern",
+    "workbench.colorTheme": "Quiet Light",
     "workbench.iconTheme": "vs-seti",
     "workbench.productIconTheme": "Default",
     "github.copilot.editor.enableAutoCompletions": false,
