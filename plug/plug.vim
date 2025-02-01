@@ -22,11 +22,6 @@ let g:plugme = 1
 
 " Ctrlp {{{
 if &rtp =~ 'ctrlp'
-    function! s:Ctags()
-        silent! execute '!ctags -R --exclude=.git'
-        redraw!|redrawstatus!|redrawtabline
-    endfunction
-    " ---
     let g:ctrlp_map = ''
     let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_show_hidden = 1
@@ -45,13 +40,11 @@ if &rtp =~ 'ctrlp'
     augroup ctags_onsave
         autocmd!
         autocmd BufWritePost *
-              \ if filereadable('tags')|
-              \     call <SID>Ctags()|
+              \ if exists(":CTags") && filereadable('tags')|
+              \     silent! execute 'CTags'|
               \ endif
     augroup end
     " ---
-    command! -nargs=0 Ctags call <SID>Ctags()
-    nnoremap <leader>t :Ctags<CR>
     nnoremap <leader>i :CtrlPQuickfix<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>

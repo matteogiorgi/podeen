@@ -121,7 +121,7 @@ function! s:ToggleQF()
     silent! execute g:quickfix
 endfunction
 " ---
-function! s:MarkLineQF()
+function! s:AddLineQF()
     let l:qf_list = getqflist()
     let l:qf_entry = {
               \ 'bufnr': bufnr("%"),
@@ -138,6 +138,12 @@ endfunction
 function! s:ResetQF()
     call setqflist([])
     echo 'reset quickfix'
+endfunction
+" ---
+function! s:CTags()
+    silent! execute '!ctags -R --exclude=.git'
+    redraw!|redrawstatus!|redrawtabline
+    echo 'ctags executed'
 endfunction
 " ---
 function! s:ScratchBuffer()
@@ -255,8 +261,9 @@ augroup end
 
 " Commands {{{
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
-command! -nargs=0 MarkLineQF call <SID>MarkLineQF()
+command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
+command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 command! -nargs=0 ClearSearch call <SID>ClearSearch()
 command! -nargs=0 ClearSpaces call <SID>ClearSpaces()
@@ -285,9 +292,10 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>i :ToggleQF<CR>
-nnoremap <leader>d :MarkLineQF<CR>
+nnoremap <leader>q :ToggleQF<CR>
+nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>r :ResetQF<CR>
+nnoremap <leader>t :CTags<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 " }}}
 
