@@ -14,11 +14,7 @@
 if exists("g:plugme")
     finish
 endif
-" ---
 let g:plugme = 1
-if exists(":MarkLineQF")
-    nnoremap <leader>d :MarkLineQF<CR>
-endif
 "}}}
 
 
@@ -55,6 +51,7 @@ if &rtp =~ 'ctrlp'
     augroup end
     " ---
     command! -nargs=0 Ctags call <SID>Ctags()
+    nnoremap <leader>t :Ctags<CR>
     nnoremap <leader>i :CtrlPQuickfix<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>

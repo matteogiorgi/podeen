@@ -284,6 +284,11 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 " ---
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
+" ---
+nnoremap <leader>i :ToggleQF<CR>
+nnoremap <leader>d :MarkLineQF<CR>
+nnoremap <leader>r :ResetQF<CR>
+nnoremap <leader>s :ScratchBuffer<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
