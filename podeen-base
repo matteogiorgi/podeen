@@ -8,7 +8,7 @@
 # ---
 # Other applications not included here (this is a minimal setup) can be
 # installed manually through the apt package manager. Mind the following:
-# distrobox input-remapper dconf-editor gnome-shell-extension-manager
+# input-remapper, dconf-editor, gnome-shell-extension-manager, distrobox.
 
 
 
@@ -69,7 +69,7 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
 command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
-      git tmux vim exuberant-ctags wamerican python3 htop || error_echo "install packages"
+      top git tmux vim exuberant-ctags wamerican python3 || error_echo "install packages"
 
 
 
