@@ -8,7 +8,7 @@
 # ---
 # Other applications not included here (this is a minimal setup) can be
 # installed manually through the apt package manager. Mind the following:
-# input-remapper, dconf-editor, gnome-shell-extension-manager, distrobox.
+# input-remapper, dconf-editor, gnome-shell-extension-manager.
 
 
 
