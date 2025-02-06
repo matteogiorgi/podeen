@@ -17,11 +17,7 @@ endif
 
 
 
-" Python3 & Undodir {{{
-if has('python3')
-    let g:python3_host_prog = '/usr/bin/python3'
-endif
-" ---
+" Undodir {{{
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
         silent! execute "!mkdir -p ~/.vim/undodir &>/dev/null"
@@ -98,7 +94,6 @@ set nocompatible
 set esckeys
 " ---
 set path+=**
-set omnifunc=syntaxcomplete#Complete
 set completeopt=menuone,popup,noinsert,noselect
 set complete=.,w,b,u,t,i,kspell
 set complete+=k/usr/share/dict/american-english
@@ -205,6 +200,11 @@ augroup netrw_prettyfier
     let g:netrw_preview = 0
     let g:netrw_alto = 1
     let g:netrw_altv = 0
+augroup end
+" ---
+augroup syntax_complete
+    autocmd!
+    autocmd FileType * set omnifunc=syntaxcomplete#Complete
 augroup end
 " ---
 augroup syntax_prettyfier
