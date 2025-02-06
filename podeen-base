@@ -69,7 +69,7 @@ SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
 command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
-      top git tmux vim exuberant-ctags wamerican || error_echo "install packages"
+      procps less git tmux vim exuberant-ctags wamerican || error_echo "install packages"
 
 
 
