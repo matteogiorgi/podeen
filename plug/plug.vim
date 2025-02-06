@@ -37,14 +37,6 @@ if &rtp =~ 'ctrlp'
               \ endif
     augroup end
     " ---
-    augroup ctags_onsave
-        autocmd!
-        autocmd BufWritePost *
-              \ if exists(":CTags") && filereadable('tags')|
-              \     silent! execute 'CTags'|
-              \ endif
-    augroup end
-    " ---
     nnoremap <leader>i :CtrlPQuickfix<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>

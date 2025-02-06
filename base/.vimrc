@@ -152,7 +152,7 @@ function! s:ScratchBuffer()
     if target_buffer != -1 && target_window != -1
         silent! execute target_window . 'wincmd w'
     else
-        silent! execute 'edit /tmp/scratchbuffer'
+        edit /tmp/scratchbuffer
         setlocal bufhidden=wipe
         setlocal nobuflisted
         setlocal noswapfile
@@ -161,14 +161,15 @@ function! s:ScratchBuffer()
     endif
 endfunction
 " ---
-function! s:ClearSearch()
-    silent! execute 'let @/=""'
-    echo 'cleared last search'
+function! s:ClearSpaces()
+    let l:pos = getpos(".")
+    %s/\s\+$//e
+    call setpos('.', l:pos)
 endfunction
 " ---
-function! s:ClearSpaces()
-    silent! execute 'let v:statusmsg = "" | verbose %s/\s\+$//e'
-    echo !empty(v:statusmsg) ? v:statusmsg : 'cleared trailing spaces'
+function! s:ClearSearch()
+    let @/=""
+    echo 'cleared last search'
 endfunction
 " ---
 function! s:CopyClip()
@@ -250,6 +251,14 @@ augroup scratchbuffer_autosave
     autocmd TextChanged,TextChangedI /tmp/scratchbuffer silent write
 augroup end
 " ---
+augroup ctags_onsave
+    autocmd!
+    autocmd BufWritePost *
+          \ if exists(":CTags") && filereadable('tags')|
+          \     silent! call <SID>CTags()|
+          \ endif
+augroup end
+" ---
 augroup viminfo_sync
     autocmd!
     autocmd TextYankPost * silent! wviminfo
@@ -265,8 +274,8 @@ command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
-command! -nargs=0 ClearSearch call <SID>ClearSearch()
 command! -nargs=0 ClearSpaces call <SID>ClearSpaces()
+command! -nargs=0 ClearSearch call <SID>ClearSearch()
 command! -nargs=0 CopyClip call <SID>CopyClip()
 " }}}
 
