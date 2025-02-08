@@ -15,7 +15,6 @@
 if exists("g:plugme")
     finish
 endif
-" ---
 let g:plugme = 1
 "}}}
 
@@ -55,6 +54,18 @@ endif
 if &rtp =~ 'copilot'
     let g:copilot_enabled = v:false
     " ---
+    function! s:TogglePanel()
+        for l:buf in range(1, bufnr('$'))
+            if bufname(l:buf) =~ '^copilot:///panel/'
+                let l:found = bufname(l:buf)
+                silent! execute 'bwipe ' . l:buf
+            endif
+        endfor
+        if !exists("l:found")
+            Copilot panel
+        endif
+    endfunction
+    " ---
     augroup copilot_prettyfier
         autocmd!
         autocmd FileType copilot*
@@ -64,6 +75,8 @@ if &rtp =~ 'copilot'
               \ setlocal cursorline
     augroup end
     " ---
+    command! -nargs=0 TogglePanel call <SID>TogglePanel()
+    " ---
     inoremap <silent><C-s> <Plug>(copilot-suggest)
     inoremap <silent><C-d> <Plug>(copilot-dismiss)
     inoremap <silent><C-h> <C-w>
@@ -71,6 +84,7 @@ if &rtp =~ 'copilot'
     inoremap <silent><C-k> <Plug>(copilot-previous)
     inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
     inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
+    nnoremap <leader>o :TogglePanel<CR>
 endif
 " }}}
 
