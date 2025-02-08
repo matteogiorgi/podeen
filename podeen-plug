@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 # Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
+# Copilot*   -> https://github.com/github/copilot.vim
 # Sandwich*  -> https://github.com/machakann/vim-sandwich
 # Commentary -> https://github.com/tpope/vim-commentary
 # Lexima     -> https://github.com/cohama/lexima.vim
@@ -53,7 +54,7 @@ warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y git || error_echo "install packages"
+command sudo apt-get install -qq -y git nodejs || error_echo "install packages"
 
 
 
@@ -70,6 +71,11 @@ command mkdir -p "$START"
 OPERATION="RESETTING CTRLP"
 REPOSITORY="https://github.com/ctrlpvim/ctrlp.vim.git"
 PLUGIN="${START}/ctrlp"
+reset_plugin
+# ---
+OPERATION="RESETTING COPILOT"
+REPOSITORY="https://github.com/github/copilot.vim.git"
+PLUGIN="${START}/copilot"
 reset_plugin
 # ---
 OPERATION="RESETTING SANDWICH"
