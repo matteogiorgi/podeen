@@ -55,14 +55,12 @@ if &rtp =~ 'copilot'
     let g:copilot_enabled = v:false
     " ---
     function! s:TogglePanel()
-        for l:buf in range(1, bufnr('$'))
-            if bufname(l:buf) =~ '^copilot:///panel/'
-                let l:found = bufname(l:buf)
-                silent! execute 'bwipe ' . l:buf
-            endif
+        for l:buf in filter(range(1, bufnr('$')), 'bufname(v:val) =~# "^copilot:///panel/"')
+            let l:panelname = bufname(l:buf)
+            silent! execute 'bwipe ' . l:buf
         endfor
-        if !exists("l:found")
-            Copilot panel
+        if !exists("l:panelname")
+            silent! Copilot panel
         endif
     endfunction
     " ---
@@ -84,7 +82,7 @@ if &rtp =~ 'copilot'
     inoremap <silent><C-k> <Plug>(copilot-previous)
     inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
     inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
-    nnoremap <leader>o :TogglePanel<CR>
+    nnoremap <leader>w :TogglePanel<CR>
 endif
 " }}}
 

@@ -110,10 +110,12 @@ set belloff+=ctrlg
 
 " Functions {{{
 function! s:ToggleQF()
-    let g:loclist = 'lclose'
-    let g:quickfix = !exists("g:quickfix") || g:quickfix ==# 'cclose' ? 'copen' : 'cclose'
-    silent! execute g:loclist
-    silent! execute g:quickfix
+    silent! lclose
+    if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
+        silent! copen
+    else
+        silent! cclose
+    endif
 endfunction
 " ---
 function! s:AddLineQF()
