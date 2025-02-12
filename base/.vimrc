@@ -162,6 +162,7 @@ function! s:ClearSpaces()
     let l:pos = getpos(".")
     %s/\s\+$//e
     call setpos('.', l:pos)
+    echo 'cleared trailing spaces'
 endfunction
 " ---
 function! s:ClearSearch()
