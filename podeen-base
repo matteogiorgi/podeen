@@ -84,7 +84,7 @@ cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
 cp "${SCRIPTPATH}/base/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
 # ---
-command chsh -s "$(command -v bash)" || error_echo "change shell"
+command sudo chsh -s "$(command -v bash)" "$USER" || error_echo "change shell"
 command mkdir -p "${HOME}/.local/bin/"
 cp "${SCRIPTPATH}/base/fetch.sh" "${HOME}/.local/bin/"
 
