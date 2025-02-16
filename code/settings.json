@@ -9,7 +9,8 @@
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
     "window.customTitleBarVisibility": "auto",
-    "window.menuBarVisibility": "hidden",
+    "window.menuBarVisibility": "compact",
+    "window.density.editorTabHeight": "default",
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "editor.fontFamily": "'JetBrains Mono Medium', 'monospace'",
@@ -51,7 +52,7 @@
         }
     },
     "terminal.integrated.defaultProfile.linux": "bash",
-    "workbench.editor.showTabs": true,
+    "workbench.editor.showTabs": "multiple",
     "workbench.startupEditor": "none",
     "workbench.activityBar.location": "bottom",
     "workbench.sideBar.location": "left",
