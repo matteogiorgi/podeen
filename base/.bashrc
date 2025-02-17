@@ -270,6 +270,11 @@ bind -m vi-insert -x '"\C-x": fkill'
 ### System-fetcher
 ##################
 
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    mkdir -p "$HOME/.local/bin"
+    export PATH="$PATH:$HOME/.local/bin"
+fi
+# ---
 if [[ -x "$(command -v fetch.sh)" ]]; then
     fetch.sh
 fi
