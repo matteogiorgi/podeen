@@ -27,7 +27,7 @@
     "editor.wordWrap": "off",
     "editor.cursorBlinking": "solid",
     "editor.cursorStyle": "line",
-    "editor.scrollbar.vertical": "auto",
+    "editor.scrollbar.vertical": "visible",
     "editor.scrollbar.horizontal": "hidden",
     "editor.scrollbar.verticalScrollbarSize": 11,
     "editor.scrollbar.horizontalScrollbarSize": 0,
