@@ -3,9 +3,6 @@
 # This base setup script will install a minimal work environment,
 # complete with all the bells and whistles needed to start working properly.
 # ---
-# There are no worries of losing a potential old configuration: il will be
-# stored in a separate folder in order to be restored manually if needed.
-# ---
 # Other packages not included here can be installed separately,
 # suggestions: input-remapper, dconf-editor, gnome-shell-extension-manager.
 
@@ -30,10 +27,6 @@ warning_message () {
         printf "\n%s\n" "normal user. You will be asked for a sudo password when necessary."
         exit 1
     fi
-}
-# ---
-error_echo () {
-    printf "ERROR: %s\n" "$1" >&2
 }
 # ---
 store_conf () {
@@ -64,10 +57,10 @@ store_conf () {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-command sudo apt-get update || error_echo "update repos"
-command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli \
-      procps less git tmux vim exuberant-ctags wamerican || error_echo "install packages"
+command sudo apt-get update
+command sudo apt-get upgrade -qq -y
+command sudo apt-get install -qq -y bash bash-completion fzy file fd-find \
+      xclip trash-cli procps less git tmux vim exuberant-ctags wamerican
 
 
 
@@ -82,7 +75,7 @@ cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
 cp "${SCRIPTPATH}/base/.tmux.conf" "${HOME}/"
 cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
 # ---
-command sudo chsh -s "$(command -v bash)" "$USER" || error_echo "change shell"
+command sudo chsh -s "$(command -v bash)" "$USER"
 command mkdir -p "${HOME}/.local/bin/"
 cp "${SCRIPTPATH}/base/fetch.sh" "${HOME}/.local/bin/"
 

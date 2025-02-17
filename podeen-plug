@@ -30,10 +30,6 @@ warning_message () {
     fi
 }
 # ---
-error_echo () {
-    printf "ERROR: %s\n" "$1" >&2
-}
-# ---
 reset_plugin() {
     printf "\n%s\n" "$OPERATION"
     if [ -d "$PLUGIN" ]; then
@@ -51,9 +47,9 @@ reset_plugin() {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-command sudo apt-get update || error_echo "update repos"
-command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y git nodejs || error_echo "install packages"
+command sudo apt-get update
+command sudo apt-get upgrade -qq -y
+command sudo apt-get install -qq -y git nodejs
 
 
 

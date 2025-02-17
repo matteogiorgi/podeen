@@ -5,9 +5,6 @@
 # ---
 # VSCode is not included in the Debian repos,
 # install it separately: https://code.visualstudio.com/.
-# ---
-# Other packages not included here can be installed separately,
-# suggestions: fonts-cascadia-code.
 
 
 
@@ -31,10 +28,6 @@ warning_message () {
         exit 1
     fi
 }
-# ---
-error_echo () {
-    printf "ERROR: %s\n" "$1" >&2
-}
 
 
 
@@ -44,10 +37,9 @@ error_echo () {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-command sudo apt-get update || error_echo "update repos"
-command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y dash bash git gnome-keyring \
-      fonts-cascadia-code fonts-jetbrains-mono || error_echo "install packages"
+command sudo apt-get update
+command sudo apt-get upgrade -qq -y
+command sudo apt-get install -qq -y gnome-keyring dash bash git fonts-cascadia-code
 
 
 
@@ -61,7 +53,7 @@ for EXTENSION in $(command code --list-extensions); do
     command code --uninstall-extension "$EXTENSION" >/dev/null 2>&1
 done
 # ---
-command code --install-extension github.copilot || error_echo "install extensions"
+command code --install-extension github.copilot
 cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
 cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
 
