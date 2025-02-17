@@ -5,6 +5,9 @@
 # ---
 # VSCode is not included in the Debian repos,
 # install it separately: https://code.visualstudio.com/.
+# ---
+# Other packages not included here can be installed separately,
+# suggestions: fonts-cascadia-code.
 
 
 

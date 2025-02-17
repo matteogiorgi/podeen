@@ -6,9 +6,8 @@
 # There are no worries of losing a potential old configuration: il will be
 # stored in a separate folder in order to be restored manually if needed.
 # ---
-# Other applications not included here (this is a minimal setup) can be
-# installed manually through the apt package manager. Mind the following:
-# input-remapper, dconf-editor, gnome-shell-extension-manager.
+# Other packages not included here can be installed separately,
+# suggestions: input-remapper, dconf-editor, gnome-shell-extension-manager.
 
 
 
