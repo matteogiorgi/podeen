@@ -32,7 +32,6 @@ warning_message () {
 # ---
 error_echo () {
     printf "ERROR: %s\n" "$1" >&2
-    exit 1
 }
 # ---
 reset_plugin() {

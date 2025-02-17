@@ -34,7 +34,6 @@ warning_message () {
 # ---
 error_echo () {
     printf "ERROR: %s\n" "$1" >&2
-    exit 1
 }
 
 
@@ -47,8 +46,8 @@ warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update || error_echo "update repos"
 command sudo apt-get upgrade -qq -y || error_echo "upgrade repos"
-command sudo apt-get install -qq -y dash bash git fonts-jetbrains-mono \
-      gnome-keyring || error_echo "install packages"
+command sudo apt-get install -qq -y dash bash git gnome-keyring \
+      fonts-cascadia-code fonts-jetbrains-mono || error_echo "install packages"
 
 
 
