@@ -39,7 +39,7 @@ warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
-command sudo apt-get install -qq -y gnome-keyring dash bash git fonts-cascadia-code
+command sudo apt-get install -qq -y gnome-keyring dash bash git fonts-cascadia-code fonts-jetbrains-mono
 
 
 
