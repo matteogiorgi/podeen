@@ -29,6 +29,14 @@ warning_message () {
     fi
 }
 # ---
+sid_setup() {
+    local repo="deb http://http.us.debian.org/debian sid main non-free contrib"
+    if ! grep -q "^deb[[:space:]]\+http://http.us.debian.org/debian[[:space:]]\+sid" /etc/apt/sources.list; then
+        { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && \
+              sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
+    fi
+}
+# ---
 store_conf () {
     backup_conf () {
         if [ -f "$1" ]; then
@@ -57,6 +65,8 @@ store_conf () {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
+[ -f "/etc/debian_version" ] && sid_setup
+# ---
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
 command sudo apt-get install -qq -y bash bash-completion fzy file fd-find \
