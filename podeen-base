@@ -32,8 +32,7 @@ warning_message () {
 sid_setup() {
     local repo="deb http://http.us.debian.org/debian sid main non-free contrib"
     if ! grep -q "^deb[[:space:]]\+http://http.us.debian.org/debian[[:space:]]\+sid" /etc/apt/sources.list; then
-        { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && \
-              sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
+        { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
     fi
 }
 # ---

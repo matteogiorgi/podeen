@@ -59,7 +59,6 @@ command sudo apt-get install -qq -y git nodejs
 
 VIM=${HOME}/.vim
 START="${VIM}/pack/plug/start"
-command mkdir -p "$VIM"
 command mkdir -p "$START"
 [ -d "${VIM}/plugin" ] || cp -r "${SCRIPTPATH}/plug" "${VIM}/plugin"
 # ---
