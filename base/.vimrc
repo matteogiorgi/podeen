@@ -109,6 +109,17 @@ set belloff+=ctrlg
 
 
 " Functions {{{
+function! s:ToggleEx()
+    let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
+    if !empty(l:netrw_wins)
+        let l:cur_win = winnr()
+        silent! execute l:netrw_wins[0] . 'wincmd w'|buffer #
+        silent! execute l:cur_win . "wincmd w"
+    else
+        edit .
+    endif
+endfunction
+" ---
 function! s:ToggleQF()
     silent! lclose
     if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
@@ -272,6 +283,7 @@ augroup end
 
 
 " Commands {{{
+command! -nargs=0 ToggleEx call <SID>ToggleEx()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
@@ -304,6 +316,7 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
+nnoremap <leader>e :ToggleEx<CR>
 nnoremap <leader>q :ToggleQF<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>r :ResetQF<CR>
