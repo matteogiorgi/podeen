@@ -140,7 +140,7 @@ function! s:AddLineQF()
           \ }
     call add(l:qf_list, l:qf_entry)
     call setqflist(l:qf_list)
-    echo 'current line to quickfix'
+    echo 'line 2quickfix'
 endfunction
 " ---
 function! s:ResetQF()
@@ -172,18 +172,19 @@ endfunction
 function! s:ClearSpaces()
     let l:pos = getpos(".")
     %s/\s\+$//e
+    %s/\n\+\%$//e
     call setpos('.', l:pos)
-    echo 'cleared trailing spaces'
+    echo 'cleared spaces'
 endfunction
 " ---
 function! s:ClearSearch()
     let @/=""
-    echo 'cleared last search'
+    echo 'cleared search'
 endfunction
 " ---
 function! s:CopyClip()
     let @" = system('xclip -selection clipboard', getreg(''))
-    echo 'copied to clipboard'
+    echo 'copied 2clipboard'
 endfunction
 " }}}
 
