@@ -65,7 +65,7 @@ set foldenable foldcolumn=1 foldmethod=indent foldlevelstart=99 foldnestmax=10 f
 set textwidth=120 wrapmargin=0
 set formatoptions=tcroqaj
 set ruler scrolloff=8 sidescrolloff=16
-set autoindent
+set autoindent autoread
 set formatoptions+=l
 set hlsearch incsearch
 set nowrap nospell conceallevel=0
