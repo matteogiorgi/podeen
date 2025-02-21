@@ -322,6 +322,7 @@ nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
+nnoremap <leader>d :ClearSpaces<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
