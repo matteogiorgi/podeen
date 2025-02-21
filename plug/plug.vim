@@ -23,7 +23,6 @@ let g:plugme = 1
 
 " Python {{{
 function! s:Black()
-    let l:premod = &modified
     silent! execute '!black % 2>/dev/null'
     redraw!|redrawstatus!|redrawtabline
 endfunction
