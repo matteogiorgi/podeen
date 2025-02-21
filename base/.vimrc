@@ -268,7 +268,7 @@ augroup end
 augroup ctags_onsave
     autocmd!
     autocmd BufWritePost *
-          \ if exists(":CTags") && filereadable('tags')|
+          \ if filereadable('tags')|
           \     silent! call <SID>CTags()|
           \ endif
 augroup end

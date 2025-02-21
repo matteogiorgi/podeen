@@ -21,6 +21,23 @@ let g:plugme = 1
 
 
 
+" Python {{{
+function! s:Black()
+    let l:premod = &modified
+    silent! execute '!black % 2>/dev/null'
+    redraw!|redrawstatus!|redrawtabline
+endfunction
+" ---
+augroup python_cmd
+    autocmd!
+    autocmd Filetype python command! -nargs=0 Black call <SID>Black()
+    autocmd Filetype python nnoremap <buffer> <leader>d :update<CR>:call <SID>Black()<CR>
+augroup end
+" }}}
+
+
+
+
 " Ctrlp {{{
 if &rtp =~ 'ctrlp'
     let g:ctrlp_map = ''
