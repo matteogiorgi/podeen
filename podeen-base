@@ -30,8 +30,8 @@ warning_message () {
 }
 # ---
 testing_setup() {
-    local repo="deb http://deb.debian.org/debian testing main contrib"
-    if ! grep -q "^deb[[:space:]]\+http://deb.debian.org/debian[[:space:]]\+\(testing\|unstable\)" /etc/apt/sources.list 2>/dev/null; then
+    repo="deb http://deb.debian.org/debian testing main contrib"
+    if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
         { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
     fi
 }
@@ -64,7 +64,9 @@ store_conf () {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-[ -f "/etc/debian_version" ] && testing_setup
+case "$(cat /etc/os-release 2>/dev/null)" in
+    *ID=debian*) testing_setup;;
+esac
 # ---
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
