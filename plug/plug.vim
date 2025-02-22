@@ -54,8 +54,9 @@ if &rtp =~ 'ctrlp'
               \ endif
     augroup end
     " ---
-    nnoremap <leader>u :CtrlPChange<CR>
-    nnoremap <leader>i :CtrlPQuickfix<CR>
+    nnoremap <leader>q :CtrlPQuickfix<CR>
+    nnoremap <leader>i :CtrlPMixed<CR>
+    nnoremap <leader>o :CtrlPChangeAll<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>
     nnoremap <leader>j :CtrlPBuffer<CR>
