@@ -39,6 +39,7 @@
     "terminal.integrated.fontSize": 13,
     "terminal.integrated.lineHeight": 1,
     "terminal.integrated.allowChords": false,
+    "terminal.integrated.tabs.enabled": false,
     "terminal.integrated.gpuAcceleration": "off",
     "terminal.integrated.profiles.linux": {
         "bash": {
