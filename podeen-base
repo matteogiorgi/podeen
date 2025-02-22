@@ -65,9 +65,12 @@ store_conf () {
 
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
-case "$(cat /etc/os-release 2>/dev/null)" in
-    *ID=debian*) testing_setup;;
-esac
+while IFS='' read -r OSRELEASELINE; do
+    case "$OSRELEASELINE" in
+        ID=debian|VERSION_ID="12") LINECOUNT=$((LINECOUNT + 1));;
+    esac
+    [ "${LINECOUNT:-0}" -eq 2 ] && { testing_setup; break; }
+done < /etc/os-release 2>/dev/null
 # ---
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
