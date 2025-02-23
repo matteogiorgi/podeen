@@ -30,7 +30,7 @@ warning_message () {
 }
 # ---
 testing_setup() {
-    [ -s /etc/apt/sources.list ] || return
+    [ -s /etc/apt/sources.list ] && grep '^[^#]' /etc/apt/sources.list >/dev/null || return
     repo="deb http://deb.debian.org/debian testing main contrib"
     if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
         { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
