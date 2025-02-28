@@ -131,7 +131,7 @@ function! s:ToggleScratch()
         silent! execute l:scratch_wins[0] . 'wincmd w'|buffer #
         silent! execute l:cur_win . "wincmd w"
     elseif exists(':ScratchBuffer')
-            silent! ScratchBuffer
+        ScratchBuffer
     endif
 endfunction
 " ---
