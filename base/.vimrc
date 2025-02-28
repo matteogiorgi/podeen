@@ -109,6 +109,32 @@ set belloff+=ctrlg
 
 
 " Functions {{{
+function! s:ScratchBuffer()
+    let target_buffer = bufnr('/tmp/scratchbuffer')
+    let target_window = bufwinnr(target_buffer)
+    if target_buffer != -1 && target_window != -1
+        silent! execute target_window . 'wincmd w'
+    else
+        edit /tmp/scratchbuffer
+        setlocal bufhidden=wipe
+        setlocal nobuflisted
+        setlocal noswapfile
+        setlocal filetype=scratch
+        setlocal nospell
+    endif
+endfunction
+" ---
+function! s:ToggleScratch()
+    let l:scratch_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "scratch"')
+    if !empty(l:scratch_wins)
+        let l:cur_win = winnr()
+        silent! execute l:scratch_wins[0] . 'wincmd w'|buffer #
+        silent! execute l:cur_win . "wincmd w"
+    elseif exists(':ScratchBuffer')
+            silent! ScratchBuffer
+    endif
+endfunction
+" ---
 function! s:ToggleEx()
     let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
     if !empty(l:netrw_wins)
@@ -152,21 +178,6 @@ function! s:CTags()
     silent! execute '!ctags -R --exclude=.git'
     redraw!|redrawstatus!|redrawtabline
     echo 'ctags executed'
-endfunction
-" ---
-function! s:ScratchBuffer()
-    let target_buffer = bufnr('/tmp/scratchbuffer')
-    let target_window = bufwinnr(target_buffer)
-    if target_buffer != -1 && target_window != -1
-        silent! execute target_window . 'wincmd w'
-    else
-        edit /tmp/scratchbuffer
-        setlocal bufhidden=wipe
-        setlocal nobuflisted
-        setlocal noswapfile
-        setlocal filetype=text
-        setlocal nospell
-    endif
 endfunction
 " ---
 function! s:ClearSpaces()
@@ -254,7 +265,7 @@ augroup end
 augroup writer_filetype
     autocmd!
     autocmd FileType plaintex setfiletype=tex
-    autocmd FileType tex,markdown,html,text
+    autocmd FileType tex,markdown,html,text,scratch
           \ setlocal formatoptions=|
           \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
@@ -284,12 +295,13 @@ augroup end
 
 
 " Commands {{{
+command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
+command! -nargs=0 ToggleScratch call <SID>ToggleScratch()
 command! -nargs=0 ToggleEx call <SID>ToggleEx()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 CTags call <SID>CTags()
-command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 command! -nargs=0 ClearSpaces call <SID>ClearSpaces()
 command! -nargs=0 ClearSearch call <SID>ClearSearch()
 command! -nargs=0 CopyClip call <SID>CopyClip()
@@ -322,7 +334,7 @@ nnoremap <leader>q :ToggleQF<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
-nnoremap <leader>s :ScratchBuffer<CR>
+nnoremap <leader>s :ToggleScratch<CR>
 nnoremap <leader>d :ClearSpaces<CR>
 " }}}
 
