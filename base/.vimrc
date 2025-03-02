@@ -182,8 +182,8 @@ endfunction
 " ---
 function! s:ClearSpaces()
     let l:pos = getpos(".")
-    %s/\s\+$//e
-    %s/\n\+\%$//e
+    silent! %s/\s\+$//e
+    silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
     echo 'cleared spaces'
 endfunction

@@ -12,11 +12,13 @@
 ### Check & Funcs
 #################
 
-if [ -d "${HOME}/.podeen-recovery" ]; then
-    printf "\n%s"   "════════════════ Warning: podeen already set ════════════════"
-    printf "\n%s\n" "Remove ~/.podeen-recovery directory and run this script again"
-    exit 1
-fi
+recovery_check () {
+    if [ -d "${HOME}/.podeen-recovery" ]; then
+        printf "\n%s"   "════════════════ Warning: podeen already set ════════════════"
+        printf "\n%s\n" "Remove ~/.podeen-recovery directory and run this script again"
+        exit 1
+    fi
+}
 # ---
 warning_message () {
     if [ "$(id -u)" = 0 ]; then
@@ -63,8 +65,10 @@ store_conf () {
 ### Path & Dependencies
 #######################
 
+recovery_check
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
+[ -f "${SCRIPTPATH}/podeen.txt" ] && cat "${SCRIPTPATH}/podeen.txt"
 while IFS='' read -r OSRELEASELINE; do
     case "$OSRELEASELINE" in
         ID=debian|ID=\"debian\"|VERSION_ID=12|VERSION_ID=\"12\") LINECOUNT=$((LINECOUNT + 1));;

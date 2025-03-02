@@ -13,11 +13,13 @@
 ### Check & Funcs
 #################
 
-if ! command -v vim >/dev/null 2>&1 || ! command vim --version | grep -q 'Vi IMproved 9'; then
-    printf "\n%s"   "═══════ Warning: Vim9 not found ══════"
-    printf "\n%s\n" "Install Vim9 and run this script again"
-    exit 1
-fi
+version_check () {
+    if ! command -v vim >/dev/null 2>&1 || ! command vim --version | grep -q 'Vi IMproved 9'; then
+        printf "\n%s"   "═══════ Warning: Vim9 not found ══════"
+        printf "\n%s\n" "Install Vim9 and run this script again"
+        exit 1
+    fi
+}
 # ---
 warning_message () {
     if [ "$(id -u)" = 0 ]; then
@@ -45,8 +47,10 @@ reset_plugin() {
 ### Path & Dependencies
 #######################
 
+version_check
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
+[ -f "${SCRIPTPATH}/podeen.txt" ] && cat "${SCRIPTPATH}/podeen.txt"
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
 command sudo apt-get install -qq -y git nodejs

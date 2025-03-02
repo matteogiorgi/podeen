@@ -12,11 +12,13 @@
 ### Check & Funcs
 #################
 
-if ! command -v code >/dev/null 2>&1; then
-    printf "\n%s"   "═══════ Warning: VSCode not found ══════"
-    printf "\n%s\n" "Install VSCode and run this script again"
-    exit 1
-fi
+version_check () {
+    if ! command -v code >/dev/null 2>&1; then
+        printf "\n%s"   "═══════ Warning: VSCode not found ══════"
+        printf "\n%s\n" "Install VSCode and run this script again"
+        exit 1
+    fi
+}
 # ---
 warning_message () {
     if [ "$(id -u)" = 0 ]; then
@@ -35,8 +37,10 @@ warning_message () {
 ### Path & Dependencies
 #######################
 
+version_check
 warning_message
 SCRIPTPATH="$( cd "$(command dirname "$0")" ; pwd -P )" || exit 1
+[ -f "${SCRIPTPATH}/podeen.txt" ] && cat "${SCRIPTPATH}/podeen.txt"
 command sudo apt-get update
 command sudo apt-get upgrade -qq -y
 command sudo apt-get install -qq -y gnome-keyring dash bash git fonts-cascadia-code
