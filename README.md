@@ -4,6 +4,8 @@ This repository contains a collection of configuration files and installation sc
 
 The purpose of this project is to provide a vim-loving, neckbeard-like, barebone environment, fancy enough to be used as a daily driver but not too fancy to be bloated with unnecessary software and dependencies.
 
+<a href="https://www.debian.org"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Powered_by_Debian.svg" width="10%"></a>
+
 
 
 
@@ -41,8 +43,3 @@ This script installs additional plugins for your *Vim* together with a little *v
 This one resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible: run `./podeen-code` from the root of the repository and launch your *VSCode*.
 
 > You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com).
-
-
-
-
-<a href="https://www.debian.org"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Powered_by_Debian.svg" width="10%"></a>
