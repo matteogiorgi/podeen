@@ -24,7 +24,7 @@ You will have three installers at your disposal: [`podeen-base`](https://github.
 
 This script installs the basic packages and configures *Bash* as your default `$SHELL`, *Vim* as your default `$EDITOR`, and *Tmux* as your default `$TERM`: just run `./podeen-base` from the root of the repository, relaunch your terminal and you are good to go.
 
-> The script adds the *testing* repository to your sources list if you are running the last *stable* version of *Debian*.
+> If you are running last stable version of *Debian* (*Bookworm*), this script adds the testing repository (*Trixie*) to your sources list; if you are running any other version (older, testing or unstable), it just updates and upgrades your system.
 
 
 
