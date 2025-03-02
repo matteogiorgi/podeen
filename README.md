@@ -18,7 +18,7 @@ You will have three installers at your disposal: [`podeen-base`](https://github.
 
 
 
-### `podeen-base`
+### Base
 
 This script installs the basic packages and configures *Bash* as your default `$SHELL`, *Vim* as your default `$EDITOR`, and *Tmux* as your default `$TERM`: just run `./podeen-base` from the root of the repository, relaunch your terminal and you are good to go.
 
@@ -27,7 +27,7 @@ This script installs the basic packages and configures *Bash* as your default `$
 
 
 
-### `podeen-plug`
+### Plug
 
 This script installs additional plugins for your *Vim* together with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
 
@@ -36,7 +36,7 @@ This script installs additional plugins for your *Vim* together with a little *v
 
 
 
-### `podeen-code`
+### Code
 
 This one resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible: run `./podeen-code` from the root of the repository and launch your *VSCode*.
 
