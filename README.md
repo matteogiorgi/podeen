@@ -26,22 +26,22 @@ The only prerequisite you need to cover is a working *Debian* in any version or 
 
 This script installs the basic packages and configures *Bash*, *Vim* and *Tmux* for you: just run `./podeen-base` from the root of the repository, relaunch your terminal and you are good to go.
 
-> If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system instead.
+If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system instead.
 
 
 
 
 ### Plug
 
-This script installs additional plugins for your *Vim* alongside with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
+This one installs additional plugins for your *Vim* alongside with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
 
-> You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
+You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
 
 
 
 
 ### Code
 
-This one resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible: run `./podeen-code` from the root of the repository and launch your *VSCode*.
+This last script trims a little bit of neckbear: it resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible: run `./podeen-code` from the root of the repository and launch your *VSCode*.
 
-> You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com) for the deb package.
+You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com) for the deb package.
