@@ -15,7 +15,7 @@ The purpose of this project is to provide a vim-loving, neckbeard-like, barebone
 
 ## Install
 
-The only prerequisite you need to cover is a working *Debian* in any version or form. There are three installers at your disposal to easy the setup process: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code). Each of the installer is independent from the others and can be run in any order.
+The only prerequisite you need to cover is a working *Debian* in any version or form. There are three installers at your disposal to easy the setup process: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code). Each of the installer is independent from the others and the three can be run in any order.
 
 > The installers do not symlink any file, they just copy the configurations in the right place, so they can be easily modified end eventually resetted running the single installer again.
 
@@ -26,7 +26,7 @@ The only prerequisite you need to cover is a working *Debian* in any version or 
 
 This script installs the basic packages and configures *Bash*, *Vim* and *Tmux* for you: just run `./podeen-base` from the root of the repository, relaunch your terminal and you are good to go.
 
-> If you are running last stable version of *Debian* (*Bookworm*), this script adds the testing repository (*Trixie*) to your sources list; if you are running any other version (older, testing or unstable), it just updates and upgrades your system.
+> If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system.
 
 
 
@@ -44,4 +44,4 @@ This script installs additional plugins for your *Vim* alongside with a little *
 
 This one resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible: run `./podeen-code` from the root of the repository and launch your *VSCode*.
 
-> You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com).
+> You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com) for the deb package.
