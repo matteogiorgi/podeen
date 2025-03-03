@@ -26,7 +26,7 @@ The only prerequisite you need to cover is a working *Debian* in any version or 
 
 This script installs the basic packages and configures *Bash*, *Vim* and *Tmux* for you: just run `./podeen-base` from the root of the repository, relaunch your terminal and you are good to go.
 
-> If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system.
+> If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system instead.
 
 
 
