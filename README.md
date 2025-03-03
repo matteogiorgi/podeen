@@ -1,8 +1,10 @@
-# POrtable DEbian ENvironment &nbsp;<a href="https://www.debian.org"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Powered_by_Debian.svg" style="height: 1em; vertical-align: baseline;"></a>
+# POrtable DEbian ENvironment
 
 This repository contains a collection of configuration files and installation scripts for a complete and efficient minimal *UNIX* work environment based on any *Debian* or *Debian-based* distribution.
 
 The purpose of this project is to provide a vim-loving, neckbeard-like, barebone environment, fancy enough to be used as a daily driver but not too fancy to be bloated with unnecessary software and dependencies.
+
+<a href="https://www.debian.org"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Powered_by_Debian.svg"></a>
 
 <p align="center">
   <img src="podeen.jpg">
