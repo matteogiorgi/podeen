@@ -33,7 +33,7 @@ This script installs the basic packages and configures *Bash* as your default `$
 
 This script installs additional plugins for your *Vim* together with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
 
-> You need to have *Vim 9.0* or higher installed, but it won't be an issue since you should have a working *Debian 12* by now.
+> You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
 
 
 
