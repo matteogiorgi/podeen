@@ -15,7 +15,7 @@ The purpose of this project is to provide a vim-loving, neckbeard-like, barebone
 
 ## Install
 
-The only prerequisite you need to cover is a working *Debian* in any version and in any form. There are three installers at your disposal: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code); each of them is independent from the others and they can be run in any order.
+The only prerequisite you need to cover is a working *Debian* in any version and any form. There are three installers at your disposal: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code); each of them is independent from the others and they can be run in any order.
 
 > The installers do not symlink any file, they just copy the configurations in the right place, so they can be easily modified end eventually resetted running the single installer again.
 
