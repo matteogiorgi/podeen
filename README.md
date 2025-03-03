@@ -15,7 +15,7 @@ The purpose of this project is to provide a vim-loving, neckbeard-like, barebone
 
 ## Install
 
-The only prerequisite you need to cover is a working *Debian* in any version or form. There are three installers at your disposal: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code); each of them is independent from the others and can be run in any order.
+The only prerequisite you need to cover is a working *Debian* in any version or form. There are three installers at your disposal to easy the setup process: [`podeen-base`](https://github.com/matteogiorgi/podeen/blob/main/podeen-base), [`podeen-plug`](https://github.com/matteogiorgi/podeen/blob/main/podeen-plug), [`podeen-code`](https://github.com/matteogiorgi/podeen/blob/main/podeen-code). Each of the installer is independent from the others and can be run in any order.
 
 > The installers do not symlink any file, they just copy the configurations in the right place, so they can be easily modified end eventually resetted running the single installer again.
 
@@ -33,7 +33,7 @@ This script installs the basic packages and configures *Bash*, *Vim* and *Tmux* 
 
 ### Plug
 
-This script installs additional plugins for your *Vim* together with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
+This script installs additional plugins for your *Vim* alongside with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
 
 > You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
 
