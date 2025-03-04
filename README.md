@@ -33,7 +33,7 @@ If you are running *Bookworm*, this script adds *Trixie* repository to your sour
 
 ### Plug
 
-This one installs additional plugins for your *Vim* alongside with a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
+This one installs additional plugins for your *Vim* alongside a little *vimscript* configuration to glue them together: run `./podeen-plug` from the root of the repository, launch *Vim* and see the magic happen.
 
 You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
 
