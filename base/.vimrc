@@ -329,13 +329,16 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>e :ToggleEx<CR>
 nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>a :AddLineQF<CR>
+nnoremap <leader>e :ToggleEx<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
+nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ToggleScratch<CR>
 nnoremap <leader>d :ClearSpaces<CR>
+nnoremap <leader>j :buffer#<CR>
+nnoremap <leader>x :ClearSearch<CR>
+nnoremap <leader>c :CopyClip<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et

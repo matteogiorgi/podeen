@@ -34,7 +34,7 @@ store_conf () {
             fi
         fi
     }
-    RESTORE="${HOME}/.podeen-recovery"
+    RESTORE="${HOME}/.podeen_recovery"
     mkdir -p "$RESTORE"
     backup_conf "${HOME}/.bash_logout"
     backup_conf "${HOME}/.bashrc"
@@ -59,9 +59,9 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 # ---
-if [ -d "${HOME}/.podeen-recovery" ]; then
+if [ -d "${HOME}/.podeen_recovery" ]; then
     printf "\n%s"   "════════════════ Warning: podeen already set ════════════════"
-    printf "\n%s\n" "Remove ~/.podeen-recovery directory and run this script again"
+    printf "\n%s\n" "Remove ~/.podeen_recovery directory and run this script again"
     exit 1
 fi
 
