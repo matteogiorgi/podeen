@@ -51,103 +51,103 @@ fi
 
 function git-branch () {
     function git-status () {
-        [[ $(command git status --porcelain 2>/dev/null) ]] && echo "*"
+        [[ $(\git status --porcelain 2>/dev/null) ]] && echo "*"
     }
-    command git branch --no-color 2>/dev/null | command sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1$(git-status))/"
+    \git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1$(git-status))/"
 }
 # ---
 function fexplore () {
     [[ -x "$(command -v fzy)" ]] || return
     TMP="/tmp/fexplore$$"
     (
-        while FEXPLORE="$(command ls -aF --ignore="." --ignore=".git" --group-directories-first | `
-              `command fzy -p "$(pwd | command sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; do
+        while FEXPLORE="$(\ls -aF --ignore="." --ignore=".git" --group-directories-first | `
+              `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; do
             FEXPLORE="$PWD/${FEXPLORE%[@|*|/]}"
             if [[ -d "$FEXPLORE" ]]; then
                 cd "$FEXPLORE" || return
                 printf '%s\n' "$FEXPLORE" > "$TMP"
                 continue
             fi
-            case $(command file --mime-type "$FEXPLORE" -bL) in
+            case $(file --mime-type "$FEXPLORE" -bL) in
                 text/* | application/json) "${EDITOR:=/usr/bin/vi}" "$FEXPLORE";;
-                *) command xdg-open "$FEXPLORE" &>/dev/null;;
+                *) xdg-open "$FEXPLORE" &>/dev/null;;
             esac
         done
     )
     [[ -f "$TMP" ]] || return
-    cd "$(command cat $TMP)" || return
+    cd "$(\cat $TMP)" || return
     rm -f "$TMP"
 }
 # ---
 function ffind () {
     [[ -x "$(command -v fzy)" ]] || return
-    [[ -x "$(command -v fdfind)" ]] && FFIND="$(command fdfind . --type file)" || \
-          FFIND="$(command find . -type f -not -path '*/\.*' -not -path '.')"
-    FFIND="$(echo "$FFIND" | command sed 's|^\./||' | \
-          command fzy -p "$(pwd | command sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"
+    [[ -x "$(command -v fdfind)" ]] && FFIND="$(\fdfind . --type file)" || \
+          FFIND="$(\find . -type f -not -path '*/\.*' -not -path '.')"
+    FFIND="$(echo "$FFIND" | sed 's|^\./||' | \
+          \fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"
     [[ -f "$FFIND" ]] || return
-    case $(command file --mime-type "$FFIND" -bL) in
+    case $(file --mime-type "$FFIND" -bL) in
         text/* | application/json) "${EDITOR:=/usr/bin/vi}" "$FFIND";;
-        *) command xdg-open "$FFIND" &>/dev/null;;
+        *) xdg-open "$FFIND" &>/dev/null;;
     esac
 }
 # ---
 function fjump () {
     [[ -x "$(command -v fzy)" ]] || return
-    [[ -x "$(command -v fdfind)" ]] && FJUMP="$(command fdfind . --type directory)" || \
-          FJUMP="$(command find . -type d -not -path '*/\.*' -not -path '.')"
+    [[ -x "$(command -v fdfind)" ]] && FJUMP="$(\fdfind . --type directory)" || \
+          FJUMP="$(find . -type d -not -path '*/\.*' -not -path '.')"
     TMP="/tmp/fjump$$"
     (
-        FJUMP="$(echo "$FJUMP" | command sed 's|^\./||' | \
-              command fzy -p "$(pwd | command sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"
+        FJUMP="$(echo "$FJUMP" | sed 's|^\./||' | \
+              \fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"
         [[ -d "$FJUMP" ]] && printf '%s\n' "$FJUMP" > "$TMP"
     )
     [[ -f "$TMP" ]] || return
-    cd "$(command cat $TMP)" || return
+    cd "$(cat $TMP)" || return
     rm -f "$TMP"
 }
 # ---
 function fhook () {
     [[ -x "$(command -v tmux)" && -x "$(command -v fzy)" ]] || return
-    [[ -z "$TMUX" ]] || { command tmux display-message -p 'attached to #S'; return; }
-    BASENAME="$(command basename "$PWD" | command cut -c 1-37)"
-    SESSIONS="$(command tmux list-sessions -F '#{session_name}' 2>/dev/null)"
-    SCOUNTER="$(command tmux list-sessions 2>/dev/null | wc -l)"
-    if command tmux has-session -t "$BASENAME" 2>/dev/null; then
-        if FHOOK="$(echo "$SESSIONS" | command fzy -p "tmux-sessions ($SCOUNTER) > ")"; then
-            command tmux attach -t "$FHOOK"
+    [[ -z "$TMUX" ]] || { \tmux display-message -p 'attached to #S'; return; }
+    BASENAME="$(basename "$PWD" | cut -c 1-37)"
+    SESSIONS="$(\tmux list-sessions -F '#{session_name}' 2>/dev/null)"
+    SCOUNTER="$(\tmux list-sessions 2>/dev/null | wc -l)"
+    if \tmux has-session -t "$BASENAME" 2>/dev/null; then
+        if FHOOK="$(echo "$SESSIONS" | \fzy -p "tmux-sessions ($SCOUNTER) > ")"; then
+            \tmux attach -t "$FHOOK"
         fi
-    elif FHOOK="$( (echo "$BASENAME (new)"; echo "$SESSIONS") | command fzy -p "tmux-sessions ($SCOUNTER) > " )"; then
-        [[ "$FHOOK" == "$BASENAME (new)"  ]] && { command tmux new-session -c "$PWD" -s "$BASENAME"; return; }
-        command tmux attach -t "$FHOOK"
+    elif FHOOK="$( (echo "$BASENAME (new)"; echo "$SESSIONS") | \fzy -p "tmux-sessions ($SCOUNTER) > " )"; then
+        [[ "$FHOOK" == "$BASENAME (new)"  ]] && { \tmux new-session -c "$PWD" -s "$BASENAME"; return; }
+        \tmux attach -t "$FHOOK"
     fi
 }
 # ---
 function fgit() {
     [[ -x "$(command -v git)" && -x "$(command -v fzy)" ]] || return
-    [[ $(command git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "not a git repo"; return; }
-    if FGIT="$(command git log --graph --format="%h%d %s %cr" "$@" | `
-          `command fzy -p "$(pwd | command sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; then
+    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "not a git repo"; return; }
+    if FGIT="$(\git log --graph --format="%h%d %s %cr" "$@" | `
+          `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; then
         FGIT="$(echo "$FGIT" | grep -o '[a-f0-9]\{7\}')"
-        command git diff "$FGIT"
+        \git diff "$FGIT"
     fi
 }
 # ---
 function fkill() {
     [[ -x "$(command -v fzy)" ]] || return
-    if FKILL="$(command ps --no-headers -H -u "$USER" -o pid,cmd | command fzy -p "$USER processes > ")"; then
+    if FKILL="$(ps --no-headers -H -u "$USER" -o pid,cmd | \fzy -p "$USER processes > ")"; then
         PROCPID="$(echo "$FKILL" | awk '{print $1}')"
         PROCCMD="$(echo "$FKILL" | awk '{$1=""; sub(/^ /, ""); print}')"
         if FKILLSIGNAL="$(printf " 0 SIGNULL\n 1 SIGHUP\n 2 SIGINT\n 3 SIGQUIT\n 4 SIGILL\n 5 SIGTRAP\n 6 SIGABRT\n 7 SIGBUS\n`
               ` 8 SIGFPE\n 9 SIGKILL\n10 SIGUSR1\n11 SIGSEGV\n12 SIGUSR2\n13 SIGPIPE\n14 SIGALRM\n15 SIGTERM\n`
               `16 SIGSTKFLT\n17 SIGCHLD\n18 SIGCONT\n19 SIGSTOP\n20 SIGTSTP\n21 SIGTTIN\n22 SIGTTOU\n23 SIGURG\n`
               `24 SIGXCPU\n25 SIGXFSZ\n26 SIGVTALRM\n27 SIGPROF\n28 SIGWINCH\n29 SIGIO\n30 SIGPWR\n31 SIGSYS\n" | `
-              `command fzy -p "process \"${PROCCMD:0:50}\" selected > ")"; then
+              `\fzy -p "process \"${PROCCMD:0:50}\" selected > ")"; then
             if [[ "${FKILLSIGNAL:0:2}" == " 0" ]]; then
                 echo "process \"${PROCCMD:0:50}\" intact"
                 return
             fi
-            command kill -s "${FKILLSIGNAL:0:2}" "$PROCPID"
+            kill -s "${FKILLSIGNAL:0:2}" "$PROCPID"
             echo "process \"${PROCCMD:0:50}\" signaled with ${FKILLSIGNAL:3}"
         fi
     fi
@@ -276,5 +276,5 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 fi
 # ---
 if [[ -x "$(command -v fetch.sh)" ]]; then
-    fetch.sh
+    fetch.sh 2>/dev/null
 fi

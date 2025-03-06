@@ -30,3 +30,13 @@ export PATH="$PATH:$HOME/.local/bin"
 if [ -n "$BASH_VERSION" ]; then
     [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 fi
+
+
+
+
+### Keyboard remaps (x11-xkb-utils)
+###################################
+
+if [ -x "$(command -v setxkbmap)" ]; then
+    setxkbmap -option "caps:escape"
+fi
