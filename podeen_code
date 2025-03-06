@@ -13,8 +13,7 @@
 #############
 
 sudo_privilege () {
-    sudo -n -l 2>/dev/null | grep -q "(ALL) ALL"
-    return $((! $?))
+    id -Gn | grep -qw "sudo"
 }
 
 
