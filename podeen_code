@@ -13,7 +13,7 @@
 #############
 
 sudo_privilege () {
-    id -Gn | grep -qw "sudo"
+    id -Gn 2>/dev/null | grep -qw "sudo"
 }
 
 
