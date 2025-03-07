@@ -55,6 +55,7 @@ if &rtp =~ 'ctrlp'
     augroup end
     " ---
     nnoremap <leader>q :CtrlPQuickfix<CR>
+    nnoremap <leader>u :CtrlPUndo<CR>
     nnoremap <leader>i :CtrlPMixed<CR>
     nnoremap <leader>o :CtrlPChangeAll<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
