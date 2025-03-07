@@ -4,7 +4,7 @@
 # complete with all the bells and whistles needed to start working properly.
 # ---
 # Other packages not included here can be installed separately,
-# suggestions: input-remapper, rio-terminal.
+# suggestions: i3, x11-xkb-utils, rioterm/kitty, input-remapper.
 
 
 
