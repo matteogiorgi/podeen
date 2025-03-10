@@ -320,6 +320,8 @@ noremap <silent><C-h> (
 noremap <silent><C-l> )
 noremap <silent><C-j> }
 noremap <silent><C-k> {
+noremap <silent><C-n> ]]
+noremap <silent><C-p> [[
 " ---
 vnoremap <silent>H <gv
 vnoremap <silent>L >gv
