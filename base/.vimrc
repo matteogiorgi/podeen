@@ -292,8 +292,8 @@ augroup end
 
 " Commands {{{
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
-command! -nargs=0 JumpScratch call <SID>ToggleScratch()
-command! -nargs=0 JumpExplore call <SID>ToggleEx()
+command! -nargs=0 JumpScratch call <SID>JumpScratch()
+command! -nargs=0 JumpExplore call <SID>JumpExplore()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
