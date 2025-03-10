@@ -128,8 +128,8 @@ function! s:ToggleScratch()
     let l:scratch_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "scratch"')
     if !empty(l:scratch_wins)
         let l:cur_win = winnr()
-        silent! execute l:scratch_wins[0] . 'wincmd w'|buffer #
-        silent! execute l:cur_win . "wincmd w"
+        silent! execute l:scratch_wins[0] . 'wincmd w|buffer #'
+        silent! execute l:cur_win . 'wincmd w'
     elseif exists(':ScratchBuffer')
         ScratchBuffer
     endif
@@ -139,8 +139,8 @@ function! s:ToggleEx()
     let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
     if !empty(l:netrw_wins)
         let l:cur_win = winnr()
-        silent! execute l:netrw_wins[0] . 'wincmd w'|buffer #
-        silent! execute l:cur_win . "wincmd w"
+        silent! execute l:netrw_wins[0] . 'wincmd w|buffer #'
+        silent! execute l:cur_win . 'wincmd w'
     else
         edit .
     endif
