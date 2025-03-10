@@ -124,23 +124,19 @@ function! s:ScratchBuffer()
     endif
 endfunction
 " ---
-function! s:ToggleScratch()
+function! s:JumpScratch()
     let l:scratch_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "scratch"')
     if !empty(l:scratch_wins)
-        let l:cur_win = winnr()
-        silent! execute l:scratch_wins[0] . 'wincmd w|buffer #'
-        silent! execute l:cur_win . 'wincmd w'
+        silent! execute l:scratch_wins[0] . 'wincmd w'
     elseif exists(':ScratchBuffer')
         ScratchBuffer
     endif
 endfunction
 " ---
-function! s:ToggleEx()
+function! s:JumpExplore()
     let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
     if !empty(l:netrw_wins)
-        let l:cur_win = winnr()
-        silent! execute l:netrw_wins[0] . 'wincmd w|buffer #'
-        silent! execute l:cur_win . 'wincmd w'
+        silent! execute l:netrw_wins[0] . 'wincmd w'
     else
         edit .
     endif
@@ -296,8 +292,8 @@ augroup end
 
 " Commands {{{
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
-command! -nargs=0 ToggleScratch call <SID>ToggleScratch()
-command! -nargs=0 ToggleEx call <SID>ToggleEx()
+command! -nargs=0 JumpScratch call <SID>ToggleScratch()
+command! -nargs=0 JumpExplore call <SID>ToggleEx()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
@@ -333,11 +329,11 @@ nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>e :ToggleEx<CR>
+nnoremap <leader>e :JumpExplore<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
-nnoremap <leader>s :ToggleScratch<CR>
+nnoremap <leader>s :JumpScratch<CR>
 nnoremap <leader>d :ClearSpaces<CR>
 nnoremap <leader>j :buffer#<CR>
 nnoremap <leader>x :ClearSearch<CR>
