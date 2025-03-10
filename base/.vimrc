@@ -316,6 +316,9 @@ noremap <buffer> k gk
 noremap <buffer> 0 g0
 noremap <buffer> $ g$
 " ---
+noremap <silent><C-n> :bnext<CR>
+noremap <silent><C-p> :bprev<CR>
+" ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
 noremap <silent><C-j> }
