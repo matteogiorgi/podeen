@@ -124,24 +124,6 @@ function! s:ScratchBuffer()
     endif
 endfunction
 " ---
-function! s:JumpScratch()
-    let l:scratch_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "scratch"')
-    if !empty(l:scratch_wins)
-        silent! execute l:scratch_wins[0] . 'wincmd w'
-    elseif exists(':ScratchBuffer')
-        ScratchBuffer
-    endif
-endfunction
-" ---
-function! s:JumpExplore()
-    let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
-    if !empty(l:netrw_wins)
-        silent! execute l:netrw_wins[0] . 'wincmd w'
-        return
-    endif
-    silent! edit .
-endfunction
-" ---
 function! s:ToggleQF()
     silent! lclose
     if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
@@ -292,8 +274,6 @@ augroup end
 
 " Commands {{{
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
-command! -nargs=0 JumpScratch call <SID>JumpScratch()
-command! -nargs=0 JumpExplore call <SID>JumpExplore()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
@@ -328,14 +308,12 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>e :JumpExplore<CR>
+nnoremap <leader>e :buffer#<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
-nnoremap <leader>s :JumpScratch<CR>
+nnoremap <leader>s :ToggleQF<CR>
 nnoremap <leader>d :ClearSpaces<CR>
-nnoremap <leader>j :buffer#<CR>
 nnoremap <leader>x :ClearSearch<CR>
 nnoremap <leader>c :CopyClip<CR>
 " }}}
