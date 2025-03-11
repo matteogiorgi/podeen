@@ -20,7 +20,6 @@
     "editor.renderLineHighlight": "none",
     "editor.fontLigatures": true,
     "editor.guides.indentation": false,
-    "editor.minimap.enabled": false,
     "editor.rulers": [],
     "editor.folding": true,
     "editor.showFoldingControls": "never",
