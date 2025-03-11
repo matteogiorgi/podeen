@@ -109,19 +109,31 @@ set belloff+=ctrlg
 
 
 " Functions {{{
-function! s:ScratchBuffer()
-    let target_buffer = bufnr('/tmp/scratchbuffer')
-    let target_window = bufwinnr(target_buffer)
-    if target_buffer != -1 && target_window != -1
-        silent! execute target_window . 'wincmd w'
-    else
-        edit /tmp/scratchbuffer
-        setlocal bufhidden=wipe
-        setlocal nobuflisted
-        setlocal noswapfile
-        setlocal filetype=scratch
-        setlocal nospell
+function! s:CTags()
+    if executable('ctags')
+        silent! execute '!ctags -R --exclude=.git'
+        redraw!|redrawstatus!|redrawtabline
+        echo 'ctags executed'
+        return
     endif
+    echo 'ctags not found'
+endfunction
+" ---
+function! s:CopyClip()
+    if executable('xclip')
+        let @" = system('xclip -selection clipboard', getreg(''))
+        echo 'copied 2clipboard'
+        return
+    endif
+    echo 'xclip not found'
+endfunction
+" ---
+function! s:RemoveSP()
+    let l:pos = getpos(".")
+    silent! %s/\s\+$//e
+    silent! %s/\n\+\%$//e
+    call setpos('.', l:pos)
+    echo 'spaces removed'
 endfunction
 " ---
 function! s:ToggleQF()
@@ -149,31 +161,27 @@ endfunction
 " ---
 function! s:ResetQF()
     call setqflist([])
-    echo 'reset quickfix'
+    echo 'quickfix resetted'
 endfunction
 " ---
-function! s:CTags()
-    silent! execute '!ctags -R --exclude=.git'
-    redraw!|redrawstatus!|redrawtabline
-    echo 'ctags executed'
-endfunction
-" ---
-function! s:ClearSpaces()
-    let l:pos = getpos(".")
-    silent! %s/\s\+$//e
-    silent! %s/\n\+\%$//e
-    call setpos('.', l:pos)
-    echo 'cleared spaces'
-endfunction
-" ---
-function! s:ClearSearch()
+function! s:ResetSR()
     let @/=""
-    echo 'cleared search'
+    echo 'search resetted'
 endfunction
 " ---
-function! s:CopyClip()
-    let @" = system('xclip -selection clipboard', getreg(''))
-    echo 'copied 2clipboard'
+function! s:ScratchBuffer()
+    let target_buffer = bufnr('/tmp/scratchbuffer')
+    let target_window = bufwinnr(target_buffer)
+    if target_buffer != -1 && target_window != -1
+        silent! execute target_window . 'wincmd w'
+    else
+        edit /tmp/scratchbuffer
+        setlocal bufhidden=wipe
+        setlocal nobuflisted
+        setlocal noswapfile
+        setlocal filetype=scratch
+        setlocal nospell
+    endif
 endfunction
 " }}}
 
@@ -273,14 +281,14 @@ augroup end
 
 
 " Commands {{{
-command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
+command! -nargs=0 CTags call <SID>CTags()
+command! -nargs=0 CopyClip call <SID>CopyClip()
+command! -nargs=0 RemoveSP call <SID>RemoveSP()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
-command! -nargs=0 CTags call <SID>CTags()
-command! -nargs=0 ClearSpaces call <SID>ClearSpaces()
-command! -nargs=0 ClearSearch call <SID>ClearSearch()
-command! -nargs=0 CopyClip call <SID>CopyClip()
+command! -nargs=0 ResetSR call <SID>ResetSR()
+command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 " }}}
 
 
@@ -292,6 +300,7 @@ noremap <buffer> k gk
 noremap <buffer> 0 g0
 noremap <buffer> $ g$
 " ---
+noremap <silent><Tab> :buffer#<CR>
 noremap <silent><C-n> :bnext<CR>
 noremap <silent><C-p> :bprev<CR>
 " ---
@@ -308,13 +317,12 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>e :buffer#<CR>
+nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ToggleQF<CR>
-nnoremap <leader>d :ClearSpaces<CR>
-nnoremap <leader>x :ClearSearch<CR>
+nnoremap <leader>d :RemoveSP<CR>
 nnoremap <leader>c :CopyClip<CR>
 " }}}
 
