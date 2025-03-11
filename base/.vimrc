@@ -137,18 +137,18 @@ function! s:JumpExplore()
     let l:netrw_wins = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
     if !empty(l:netrw_wins)
         silent! execute l:netrw_wins[0] . 'wincmd w'
-    else
-        edit .
+        return
     endif
+    silent! edit .
 endfunction
 " ---
 function! s:ToggleQF()
     silent! lclose
     if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
         silent! copen
-    else
-        silent! cclose
+        return
     endif
+    silent! cclose
 endfunction
 " ---
 function! s:AddLineQF()
