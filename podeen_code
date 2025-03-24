@@ -60,7 +60,7 @@ EOF
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if sudo_privilege; then
     sudo sh -c '
-        apt-get update && apt-get upgrade -qq -y &&
+        apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
         apt-get install -qq -y gnome-keyring dash bash git fonts-cascadia-code
     '
 fi

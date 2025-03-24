@@ -95,7 +95,7 @@ if sudo_privilege; then
     done < /etc/os-release 2>/dev/null
     # ---
     sudo sh -c '
-        apt-get update && apt-get upgrade -qq -y &&
+        apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
         apt-get install -qq -y bash bash-completion fzy file fd-find xclip trash-cli procps less git tmux vim exuberant-ctags wamerican
     '
 fi
