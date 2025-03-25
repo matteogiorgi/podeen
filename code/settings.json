@@ -10,6 +10,7 @@
     "window.titleBarStyle": "custom",
     "window.customTitleBarVisibility": "windowed",
     "window.menuBarVisibility": "visible",
+    "window.commandCenter": false;
     "window.density.editorTabHeight": "default",
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
@@ -68,6 +69,8 @@
     "workbench.colorTheme": "Visual Studio Light",
     "workbench.iconTheme": "vs-seti",
     "workbench.productIconTheme": "Default",
+    "workbench.layoutControl.enabled": false,
+    "chat.commandCenter.enabled": false,
     "github.copilot.editor.enableAutoCompletions": false,
     "github.copilot.enable": {
         "*": true,
