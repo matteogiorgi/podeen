@@ -48,7 +48,7 @@ endif
 syntax on
 filetype plugin indent on
 colorscheme lunaperche
-set background=light
+set background=dark
 " }}}
 
 
