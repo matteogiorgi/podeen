@@ -74,6 +74,7 @@ fi
 for EXTENSION in $(\code --list-extensions); do
     \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1
 done
+\code --install-extension monokai.theme-monokai-pro-vscode
 \code --install-extension github.copilot
 # ---
 BASE="${HOME}/.config/Code/User"
