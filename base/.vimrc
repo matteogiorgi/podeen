@@ -223,7 +223,8 @@ augroup syntax_prettyfier
     autocmd!
     autocmd VimEnter,ColorScheme *
           \ hi! MatchParen cterm=underline ctermbg=NONE|
-          \ hi! VertSplit ctermbg=NONE
+          \ hi! VertSplit ctermbg=NONE|
+          \ hi! Normal ctermbg=NONE
 augroup end
 " ---
 augroup fold_autoload
@@ -255,7 +256,11 @@ augroup writer_filetype
           \ setlocal formatoptions=|
           \ setlocal wrap spell conceallevel=0|
           \ setlocal spelllang=en_us|
-          \ setlocal foldmethod=manual
+          \ setlocal foldmethod=manual|
+          \ nnoremap <buffer> j gj|
+          \ nnoremap <buffer> k gk|
+          \ nnoremap <buffer> 0 g0|
+          \ nnoremap <buffer> $ g$
 augroup end
 " ---
 augroup scratchbuffer_autosave
@@ -295,19 +300,14 @@ command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 
 
 " Keymaps {{{
-noremap <buffer> j gj
-noremap <buffer> k gk
-noremap <buffer> 0 g0
-noremap <buffer> $ g$
+nnoremap <silent><Tab> :buffer#<CR>
+nnoremap <silent><C-n> :bnext<CR>
+nnoremap <silent><C-p> :bprev<CR>
 " ---
-noremap <silent><Tab> :buffer#<CR>
-noremap <silent><C-n> :bnext<CR>
-noremap <silent><C-p> :bprev<CR>
-" ---
-noremap <silent><C-h> (
-noremap <silent><C-l> )
-noremap <silent><C-j> }
-noremap <silent><C-k> {
+nnoremap <silent><C-h> (
+nnoremap <silent><C-l> )
+nnoremap <silent><C-j> }
+nnoremap <silent><C-k> {
 " ---
 vnoremap <silent>H <gv
 vnoremap <silent>L >gv
