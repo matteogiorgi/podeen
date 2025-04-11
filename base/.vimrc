@@ -307,10 +307,10 @@ nnoremap <silent><Tab> :buffer#<CR>
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
 " ---
-nnoremap <silent><C-h> (
-nnoremap <silent><C-l> )
-nnoremap <silent><C-j> }
-nnoremap <silent><C-k> {
+noremap <silent><C-h> (
+noremap <silent><C-l> )
+noremap <silent><C-j> }
+noremap <silent><C-k> {
 " ---
 vnoremap <silent>H <gv
 vnoremap <silent>L >gv
