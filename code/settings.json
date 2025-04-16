@@ -71,10 +71,7 @@
     "workbench.productIconTheme": "Default",
     "workbench.layoutControl.enabled": false,
     "chat.commandCenter.enabled": false,
-    "github.copilot.editor.enableAutoCompletions": false,
     "github.copilot.enable": {
-        "*": true,
-        "plaintext": true,
-        "markdown": true
+        "*": true
     }
 }
