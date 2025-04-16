@@ -36,6 +36,8 @@
     "editor.minimap.maxColumn": 60,
     "editor.minimap.autohide": false,
     "editor.minimap.showSlider": "always",
+    "editor.hover.enabled": false,
+    "editor.lightbulb.enabled": "off",
     "debug.terminal.clearBeforeReusing": true,
     "terminal.explorerKind": "external",
     "terminal.external.linuxExec": "x-terminal-emulator",
@@ -71,6 +73,7 @@
     "workbench.productIconTheme": "Default",
     "workbench.layoutControl.enabled": false,
     "chat.commandCenter.enabled": false,
+    "github.copilot.editor.enableCodeActions": false,
     "github.copilot.enable": {
         "*": false
     }
