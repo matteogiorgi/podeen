@@ -22,6 +22,27 @@ let g:plugme = 1
 
 
 " Python {{{
+if executable('python3')
+    function! s:ExecPF()
+        write
+        terminal python3 %
+        setlocal nobuflisted
+    endfunction
+    " ---
+    function! s:ExecPS()
+        let l:tmpfile = tempname()
+        execute "'<,'>write " . l:tmpfile
+        execute 'terminal python3 ' . l:tmpfile
+        setlocal nobuflisted
+    endfunction
+    " ---
+    augroup python_cmd
+        autocmd!
+        autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
+        autocmd Filetype python vnoremap <buffer> <leader>x :<C-U>call <SID>ExecPS()<CR>
+    augroup end
+endif
+" ---
 if executable('black')
     function! s:Black()
         silent! execute '!black % 2>/dev/null'
@@ -29,7 +50,6 @@ if executable('black')
     endfunction
     " ---
     augroup python_cmd
-        autocmd!
         autocmd Filetype python command! -nargs=0 Black call <SID>Black()
         autocmd Filetype python nnoremap <buffer> <leader>d :update<CR>:call <SID>Black()<CR>
     augroup end
