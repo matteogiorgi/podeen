@@ -226,8 +226,8 @@ augroup syntax_prettyfier
           \ hi! VertSplit ctermbg=NONE|
           \ hi! LineNr ctermbg=NONE|
           \ hi! CursorLineNr ctermbg=NONE|
-          \ hi! FoldColumn ctermbg=NONE|
-          \ hi! Normal ctermbg=NONE
+          \ hi! FoldColumn ctermbg=NONE
+          " retrobox background = #1C1C1C
 augroup end
 " ---
 augroup fold_autoload
