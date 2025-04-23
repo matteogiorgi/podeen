@@ -170,6 +170,9 @@ function! s:ResetSR()
 endfunction
 " ---
 function! s:ScratchBuffer()
+    if &filetype ==# 'scratch'
+        b#|return
+    endif
     let target_buffer = bufnr('/tmp/scratchbuffer')
     let target_window = bufwinnr(target_buffer)
     if target_buffer != -1 && target_window != -1
