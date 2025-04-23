@@ -27,6 +27,7 @@ if executable('python3')
         write
         terminal python3 %
         setlocal nobuflisted
+        execute 'wincmd T'
     endfunction
     " ---
     function! s:ExecPS()
@@ -34,6 +35,7 @@ if executable('python3')
         execute "'<,'>write " . l:tmpfile
         execute 'terminal python3 ' . l:tmpfile
         setlocal nobuflisted
+        execute 'wincmd T'
     endfunction
     " ---
     augroup python_cmd
