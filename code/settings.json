@@ -22,7 +22,7 @@
     "editor.fontLigatures": true,
     "editor.guides.indentation": false,
     "editor.rulers": [120],
-    "editor.folding": true,
+    "editor.folding": false,
     "editor.showFoldingControls": "never",
     "editor.wordWrap": "off",
     "editor.cursorBlinking": "solid",
