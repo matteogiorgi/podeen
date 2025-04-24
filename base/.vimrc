@@ -230,7 +230,7 @@ augroup syntax_prettyfier
           \ hi! LineNr ctermbg=NONE|
           \ hi! CursorLineNr ctermbg=NONE|
           \ hi! FoldColumn ctermbg=NONE
-          " retrobox background = #1C1C1C
+          " retrobox background #1C1C1C
 augroup end
 " ---
 augroup fold_autoload
@@ -306,9 +306,10 @@ command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 
 
 " Keymaps {{{
-nnoremap <silent><Tab> :buffer#<CR>
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
+nnoremap <silent><Tab> :buffer#<CR>
+nnoremap <leader>Tab :Expore<CR>
 " ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
@@ -323,14 +324,14 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
-nnoremap <leader>t :CTags<CR>
-nnoremap <leader>c :CopyClip<CR>
-nnoremap <leader>d :RemoveSP<CR>
 nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>a :AddLineQF<CR>
-nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>e :ResetSR<CR>
+nnoremap <leader>r :ResetQF<CR>
+nnoremap <leader>t :CTags<CR>
+nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
+nnoremap <leader>d :RemoveSP<CR>
+nnoremap <leader>c :CopyClip<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
