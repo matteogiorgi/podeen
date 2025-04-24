@@ -25,17 +25,13 @@ let g:plugme = 1
 if executable('python3')
     function! s:ExecPF()
         write
-        terminal python3 %
-        setlocal nobuflisted
-        execute 'wincmd T'
+        execute '!python3 %'
     endfunction
     " ---
     function! s:ExecPS()
         let l:tmpfile = tempname()
         execute "'<,'>write " . l:tmpfile
-        execute 'terminal python3 ' . l:tmpfile
-        setlocal nobuflisted
-        execute 'wincmd T'
+        execute '!python3 ' . l:tmpfile
     endfunction
     " ---
     augroup python_cmd
