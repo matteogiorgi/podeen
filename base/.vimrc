@@ -309,7 +309,7 @@ command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
 nnoremap <silent><Tab> :buffer#<CR>
-nnoremap <leader>Tab :Expore<CR>
+nnoremap <leader><Tab> :Explore<CR>
 " ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
