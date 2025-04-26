@@ -47,7 +47,7 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-colorscheme retrobox
+colorscheme lunaperche
 set background=dark
 " }}}
 
@@ -230,7 +230,6 @@ augroup syntax_prettyfier
           \ hi! LineNr ctermbg=NONE|
           \ hi! CursorLineNr ctermbg=NONE|
           \ hi! FoldColumn ctermbg=NONE
-          " retrobox background #1C1C1C
 augroup end
 " ---
 augroup fold_autoload
