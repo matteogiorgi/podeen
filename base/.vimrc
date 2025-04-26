@@ -47,7 +47,7 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-colorscheme lunaperche
+colorscheme retrobox
 set background=dark
 " }}}
 
@@ -225,11 +225,13 @@ augroup end
 augroup syntax_prettyfier
     autocmd!
     autocmd VimEnter,ColorScheme *
-          \ hi! MatchParen cterm=underline ctermbg=NONE|
-          \ hi! VertSplit ctermbg=NONE|
+          \ hi! Normal ctermbg=NONE|
           \ hi! LineNr ctermbg=NONE|
-          \ hi! CursorLineNr ctermbg=NONE|
-          \ hi! FoldColumn ctermbg=NONE
+          \ hi! FoldColumn ctermbg=NONE|
+          \ hi! CursorLine cterm=NONE|
+          \ hi! CursorLineNr cterm=NONE ctermbg=NONE|
+          \ hi! MatchParen cterm=underline ctermbg=NONE|
+          \ hi! VertSplit cterm=NONE ctermbg=NONE
 augroup end
 " ---
 augroup fold_autoload
