@@ -310,7 +310,6 @@ command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
 nnoremap <silent><Tab> :buffer#<CR>
-nnoremap <leader><Tab> :Explore<CR>
 " ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
@@ -326,6 +325,7 @@ nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
+nnoremap <leader>w :Explore<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>

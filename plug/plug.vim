@@ -88,45 +88,6 @@ endif
 
 
 
-" Copilot {{{
-if &rtp =~ 'copilot'
-    let g:copilot_enabled = v:false
-    " ---
-    function! s:TogglePanel()
-        for l:buf in filter(range(1, bufnr('$')), 'bufname(v:val) =~# "^copilot:///panel/"')
-            let l:panelname = bufname(l:buf)
-            silent! execute 'bwipe ' . l:buf
-        endfor
-        if !exists("l:panelname")
-            silent! Copilot panel
-        endif
-    endfunction
-    " ---
-    augroup copilot_prettyfier
-        autocmd!
-        autocmd FileType copilot*
-              \ setlocal nonu nornu|
-              \ setlocal bufhidden=wipe|
-              \ setlocal nobuflisted|
-              \ setlocal cursorline
-    augroup end
-    " ---
-    command! -nargs=0 TogglePanel call <SID>TogglePanel()
-    " ---
-    inoremap <silent><C-s> <Plug>(copilot-suggest)
-    inoremap <silent><C-d> <Plug>(copilot-dismiss)
-    inoremap <silent><C-h> <C-w>
-    inoremap <silent><C-j> <Plug>(copilot-next)
-    inoremap <silent><C-k> <Plug>(copilot-previous)
-    inoremap <silent><script><expr> <C-l> copilot#AcceptWord("\<CR>")
-    inoremap <silent><script><expr> <C-f> copilot#AcceptLine("\<CR>")
-    nnoremap <leader>w :TogglePanel<CR>
-endif
-" }}}
-
-
-
-
 " Sandwich {{{
 if &rtp =~ 'sandwich'
     runtime macros/sandwich/keymap/surround.vim
