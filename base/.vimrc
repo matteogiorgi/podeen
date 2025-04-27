@@ -325,7 +325,6 @@ nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>w :Explore<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>

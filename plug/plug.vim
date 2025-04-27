@@ -36,8 +36,8 @@ if executable('python3')
     " ---
     augroup python_cmd
         autocmd!
-        autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
-        autocmd Filetype python vnoremap <buffer> <leader>x :<C-U>call <SID>ExecPS()<CR>
+        autocmd Filetype python nnoremap <buffer> <leader>w :call <SID>ExecPF()<CR>
+        autocmd Filetype python vnoremap <buffer> <leader>w :<C-U>call <SID>ExecPS()<CR>
     augroup end
 endif
 " ---
