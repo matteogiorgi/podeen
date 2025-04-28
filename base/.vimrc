@@ -47,7 +47,7 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-colorscheme unokai
+colorscheme wildcharm
 set background=dark
 " }}}
 
