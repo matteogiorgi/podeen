@@ -47,8 +47,8 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-colorscheme wildcharm
 set background=dark
+silent! colorscheme unokai
 " }}}
 
 
@@ -229,7 +229,7 @@ augroup syntax_prettyfier
           \ hi! LineNr ctermbg=NONE|
           \ hi! FoldColumn ctermbg=NONE|
           \ hi! CursorLine cterm=NONE|
-          \ hi! CursorLineNr cterm=NONE ctermbg=NONE|
+          \ hi! CursorLineNr cterm=bold ctermbg=NONE|
           \ hi! MatchParen cterm=underline ctermbg=NONE|
           \ hi! VertSplit cterm=NONE ctermbg=NONE
 augroup end
