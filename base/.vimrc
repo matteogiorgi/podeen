@@ -227,6 +227,7 @@ augroup syntax_prettyfier
     autocmd VimEnter,ColorScheme *
           \ hi! Normal ctermbg=NONE|
           \ hi! LineNr ctermbg=NONE|
+          \ hi! Folded ctermbg=NONE|
           \ hi! FoldColumn ctermbg=NONE|
           \ hi! CursorLine cterm=NONE|
           \ hi! CursorLineNr cterm=bold ctermbg=NONE|
