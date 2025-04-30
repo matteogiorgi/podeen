@@ -48,7 +48,7 @@ endif
 syntax on
 filetype plugin indent on
 set background=dark
-silent! colorscheme unokai
+silent! colorscheme wildcharm
 " }}}
 
 
@@ -61,7 +61,7 @@ set shell=bash
 set runtimepath+=~/.vim_runtime
 set number relativenumber mouse=a ttymouse=sgr
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-set foldenable foldcolumn=1 foldmethod=indent foldlevelstart=99 foldnestmax=10 foldminlines=1
+set foldenable foldcolumn=0 foldmethod=indent foldlevelstart=99 foldnestmax=10 foldminlines=1
 set textwidth=120 wrapmargin=0
 set formatoptions=tcroqaj
 set ruler scrolloff=8 sidescrolloff=16
@@ -143,6 +143,10 @@ function! s:ToggleQF()
         return
     endif
     silent! cclose
+endfunction
+" ---
+function! s:ToggleFC()
+    let &foldcolumn = (&foldcolumn + 1) % 2
 endfunction
 " ---
 function! s:AddLineQF()
@@ -298,6 +302,7 @@ command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
 command! -nargs=0 RemoveSP call <SID>RemoveSP()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
+command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 ResetSR call <SID>ResetSR()
@@ -326,6 +331,7 @@ nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
+nnoremap <leader>w :ToggleFC<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
