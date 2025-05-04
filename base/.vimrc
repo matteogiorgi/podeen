@@ -133,7 +133,7 @@ function! s:CleanUpdate()
     silent! %s/\s\+$//e
     silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
-    update
+    silent! update
     echo 'clean update'
 endfunction
 " ---

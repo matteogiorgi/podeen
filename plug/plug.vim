@@ -43,13 +43,14 @@ endif
 " ---
 if executable('black')
     function! s:Black()
+        silent! update
         silent! execute '!black % 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
     endfunction
     " ---
     augroup python_cmd
         autocmd Filetype python command! -nargs=0 Black call <SID>Black()
-        autocmd Filetype python nnoremap <buffer> <leader>d :update<CR>:call <SID>Black()<CR>
+        autocmd Filetype python nnoremap <buffer> <leader>d :call <SID>Black()<CR>
     augroup end
 endif
 " }}}
