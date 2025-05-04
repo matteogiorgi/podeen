@@ -50,6 +50,7 @@
     "terminal.integrated.allowChords": false,
     "terminal.integrated.tabs.enabled": false,
     "terminal.integrated.gpuAcceleration": "off",
+    "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.profiles.linux": {
         "bash": {
             "icon": "terminal-bash",
@@ -61,7 +62,6 @@
             "path": ["/bin/dash","/usr/bin/dash"]
         }
     },
-    "terminal.integrated.defaultProfile.linux": "bash",
     "workbench.editor.showTabs": "multiple",
     "workbench.startupEditor": "none",
     "workbench.activityBar.location": "bottom",
@@ -80,6 +80,7 @@
     "github.copilot.enable": {
         "*": false
     },
+    "notebook.formatOnSave": true,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true

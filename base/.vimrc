@@ -128,12 +128,13 @@ function! s:CopyClip()
     echo 'xclip not found'
 endfunction
 " ---
-function! s:RemoveSP()
+function! s:CleanUpdate()
     let l:pos = getpos(".")
     silent! %s/\s\+$//e
     silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
-    echo 'spaces removed'
+    update
+    echo 'clean update'
 endfunction
 " ---
 function! s:ToggleQF()
@@ -300,7 +301,7 @@ augroup end
 " Commands {{{
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
-command! -nargs=0 RemoveSP call <SID>RemoveSP()
+command! -nargs=0 CleanUpdate call <SID>CleanUpdate()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
@@ -337,7 +338,7 @@ nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
-nnoremap <leader>d :RemoveSP<CR>
+nnoremap <leader>d :CleanUpdate<CR>
 nnoremap <leader>c :CopyClip<CR>
 " }}}
 
