@@ -46,7 +46,6 @@ if executable('black')
         silent! update
         silent! execute '!black % 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
-        echo 'black update'
     endfunction
     " ---
     augroup python_cmd
