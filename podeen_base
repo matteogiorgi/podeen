@@ -37,7 +37,6 @@ store_conf () {
     RESTORE="${HOME}/.podeen_recovery"
     mkdir -p "$RESTORE"
     backup_conf "${HOME}/.profile"
-    backup_conf "${HOME}/.xprofile"
     backup_conf "${HOME}/.bashrc"
     backup_conf "${HOME}/.bash_logout"
     backup_conf "${HOME}/.vimrc"
@@ -109,7 +108,6 @@ fi
 
 store_conf
 cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
-cp "${SCRIPTPATH}/base/.xprofile" "${HOME}/"
 cp "${SCRIPTPATH}/base/.bashrc" "${HOME}/"
 cp "${SCRIPTPATH}/base/.bash_logout" "${HOME}/"
 cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
