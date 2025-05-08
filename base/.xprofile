@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# ~/.xprofile should be executed by the display manager before the DE/WM start,
+# in order to ensure the correct launch of Bash as a login shell.
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
