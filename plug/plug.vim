@@ -21,6 +21,18 @@ let g:plugme = 1
 
 
 
+" VSCode {{{
+if executable('code')
+    augroup code_cmd
+        autocmd!
+        nnoremap <leader>v :!code %<CR>
+    augroup end
+endif
+" }}}
+
+
+
+
 " Python {{{
 if executable('python3')
     function! s:ExecPF()
