@@ -133,6 +133,12 @@ function fgit() {
     fi
 }
 # ---
+function fbase() {
+    [[ -x "$(command -v git)" ]] || return
+    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "not a git repo"; return; }
+    cd "$(\git rev-parse --show-toplevel)" || return
+}
+# ---
 function fkill() {
     [[ -x "$(command -v fzy)" ]] || return
     if FKILL="$(ps --no-headers -H -u "$USER" -o pid,cmd | \fzy -p "$USER processes > ")"; then
@@ -251,6 +257,7 @@ bind 'set colored-stats on'
 # ---
 bind -m vi-command -x '"\C-l": clear -x && echo ${PS1@P}'
 bind -m vi-command -x '"\C-e": fexplore && echo ${PS1@P}'
+bind -m vi-command -x '"\C-b": fbase && echo ${PS1@P}'
 bind -m vi-command -x '"\C-j": fjump && echo ${PS1@P}'
 bind -m vi-command -x '"\C-k": fhook'
 bind -m vi-command -x '"\C-f": ffind'
@@ -258,6 +265,7 @@ bind -m vi-command -x '"\C-g": fgit'
 bind -m vi-command -x '"\C-x": fkill'
 bind -m vi-insert -x '"\C-l": clear -x && echo ${PS1@P}'
 bind -m vi-insert -x '"\C-e": fexplore && echo ${PS1@P}'
+bind -m vi-insert -x '"\C-b": fbase && echo ${PS1@P}'
 bind -m vi-insert -x '"\C-j": fjump && echo ${PS1@P}'
 bind -m vi-insert -x '"\C-k": fhook'
 bind -m vi-insert -x '"\C-f": ffind'
