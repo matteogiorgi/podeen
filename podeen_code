@@ -61,7 +61,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if sudo_privilege; then
     sudo sh -c '
         apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get install -qq -y gnome-keyring dash bash git python3-full python3-pip black fonts-cascadia-code
+        apt-get install -qq -y gnome-keyring dash bash git python3-full python3-pip black jupyter fonts-cascadia-code
     '
 fi
 
