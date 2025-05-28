@@ -42,6 +42,7 @@
     "editor.minimap.side": "right",
     "editor.hover.enabled": false,
     "editor.lightbulb.enabled": "off",
+    "extensions.ignoreRecommendations": true,
     "debug.terminal.clearBeforeReusing": true,
     "terminal.explorerKind": "external",
     "terminal.external.linuxExec": "x-terminal-emulator",
@@ -81,9 +82,9 @@
     "github.copilot.enable": {
         "*": false
     },
-    "notebook.formatOnSave.enabled": true,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true
-    }
+    },
+    "notebook.formatOnSave.enabled": true
 }
