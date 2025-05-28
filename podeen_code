@@ -61,7 +61,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if sudo_privilege; then
     sudo sh -c '
         apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get install -qq -y gnome-keyring dash bash git python3-full python3-pip black jupyter fonts-cascadia-code
+        apt-get install -qq -y gnome-keyring dash bash git python3-full python3-pip black jupyter pandoc texlive-full fonts-cascadia-code
     '
 fi
 
@@ -78,7 +78,7 @@ done
 \code --install-extension ms-python.python
 \code --install-extension ms-python.black-formatter
 \code --install-extension ms-toolsai.jupyter
-\code --install-extension tomoki1207.pdf
+\code --install-extension james-yu.latex-workshop
 \code --install-extension monokai.theme-monokai-pro-vscode
 # ---
 BASE="${HOME}/.config/Code/User"
