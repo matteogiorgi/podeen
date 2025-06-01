@@ -73,6 +73,8 @@
     "workbench.list.openMode": "doubleClick",
     "workbench.tree.renderIndentGuides": "none",
     "workbench.tree.indent": 20,
+    "workbench.preferredDarkColorTheme": "Monokai Pro",
+    "workbench.preferredLightColorTheme": "Monokai Pro Light",
     "workbench.colorTheme": "Monokai Pro Light",
     "workbench.iconTheme": "Monokai Pro Light Icons",
     "workbench.productIconTheme": "Default",
@@ -91,6 +93,10 @@
     },
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.view.pdf.zoom": "page-width",
+    "latex-workshop.view.pdf.color.dark.backgroundColor": "#2d2a2e",
+    "latex-workshop.view.pdf.color.dark.pageBorderColor": "#2d2a2e",
+    "latex-workshop.view.pdf.color.light.backgroundColor": "#faf4f2",
+    "latex-workshop.view.pdf.color.light.pageBorderColor": "#faf4f2",
     "latex-workshop.formatting.latex": "latexindent",
     "notebook.formatOnSave.enabled": true
 }
