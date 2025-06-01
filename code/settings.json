@@ -85,5 +85,10 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true
-    }
+    },
+    "[latex]": {
+        "editor.formatOnSave": true
+    },
+    "latex-workshop.formatting.latex": "latexindent",
+    "notebook.formatOnSave.enabled": true
 }
