@@ -89,6 +89,7 @@
     "[latex]": {
         "editor.formatOnSave": true
     },
+    "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.view.pdf.zoom": "page-width",
     "latex-workshop.formatting.latex": "latexindent",
     "notebook.formatOnSave.enabled": true
