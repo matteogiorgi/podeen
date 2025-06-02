@@ -98,5 +98,9 @@
     "latex-workshop.view.pdf.color.light.backgroundColor": "#faf4f2",
     "latex-workshop.view.pdf.color.light.pageBorderColor": "#faf4f2",
     "latex-workshop.formatting.latex": "latexindent",
-    "notebook.formatOnSave.enabled": true
+    "notebook.defaultFormatter": "ms-python.black-formatter",
+    "notebook.formatOnSave.enabled": true,
+    "notebook.stickyScroll.enabled": true,
+    "notebook.outline.showCodeCells": true,
+    "notebook.showFoldingControls": "never"
 }
