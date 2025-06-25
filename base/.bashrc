@@ -136,7 +136,8 @@ function fgit() {
 function fbase() {
     [[ -x "$(command -v git)" ]] || return
     [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "not a git repo"; return; }
-    cd "$(\git rev-parse --show-toplevel)" || return
+    [[ $(\git rev-parse --show-toplevel 2>/dev/null) == "$PWD" ]] || { echo "already on toplevel"; return; }
+    cd "$(\git rev-parse --show-toplevel 2>/dev/null)" || return
 }
 # ---
 function fkill() {
