@@ -125,7 +125,7 @@ function fhook () {
 # ---
 function fgit() {
     [[ -x "$(command -v git)" && -x "$(command -v fzy)" ]] || return
-    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "'$PWD' not a git repo"; return; }
+    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "'$PWD' is not a git repo"; return; }
     if FGIT="$(\git log --graph --format="%h%d %s %cr" "$@" | `
           `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; then
         FGIT="$(echo "$FGIT" | grep -o '[a-f0-9]\{7\}')"
@@ -135,8 +135,8 @@ function fgit() {
 # ---
 function fbase() {
     [[ -x "$(command -v git)" ]] || return
-    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "'$PWD' not a git repo"; return; }
-    [[ $(\git rev-parse --show-toplevel 2>/dev/null) != "$PWD" ]] || { echo "'$PWD' already toplevel"; return; }
+    [[ $(\git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]] || { echo "'$PWD' is not a git repo"; return; }
+    [[ $(\git rev-parse --show-toplevel 2>/dev/null) != "$PWD" ]] || { echo "'$PWD' is already toplevel"; return; }
     cd "$(\git rev-parse --show-toplevel 2>/dev/null)" || return
 }
 # ---
