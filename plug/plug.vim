@@ -1,5 +1,5 @@
 " plug.vim: simple viml-script that sets basic configuration
-" for installed plugins (Vim 9.0+ required just for copilot).
+" for the following plugins (Vim 9.0+ is preferred).
 " ---
 " Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
 " Copilot*   -> https://github.com/github/copilot.vim
