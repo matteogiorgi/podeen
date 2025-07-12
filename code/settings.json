@@ -87,20 +87,5 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true
-    },
-    "[latex]": {
-        "editor.formatOnSave": true
-    },
-    "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.view.pdf.zoom": "page-width",
-    "latex-workshop.view.pdf.color.dark.backgroundColor": "#2d2a2e",
-    "latex-workshop.view.pdf.color.dark.pageBorderColor": "#2d2a2e",
-    "latex-workshop.view.pdf.color.light.backgroundColor": "#faf4f2",
-    "latex-workshop.view.pdf.color.light.pageBorderColor": "#faf4f2",
-    "latex-workshop.formatting.latex": "latexindent",
-    "notebook.showFoldingControls": "never",
-    "notebook.defaultFormatter": "ms-python.black-formatter",
-    "notebook.formatOnSave.enabled": true,
-    "notebook.stickyScroll.enabled": true,
-    "notebook.outline.showCodeCells": true
+    }
 }
