@@ -2,7 +2,6 @@
 " for the following plugins (Vim 9.0+ is preferred).
 " ---
 " Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
-" Copilot*   -> https://github.com/github/copilot.vim
 " Sandwich*  -> https://github.com/machakann/vim-sandwich
 " Commentary -> https://github.com/tpope/vim-commentary
 " Lexima     -> https://github.com/cohama/lexima.vim
