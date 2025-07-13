@@ -184,7 +184,7 @@ function! s:ScratchBuffer()
         silent! execute target_window . 'wincmd w'
     else
         edit /tmp/scratchbuffer
-        setlocal bufhidden=wipe
+        setlocal bufhidden=hide
         setlocal nobuflisted
         setlocal noswapfile
         setlocal filetype=scratch
@@ -256,10 +256,16 @@ augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
           \ setlocal nocursorline|
-          \ setlocal number norelativenumber
+          \ setlocal number norelativenumber|
+          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1|
+          \     let &colorcolumn = '121,'.join(range(121,999),',')|
+          \ endif
     autocmd InsertLeave *
           \ setlocal cursorline|
-          \ setlocal number relativenumber
+          \ setlocal number relativenumber|
+          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1|
+          \     setlocal colorcolumn=|
+          \ endif
 augroup end
 " ---
 augroup writer_filetype
@@ -278,7 +284,10 @@ augroup end
 " ---
 augroup scratchbuffer_autosave
     autocmd!
-    autocmd TextChanged,TextChangedI /tmp/scratchbuffer silent write
+    autocmd TextChanged,TextChangedI,BufLeave /tmp/scratchbuffer
+          \ if &modified|
+          \     silent write|
+          \ endif
 augroup end
 " ---
 augroup ctags_onsave
