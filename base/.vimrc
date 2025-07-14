@@ -85,7 +85,6 @@ set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
 set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize
 set viminfo='100,<50,s10,h
-set colorcolumn=0
 set cmdheight=1
 set nrformats-=alpha
 set fillchars=vert:┃,eob:╺
@@ -291,17 +290,15 @@ augroup end
 augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
-          \ setlocal nocursorline|
-          \ setlocal number norelativenumber|
           \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1|
           \     let &colorcolumn = '121,'.join(range(121,999),',')|
-          \ endif
-    autocmd InsertLeave *
+          \ endif|
+          \ setlocal nocursorline|
+          \ setlocal number norelativenumber
+    autocmd InsertLeave,BufWinEnter *
+          \ setlocal colorcolumn=|
           \ setlocal cursorline|
-          \ setlocal number relativenumber|
-          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1|
-          \     setlocal colorcolumn=|
-          \ endif
+          \ setlocal number relativenumber
 augroup end
 " ---
 augroup writer_filetype
