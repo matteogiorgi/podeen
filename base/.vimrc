@@ -122,7 +122,7 @@ endfunction
 function! s:CopyClip()
     if executable('xclip')
         let @" = system('xclip -selection clipboard', getreg(''))
-        echo 'copied 2clipboard'
+        echo 'xclip copy'
         return
     endif
     echo 'xclip not found'
@@ -150,6 +150,42 @@ function! s:ToggleFC()
     let &foldcolumn = (&foldcolumn + 1) % 2
 endfunction
 " ---
+function! s:ToggleWM()
+    if exists('b:wrapmotion') && b:wrapmotion
+        unlet b:wrapmotion
+        setlocal nowrap
+        silent! nunmap <buffer> j
+        silent! xunmap <buffer> j
+        silent! ounmap <buffer> j
+        silent! nunmap <buffer> k
+        silent! xunmap <buffer> k
+        silent! ounmap <buffer> k
+        silent! nunmap <buffer> 0
+        silent! xunmap <buffer> 0
+        silent! ounmap <buffer> 0
+        silent! nunmap <buffer> $
+        silent! xunmap <buffer> $
+        silent! ounmap <buffer> $
+        echo "wrapmotion off"
+    else
+        let b:wrapmotion = 1
+        setlocal wrap
+        nnoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
+        xnoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
+        onoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
+        nnoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
+        xnoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
+        onoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
+        nnoremap <buffer> 0 g0
+        xnoremap <buffer> 0 g0
+        onoremap <buffer> 0 g0
+        nnoremap <buffer> $ g$
+        xnoremap <buffer> $ g$
+        onoremap <buffer> $ g$
+        echo "wrapmotion on"
+    endif
+endfunction
+" ---
 function! s:AddLineQF()
     let l:qf_list = getqflist()
     let l:qf_entry = {
@@ -161,7 +197,7 @@ function! s:AddLineQF()
           \ }
     call add(l:qf_list, l:qf_entry)
     call setqflist(l:qf_list)
-    echo 'line 2quickfix'
+    echo 'quickfix newline'
 endfunction
 " ---
 function! s:ResetQF()
@@ -273,19 +309,16 @@ augroup writer_filetype
     autocmd FileType plaintex setfiletype=tex
     autocmd FileType tex,markdown,html,text,scratch
           \ setlocal formatoptions=|
-          \ setlocal wrap spell conceallevel=0|
+          \ setlocal spell conceallevel=0|
           \ setlocal spelllang=en_us|
           \ setlocal foldmethod=manual|
-          \ nnoremap <buffer> j gj|
-          \ nnoremap <buffer> k gk|
-          \ nnoremap <buffer> 0 g0|
-          \ nnoremap <buffer> $ g$
+          \ silent! call <SID>ToggleWM()
 augroup end
 " ---
 augroup scratchbuffer_autosave
     autocmd!
     autocmd TextChanged,TextChangedI,BufLeave /tmp/scratchbuffer
-          \ if &modified|
+          \ if &modified && &modifiable|
           \     silent write|
           \ endif
 augroup end
@@ -313,6 +346,7 @@ command! -nargs=0 CopyClip call <SID>CopyClip()
 command! -nargs=0 CleanUpdate call <SID>CleanUpdate()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
+command! -nargs=0 ToggleWM call <SID>ToggleWM()
 command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 ResetSR call <SID>ResetSR()
@@ -341,14 +375,15 @@ nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>w :ToggleFC<CR>
+nnoremap <leader>w :ToggleWM<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
-nnoremap <leader>c :CopyClip<CR>
+nnoremap <leader>z :ToggleFC<CR>
+nnoremap <leader>x :CopyClip<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
