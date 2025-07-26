@@ -10,7 +10,7 @@
     "window.titleBarStyle": "custom",
     "window.customTitleBarVisibility": "windowed",
     "window.menuBarVisibility": "compact",
-    "window.commandCenter": false,
+    "window.commandCenter": true,
     "window.density.editorTabHeight": "default",
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
