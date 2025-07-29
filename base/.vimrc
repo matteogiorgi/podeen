@@ -380,7 +380,7 @@ nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
 nnoremap <leader>z :ToggleFC<CR>
-nnoremap <leader>x :CopyClip<CR>
+nnoremap <leader>c :CopyClip<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
