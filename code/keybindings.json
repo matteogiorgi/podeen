@@ -5,7 +5,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+alt+a",
+        "key": "alt+shift+a",
         "command": "editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
     },
