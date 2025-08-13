@@ -77,7 +77,6 @@ done
 \code --install-extension github.copilot
 \code --install-extension ms-python.python
 \code --install-extension ms-python.black-formatter
-\code --install-extension monokai.theme-monokai-pro-vscode
 # ---
 BASE="${HOME}/.config/Code/User"
 if mkdir -p "$BASE"; then

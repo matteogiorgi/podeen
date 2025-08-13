@@ -265,7 +265,6 @@ augroup end
 augroup syntax_prettyfier
     autocmd!
     autocmd VimEnter,ColorScheme *
-          \ hi! Normal ctermbg=NONE|
           \ hi! LineNr ctermbg=NONE|
           \ hi! Folded ctermbg=NONE|
           \ hi! FoldColumn ctermbg=NONE|
