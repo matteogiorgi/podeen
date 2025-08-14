@@ -96,7 +96,7 @@ if sudo_privilege; then
     # ---
     sudo sh -c '
         apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get install -qq -y git bash bash-completion fzy file fd-find xclip trash-cli procps less tmux vim exuberant-ctags wamerican make gcc gdb valgrind
+        apt-get install -qq -y git bash bash-completion fzy file fd-find xclip trash-cli procps less tmux vim-gtk3 exuberant-ctags wamerican make gcc gdb valgrind
     '
 fi
 

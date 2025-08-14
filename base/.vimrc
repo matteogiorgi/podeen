@@ -17,6 +17,27 @@ endif
 
 
 
+" GVim {{{
+if has('gui_running')
+    set vb t_vb=
+    set columns=120 lines=50
+    set guioptions=i
+    set guicursor+=a:blinkon0
+    set guifont=Monospace\ 10
+    " ---
+    if system('fc-list') =~ 'Cascadia Code'
+        set guifont=Cascadia\ Code\ 10
+    endif
+    " ---
+    if has('unnamedplus')
+        set clipboard=unnamedplus
+    endif
+endif
+" }}}
+
+
+
+
 " Undodir {{{
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
@@ -89,6 +110,7 @@ set cmdheight=1
 set nrformats-=alpha
 set fillchars=vert:┃,eob:╺
 set laststatus=2 showtabline=1
+set termguicolors
 set nocompatible
 set esckeys
 " ---
@@ -226,6 +248,14 @@ function! s:ScratchBuffer()
         setlocal nospell
     endif
 endfunction
+" ---
+function! s:GuiFont()
+    if has('gui_running')
+        silent! execute 'set guifont=*'
+    else
+        echo 'not in gvim'
+    endif
+endfunction
 " }}}
 
 
@@ -265,13 +295,14 @@ augroup end
 augroup syntax_prettyfier
     autocmd!
     autocmd VimEnter,ColorScheme *
-          \ hi! LineNr ctermbg=NONE|
-          \ hi! Folded ctermbg=NONE|
-          \ hi! FoldColumn ctermbg=NONE|
-          \ hi! CursorLine cterm=NONE|
-          \ hi! CursorLineNr cterm=bold ctermbg=NONE|
-          \ hi! MatchParen cterm=underline ctermbg=NONE|
-          \ hi! VertSplit cterm=NONE ctermbg=NONE
+          \ hi! LineNr ctermbg=NONE guibg=NONE|
+          \ hi! Folded ctermbg=NONE guibg=NONE|
+          \ hi! FoldColumn ctermbg=NONE guibg=NONE|
+          \ hi! SignColumn ctermbg=NONE guibg=NONE|
+          \ hi! CursorLine cterm=NONE gui=NONE|
+          \ hi! CursorLineNr cterm=bold ctermbg=NONE gui=bold guibg=NONE|
+          \ hi! MatchParen cterm=underline ctermbg=NONE gui=underline guibg=NONE|
+          \ hi! VertSplit cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
 augroup end
 " ---
 augroup fold_autoload
@@ -347,6 +378,7 @@ command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 ResetSR call <SID>ResetSR()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
+command! -nargs=0 GuiFont call <SID>GuiFont()
 " }}}
 
 
@@ -378,6 +410,7 @@ nnoremap <leader>t :CTags<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
+nnoremap <leader>g :GuiFont<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
 " }}}
