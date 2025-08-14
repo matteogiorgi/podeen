@@ -60,8 +60,11 @@ EOF
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if sudo_privilege; then
     sudo sh -c '
-        apt-get update && apt-get upgrade -qq -y --allow-downgrades &&
+        apt-get update &&
+        apt-get upgrade -qq -y --allow-downgrades &&
         apt-get install -qq -y gnome-keyring fonts-cascadia-code git dash bash python3-full python3-pip black
+        apt-get -qq -y autoremove --purge &&
+        apt-get -qq -y autoclean
     '
 fi
 
