@@ -132,7 +132,7 @@ set belloff+=ctrlg
 " Functions {{{
 function! s:CTags()
     if executable('ctags')
-        silent! execute '!ctags -R --exclude=.git'
+        silent! execute '!ctags -R --exclude=.git 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
         echo 'ctags executed'
         return
@@ -142,7 +142,7 @@ endfunction
 " ---
 function! s:CopyClip()
     if executable('xclip')
-        let @" = system('xclip -selection clipboard', getreg(''))
+        let @" = system('xclip -selection clipboard &>/dev/null', getreg(''))
         echo 'xclip copy'
         return
     endif
