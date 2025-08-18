@@ -394,6 +394,11 @@ noremap <silent><C-l> )
 noremap <silent><C-j> }
 noremap <silent><C-k> {
 " ---
+inoremap <silent> <C-c> <Esc>
+xnoremap <silent> <C-c> <Esc>
+snoremap <silent> <C-c> <Esc>
+onoremap <silent> <C-c> <Esc>
+" ---
 vnoremap <silent>H <gv
 vnoremap <silent>L >gv
 xnoremap <silent>J :move '>+1<CR>gv=gv
