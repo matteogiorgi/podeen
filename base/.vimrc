@@ -143,12 +143,8 @@ endfunction
 function! s:CopyClip()
     if executable('xclip')
         let l:ans = input('copy from register: ')|redraw!
-        let l:rin = empty(l:ans) ? '"' : l:ans
-        if l:rin =~# '^"'
-            let l:rin = l:rin[1:]
-        endif
-        let l:reg = (l:rin ==# '') ? '"' : l:rin[0]
-        let l:src = (l:reg ==# '"') ? '' : l:reg
+        let l:rin = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
+        let [l:reg, l:src] = empty(l:rin) ? ['"', ''] : [l:rin[0], l:rin[0]]
         let l:text = getreg(l:src)
         call system('xclip -selection clipboard -i >/dev/null 2>&1', l:text)
         echom printf('copied from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
