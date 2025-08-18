@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
-# Sandwich*  -> https://github.com/machakann/vim-sandwich
+# Ctrlp      -> https://github.com/ctrlpvim/ctrlp.vim
+# Sandwich   -> https://github.com/machakann/vim-sandwich
 # Commentary -> https://github.com/tpope/vim-commentary
 # Lexima     -> https://github.com/cohama/lexima.vim
 # Context    -> https://github.com/wellle/context.vim
@@ -19,7 +19,7 @@ sudo_privilege () {
 reset_plugin() {
     printf "\n%s\n" "$OPERATION"
     if [ -d "$PLUGIN" ]; then
-        \git -C "$PLUGIN" pull
+        \git -C "$PLUGIN" pull --ff-only
     else
         \git clone "$REPOSITORY" "$PLUGIN"
     fi
