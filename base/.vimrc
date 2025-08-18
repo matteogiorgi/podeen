@@ -28,10 +28,6 @@ if has('gui_running')
     if system('fc-list') =~ 'Cascadia Code'
         set guifont=Cascadia\ Code\ 10
     endif
-    " ---
-    if has('unnamedplus')
-        set clipboard=unnamedplus
-    endif
 endif
 " }}}
 
@@ -124,6 +120,10 @@ set wildchar=<Tab> wildmode=full
 set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*/tmp/*,*.so,*.swp,*.zip
 set shortmess+=c
 set belloff+=ctrlg
+" ---
+if has('unnamedplus')
+    set clipboard^=unnamedplus
+endif
 " }}}
 
 
@@ -141,6 +141,10 @@ function! s:CTags()
 endfunction
 " ---
 function! s:CopyClip()
+    if has('unnamedplus') && &clipboard =~# '\v(^|,)unnamedplus(,|$)'
+        echo 'autocopy to clipboard'
+        return
+    endif
     if executable('xclip')
         let @" = system('xclip -selection clipboard &>/dev/null', getreg(''))
         echo 'xclip copy'
