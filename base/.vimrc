@@ -141,13 +141,17 @@ function! s:CTags()
 endfunction
 " ---
 function! s:CopyClip()
-    if has('unnamedplus') && &clipboard =~# '\v(^|,)unnamedplus(,|$)'
-        echo 'autocopy to clipboard'
-        return
-    endif
     if executable('xclip')
-        let @" = system('xclip -selection clipboard &>/dev/null', getreg(''))
-        echo 'xclip copy'
+        let l:ans = input('copy from register: ')|redraw!
+        let l:rin = empty(l:ans) ? '"' : l:ans
+        if l:rin =~# '^"'
+            let l:rin = l:rin[1:]
+        endif
+        let l:reg = (l:rin ==# '') ? '"' : l:rin[0]
+        let l:src = (l:reg ==# '"') ? '' : l:reg
+        let l:text = getreg(l:src)
+        call system('xclip -selection clipboard -i >/dev/null 2>&1', l:text)
+        echom printf('copied from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
         return
     endif
     echo 'xclip not found'
