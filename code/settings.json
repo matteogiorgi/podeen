@@ -32,7 +32,7 @@
     "editor.rulers": [120],
     "editor.folding": true,
     "editor.foldingHighlight": true,
-    "editor.showFoldingControls": "never",
+    "editor.showFoldingControls": "mouseover",
     "editor.stickyScroll.defaultModel": "outlineModel",
     "editor.wordWrap": "off",
     "editor.cursorBlinking": "solid",
