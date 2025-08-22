@@ -30,7 +30,7 @@
     "editor.fontLigatures": true,
     "editor.guides.indentation": false,
     "editor.rulers": [120],
-    "editor.folding": false,
+    "editor.folding": true,
     "editor.showFoldingControls": "never",
     "editor.wordWrap": "off",
     "editor.cursorBlinking": "solid",
