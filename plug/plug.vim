@@ -24,13 +24,13 @@ let g:plugme = 1
 if executable('python3')
     function! s:ExecPF()
         silent! update
-        silent! execute '!python3 %'
+        execute '!python3 %'
     endfunction
     " ---
     function! s:ExecPS()
         let l:tmpfile = tempname()
         silent! execute "'<,'>write " . l:tmpfile
-        silent! execute '!python3 ' . l:tmpfile
+        execute '!python3 ' . l:tmpfile
     endfunction
     " ---
     augroup python_cmd
