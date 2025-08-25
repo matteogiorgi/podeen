@@ -132,7 +132,7 @@ endif
 " Functions {{{
 function! s:CTags()
     if executable('ctags')
-        silent! execute '!ctags -R --exclude=.git 2>/dev/null'
+        silent! execute '!ctags -R --exclude=.* 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
         echo 'ctags executed'
         return
