@@ -88,6 +88,7 @@
     "workbench.iconTheme": "vs-seti",
     "workbench.productIconTheme": "Default",
     "workbench.layoutControl.enabled": false,
+    "workbench.tips.enabled": false,
     "chat.commandCenter.enabled": false,
     "github.copilot.editor.enableCodeActions": true,
     "github.copilot.nextEditSuggestions.enabled": true,
