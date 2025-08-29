@@ -23,7 +23,13 @@ let g:plugme = 1
 " Python {{{
 if executable('python3')
     function! s:ExecPF()
-        silent! update
+        if exists(':Black')
+            Black
+        elseif exists(':CleanUpdate')
+            CleanUpdate
+        else
+            silent! update
+        endif
         execute '!python3 %'
     endfunction
     " ---
@@ -35,6 +41,8 @@ if executable('python3')
     " ---
     augroup python_cmd
         autocmd!
+        autocmd Filetype python command! -nargs=0 ExecPF call <SID>ExecPF()
+        autocmd Filetype python command! -nargs=0 ExecPS call <SID>ExecPS()
         autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
         autocmd Filetype python vnoremap <buffer> <leader>x :<C-U>call <SID>ExecPS()<CR>
     augroup end
@@ -53,6 +61,31 @@ if executable('black')
     augroup end
 endif
 " }}}
+
+
+
+
+" Git {{{
+if executable('git')
+    function! s:GitDiff()
+        if system('git rev-parse --is-inside-work-tree 2>/dev/null') !=# "true\n"
+            echo "'" . getcwd() . "' is not in a git repo"
+            return
+        endif
+        if exists(':Black')
+            Black
+        elseif exists(':CleanUpdate')
+            CleanUpdate
+        else
+            silent! update
+        endif
+        execute '!git diff %'
+    endfunction
+    " ---
+    command! -nargs=0 GitDiff call <SID>GitDiff()
+    nnoremap <leader>g :call <SID>GitDiff()<CR>
+endif
+"}}}
 
 
 
