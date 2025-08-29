@@ -85,8 +85,6 @@
     "workbench.tree.indent": 20,
     "workbench.preferredDarkColorTheme": "Visual Studio Dark",
     "workbench.preferredLightColorTheme": "Visual Studio Light",
-    "workbench.preferredHighContrastColorTheme": "Default High Contrast",
-    "workbench.preferredHighContrastLightColorTheme": "Default High Contrast Light",
     "workbench.colorTheme": "Visual Studio Light",
     "workbench.iconTheme": "vs-seti",
     "workbench.productIconTheme": "Default",
@@ -107,5 +105,21 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true
-    }
+    },
+    "[latex]": {
+        "editor.formatOnSave": true
+    },
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.view.pdf.zoom": "page-width",
+    "latex-workshop.view.pdf.color.dark.backgroundColor": "#252526",
+    "latex-workshop.view.pdf.color.dark.pageBorderColor": "#252526",
+    "latex-workshop.view.pdf.color.light.backgroundColor": "#f3f3f3",
+    "latex-workshop.view.pdf.color.light.pageBorderColor": "#f3f3f3",
+    "latex-workshop.formatting.latex": "latexindent",
+    "notebook.showFoldingControls": "never",
+    "notebook.defaultFormatter": "ms-python.black-formatter",
+    "notebook.formatOnSave.enabled": true,
+    "notebook.stickyScroll.enabled": true,
+    "notebook.outline.showCodeCells": true,
+    "notebook.showFoldingControls": "never"
 }
