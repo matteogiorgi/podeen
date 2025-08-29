@@ -89,7 +89,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if sudo_privilege; then
     while IFS='' read -r OSRELEASELINE; do
         case "$OSRELEASELINE" in
-            ID=debian|ID=\"debian\"|VERSION_ID=12|VERSION_ID=\"12\"|"VERSION_ID=12 (bookworm)"|"VERSION_ID=\"12 (bookworm)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 ));;
+            ID=debian|ID=\"debian\"|VERSION_ID=13|VERSION_ID=\"13\"|"VERSION_ID=13 (trixie)"|"VERSION_ID=\"13 (trixie)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 ));;
         esac
         [ "${LINECOUNT:-0}" -eq 2 ] && { testing_setup; break; }
     done < /etc/os-release 2>/dev/null
