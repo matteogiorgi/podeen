@@ -109,6 +109,7 @@ set laststatus=2 showtabline=1
 set termguicolors
 set nocompatible
 set esckeys
+set tags+=./tags;
 " ---
 set path+=**
 set completeopt=menuone,popup,noinsert,noselect
@@ -132,9 +133,28 @@ endif
 " Functions {{{
 function! s:CTags()
     if executable('ctags')
-        silent! execute '!ctags -R --exclude=.* 2>/dev/null'
+        if executable('git')
+            let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
+            let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
+        else
+            let l:root = getcwd()
+        endif
+        let l:cmd = printf(
+                  \ 'ctags -R -f %s/tags'
+                  \ . ' --exclude=.git'
+                  \ . ' --exclude=.hg'
+                  \ . ' --exclude=.svn'
+                  \ . ' --exclude=.mypy_cache'
+                  \ . ' --exclude=__pycache__'
+                  \ . ' --exclude=.venv'
+                  \ . ' --exclude=node_modules'
+                  \ . ' %s',
+                  \ shellescape(l:root),
+                  \ shellescape(l:root)
+              \ )
+        silent! execute '!' . l:cmd . ' 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
-        echo 'ctags executed'
+        echo 'ctags executed @ ' . l:root
         return
     endif
     echo 'ctags not found'
@@ -391,8 +411,8 @@ command! -nargs=0 GuiFont call <SID>GuiFont()
 " Keymaps {{{
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
+nnoremap <silent><C-b> :tabnew%<CR>
 nnoremap <silent><Tab> :buffer#<CR>
-nnoremap <leader><Tab> :tabnew%<CR>
 " ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )
