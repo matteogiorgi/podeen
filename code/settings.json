@@ -29,7 +29,7 @@
     "editor.renderLineHighlight": "gutter",
     "editor.fontLigatures": true,
     "editor.guides.indentation": false,
-    "editor.rulers": [120],
+    "editor.rulers": [],
     "editor.folding": true,
     "editor.foldingHighlight": true,
     "editor.showFoldingControls": "always",
