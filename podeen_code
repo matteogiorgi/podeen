@@ -75,13 +75,20 @@ fi
 #########
 
 for EXTENSION in $(\code --list-extensions); do
-    \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1
+    if \code --list-extensions | grep -qx "$EXTENSION"; then
+        \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1 || printf "%s\n" "'$EXTENSION' uninstall failed (continuing)"
+    fi
 done
-\code --install-extension github.copilot
-\code --install-extension james-yu.latex-workshop
-\code --install-extension ms-python.python
-\code --install-extension ms-python.black-formatter
-\code --install-extension ms-toolsai.jupyter
+# ---
+for EXTENSION in \
+    github.copilot \
+    james-yu.latex-workshop \
+    ms-python.python \
+    ms-python.black-formatter \
+    ms-toolsai.jupyter
+do
+    \code --install-extension "$EXTENSION" || { printf "\n%s\n" "'$EXTENSION' install failed"; exit 1; }
+done
 # ---
 BASE="${HOME}/.config/Code/User"
 if mkdir -p "$BASE"; then
