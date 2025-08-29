@@ -86,7 +86,7 @@ EOF
 #######################
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
-if sudo_privilege; then
+if sudo_privilege && command -v apt-get >/dev/null 2>&1; then
     while IFS='' read -r OSRELEASELINE; do
         case "$OSRELEASELINE" in
             ID=debian|ID=\"debian\"|VERSION_ID=13|VERSION_ID=\"13\"|"VERSION_ID=13 (trixie)"|"VERSION_ID=\"13 (trixie)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 ));;
@@ -101,7 +101,7 @@ if sudo_privilege; then
         apt-get install -qq -y git bash bash-completion fzy file fd-find xclip trash-cli procps less tmux vim exuberant-ctags wamerican make gcc gdb valgrind &&
         apt-get -qq -y autoremove --purge &&
         apt-get -qq -y autoclean
-    '
+    ' || { printf "\n%s\n" "Package installation failed"; exit 1; }
 fi
 
 

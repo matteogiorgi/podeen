@@ -392,6 +392,7 @@ command! -nargs=0 GuiFont call <SID>GuiFont()
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
 nnoremap <silent><Tab> :buffer#<CR>
+nnoremap <leader><Tab> :tabnew%<CR>
 " ---
 noremap <silent><C-h> (
 noremap <silent><C-l> )

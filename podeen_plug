@@ -15,15 +15,6 @@
 sudo_privilege () {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
-# ---
-reset_plugin() {
-    printf "\n%s\n" "$OPERATION"
-    if [ -d "$PLUGIN" ]; then
-        \git -C "$PLUGIN" pull --ff-only
-    else
-        \git clone "$REPOSITORY" "$PLUGIN"
-    fi
-}
 
 
 
@@ -40,7 +31,7 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 # ---
-if ! command -v vim >/dev/null 2>&1 || ! \vim --version | grep -q 'Vi IMproved 9'; then
+if ! command -v vim >/dev/null 2>&1 || ! \vim --version 2>/dev/null | head -n1 | grep -q 'Vi IMproved 9'; then
     printf "\n%s"   "═══════ Warning: Vim9 not found ══════"
     printf "\n%s\n" "Install Vim9 and run this script again"
     exit 1
@@ -68,7 +59,7 @@ EOF
 #######################
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
-if sudo_privilege; then
+if sudo_privilege && command -v apt-get >/dev/null 2>&1; then
     sudo sh -c '
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
@@ -76,7 +67,7 @@ if sudo_privilege; then
         apt-get install -qq -y git vim-gtk3 python3-full python3-pip black &&
         apt-get -qq -y autoremove --purge &&
         apt-get -qq -y autoclean
-    '
+    ' || { printf "\n%s\n" "Package installation failed"; exit 1; }
 fi
 
 
@@ -85,35 +76,46 @@ fi
 ### Start
 #########
 
+set -- \
+    "https://github.com/ctrlpvim/ctrlp.vim.git" \
+    "https://github.com/machakann/vim-sandwich.git" \
+    "https://github.com/tpope/vim-commentary.git" \
+    "https://github.com/cohama/lexima.vim.git" \
+    "https://github.com/wellle/context.vim.git"
+# ---
 VIM=${HOME}/.vim
 START="${VIM}/pack/plug/start"
-mkdir -p "$START"
-[ -d "${VIM}/plugin" ] || cp -r "${SCRIPTPATH}/plug" "${VIM}/plugin"
+FOUND=""
 # ---
-OPERATION="RESETTING CTRLP"
-REPOSITORY="https://github.com/ctrlpvim/ctrlp.vim.git"
-PLUGIN="${START}/ctrlp"
-reset_plugin
+mkdir -p "$START" || exit 1
+if [ ! -d "${VIM}/plugin" ] && [ -d "${SCRIPTPATH}/plug" ]; then
+    cp -R "${SCRIPTPATH}/plug" "${VIM}/plugin"
+fi
 # ---
-OPERATION="RESETTING SANDWICH"
-REPOSITORY="https://github.com/machakann/vim-sandwich.git"
-PLUGIN="${START}/sandwich"
-reset_plugin
+for DIR in "$START"/*; do
+    [ -e "$DIR" ] && [ -d "$DIR/.git" ] || continue
+    ORIGIN=$(\git -C "$DIR" config --get remote.origin.url 2>/dev/null)
+    printf "\n%s\n" "UPDATING $(basename "$DIR")"
+    \git -C "$DIR" pull --ff-only
+    for URL in "$@"; do
+        if [ "$ORIGIN" = "$URL" ]; then
+            case " $FOUND " in
+                *" $URL "*) : ;;
+                *) FOUND="$FOUND $URL" ;;
+            esac
+        fi
+    done
+done
 # ---
-OPERATION="RESETTING COMMENTARY"
-REPOSITORY="https://github.com/tpope/vim-commentary.git"
-PLUGIN="${START}/commentary"
-reset_plugin
-# ---
-OPERATION="RESETTING LEXIMA"
-REPOSITORY="https://github.com/cohama/lexima.vim.git"
-PLUGIN="${START}/lexima"
-reset_plugin
-# ---
-OPERATION="RESETTING CONTEXT"
-REPOSITORY="https://github.com/wellle/context.vim.git"
-PLUGIN="${START}/context"
-reset_plugin
+for URL in "$@"; do
+    case " $FOUND " in
+        *" $URL "*) : ;;
+        *)
+            printf "\n%s\n" "CLONING $URL"
+            \git -C "$START" clone "$URL"
+            ;;
+    esac
+done
 
 
 
