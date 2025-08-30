@@ -79,6 +79,8 @@ for EXTENSION in $(\code --list-extensions); do
         \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1 || printf "%s\n" "'$EXTENSION' uninstall failed (continuing)"
     fi
 done
+rm -rf "${HOME}/.config/Code/CachedExtensionVSIXs" \
+       "${HOME}/.vscode/extensions" 2>/dev/null || true
 # ---
 for EXTENSION in \
     github.copilot \
