@@ -1,4 +1,4 @@
-# <span style="color: #A80030;">PO</span>rtable <span style="color: #A80030;">DE</span>bian <span style="color: #A80030;">EN</span>vironment &nbsp;<a href="https://www.debian.org"><img src="https://www.debian.org/logos/officiallogo-nd.svg" style="height: 1em; vertical-align: top;"></a>
+# POrtable DEbian ENvironment &nbsp;<a href="https://www.debian.org"><img src="https://www.debian.org/logos/officiallogo-nd.svg" style="height: 1em; vertical-align: top;"></a>
 
 This repository contains a collection of configuration files and installation scripts for a complete and efficient minimal *UNIX* work environment based on any *Debian* or *Debian-based* distribution.
 
