@@ -72,11 +72,11 @@ for PKG in $PACKAGES; do
 done
 # ---
 if [ -n "$PROBLEMS" ]; then
-    ask_proceed "these packages might cause issues:'$PROBLEMS'"
+    ask_user "these packages might cause issues:'$PROBLEMS'"
 fi
 # ---
 if ! sudo_privileges; then
-    ask_proceed "'$USER' does not have sudo privileges"
+    ask_user "'$USER' does not have sudo privileges"
 fi
 
 
