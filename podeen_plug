@@ -67,12 +67,12 @@ EOF
 PACKAGES="git vim-gtk3 python3-full python3-pip black fonts-cascadia-code"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
-        PROBLEMS="${PROBLEMS:-} $PKG"
+        PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
     fi
 done
 # ---
-if [ -n "$PROBLEMS" ]; then
-    ask_user "these packages might cause issues:'$PROBLEMS'"
+if [ -n "${PROBLEMS-}" ]; then
+    ask_user "these packages might cause issues: '$PROBLEMS'"
 fi
 # ---
 if ! sudo_privileges; then
