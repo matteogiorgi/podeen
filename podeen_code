@@ -9,8 +9,17 @@
 ### Functions
 #############
 
-sudo_privilege () {
+sudo_privileges () {
     id -Gn 2>/dev/null | grep -qw "sudo"
+}
+# ---
+ask_user () {
+    printf "%s\n" "$1"
+    read -r -p "wish to proceed anyway? [y/N] " ANS
+    case "$ANS" in
+        y | Y | yes | YES) printf "\n%s\n" "setup resumed" ;;
+        *) printf "\n%s\n" "setup interrupted"; exit 1 ;;
+    esac
 }
 # ---
 try_run () {
@@ -37,8 +46,8 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 # ---
 if ! command -v code >/dev/null 2>&1; then
-    printf "\n%s"   "═══════ Warning: VSCode not found ══════"
-    printf "\n%s\n" "Install VSCode and run this script again"
+    printf "\n%s"   "═══════ WARNING: VSCode not found ══════"
+    printf "\n%s\n" "install VSCode and run this script again"
     exit 1
 fi
 
@@ -59,19 +68,42 @@ EOF
 
 
 
+### Packages & Sudo
+###################
+
+PACKAGES="git dash bash gnome-keyring pandoc texlive-full \
+python3-full python3-pip black fonts-cascadia-code"
+for PKG in $PACKAGES; do
+    if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
+        PROBLEMS="${PROBLEMS:-} $PKG"
+    fi
+done
+# ---
+if [ -n "$PROBLEMS" ]; then
+    ask_proceed "these packages might cause issues:'$PROBLEMS'"
+fi
+# ---
+if ! sudo_privileges; then
+    ask_proceed "'$USER' does not have sudo privileges"
+fi
+
+
+
+
 ### Path & Dependencies
 #######################
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
-if sudo_privilege && command -v apt-get >/dev/null 2>&1; then
-    sudo sh -c '
-        apt-get update &&
-        apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get install -qq -y gnome-keyring fonts-cascadia-code git dash bash pandoc texlive-full python3-full python3-pip black
-        apt-get -qq -y autoremove --purge &&
-        apt-get -qq -y autoclean
-    ' || { printf "\n%s\n" "Package installation failed"; exit 1; }
-fi
+sudo sh -c '
+    apt-get update &&
+    apt-get upgrade -qq -y --allow-downgrades &&
+    apt-get install -qq -y '"$PACKAGES"' || true &&
+    apt-get -qq -y autoremove --purge &&
+    apt-get -qq -y autoclean
+' || {
+    printf "\n%s\n" "packages installation failed"
+    exit 1
+}
 
 
 
@@ -85,7 +117,7 @@ for EXTENSION in $(\code --list-extensions); do
     try_run \code --uninstall-extension "$EXTENSION"
 done
 rm -rf "$HOME/.config/Code/CachedExtensionVSIXs" \
-       "$HOME/.vscode/extensions" 2>/dev/null || true
+      "$HOME/.vscode/extensions" 2>/dev/null || true
 # ---
 printf "\n%s\n" "INSTALLING CODE EXTENSIONS"
 for EXTENSION in \

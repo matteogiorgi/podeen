@@ -9,11 +9,20 @@
 ### Functions
 #############
 
-sudo_privilege () {
+sudo_privileges () {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
 # ---
-testing_setup() {
+ask_user () {
+    printf "%s\n" "$1"
+    read -r -p "wish to proceed anyway? [y/N] " ANS
+    case "$ANS" in
+        y | Y | yes | YES) printf "\n%s\n" "setup resumed" ;;
+        *) printf "\n%s\n" "setup interrupted"; exit 1 ;;
+    esac
+}
+# ---
+testing_setup () {
     [ -s /etc/apt/sources.list ] && grep '^[^#]' /etc/apt/sources.list >/dev/null || return
     REPO="deb http://deb.debian.org/debian testing main contrib"
     if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
@@ -45,12 +54,12 @@ store_conf () {
     mkdir -p "$RESTORE"
     printf "\n%s\n" "REMOVING BASE SCRIPTS"
     for SCRIPT in \
-        ".profile" \
-        ".bashrc" \
-        ".bash_logout" \
-        ".vimrc" \
-        ".tmux.conf" \
-        ".local/bin/fetch.sh"
+        .profile \
+        .bashrc \
+        .bash_logout \
+        .vimrc \
+        .tmux.conf \
+        .local/bin/fetch.sh
     do
         backup_conf "$HOME/$SCRIPT"
     done
@@ -72,8 +81,8 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 # ---
 if [ -d "$HOME/.podeen_recovery" ]; then
-    printf "\n%s"   "════════════════ Warning: podeen already set ════════════════"
-    printf "\n%s\n" "Remove ~/.podeen_recovery directory and run this script again"
+    printf "\n%s"   "════════════════ WARNING: podeen already set ════════════════"
+    printf "\n%s\n" "remove ~/.podeen_recovery directory and run this script again"
     exit 1
 fi
 
@@ -94,27 +103,60 @@ EOF
 
 
 
+### Packages & Sudo
+###################
+
+PACKAGES="git bash bash-completion fzy file fd-find xclip trash-cli \
+procps less tmux vim exuberant-ctags wamerican make gcc gdb valgrind"
+for PKG in $PACKAGES; do
+    if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
+        PROBLEMS="${PROBLEMS:-} $PKG"
+    fi
+done
+# ---
+if [ -n "$PROBLEMS" ]; then
+    ask_proceed "these packages might cause issues:'$PROBLEMS'"
+fi
+# ---
+if ! sudo_privileges; then
+    ask_proceed "'$USER' does not have sudo privileges"
+fi
+
+
+
+
 ### Path & Dependencies
 #######################
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
-if sudo_privilege && command -v apt-get >/dev/null 2>&1; then
-    while IFS='' read -r OSRELEASELINE; do
-        case "$OSRELEASELINE" in
-            ID=debian|ID=\"debian\"|VERSION_ID=13|VERSION_ID=\"13\"|"VERSION_ID=13 (trixie)"|"VERSION_ID=\"13 (trixie)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 ));;
-        esac
-        [ "${LINECOUNT:-0}" -eq 2 ] && { testing_setup; break; }
-    done < /etc/os-release 2>/dev/null
-    # ---
-    sudo sh -c '
-        apt-get update &&
-        apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get purge -qq -y vim-tiny vim-gtk3 || true &&
-        apt-get install -qq -y git bash bash-completion fzy file fd-find xclip trash-cli procps less tmux vim exuberant-ctags wamerican make gcc gdb valgrind &&
-        apt-get -qq -y autoremove --purge &&
-        apt-get -qq -y autoclean
-    ' || { printf "\n%s\n" "Package installation failed"; exit 1; }
-fi
+while IFS='' read -r OSRELEASELINE; do
+    case "$OSRELEASELINE" in
+        ID=debian \
+        | ID=\"debian\" \
+        | VERSION_ID=13 \
+        | VERSION_ID=\"13\" \
+        | "VERSION_ID=13 (trixie)" \
+        | "VERSION_ID=\"13 (trixie)\"")
+            LINECOUNT=$(( ${LINECOUNT:-0} + 1 ))
+            ;;
+    esac
+    if [ "${LINECOUNT:-0}" -eq 2 ]; then
+        testing_setup
+        break
+    fi
+done < /etc/os-release 2>/dev/null
+# ---
+sudo sh -c '
+    apt-get update &&
+    apt-get upgrade -qq -y --allow-downgrades &&
+    apt-get purge -qq -y vim-tiny vim-gtk3 || true &&
+    apt-get install -qq -y '"$PACKAGES"' || true &&
+    apt-get -qq -y autoremove --purge &&
+    apt-get -qq -y autoclean
+' || {
+    printf "\n%s\n" "packages installation failed"
+    exit 1
+}
 
 
 
@@ -125,16 +167,16 @@ fi
 store_conf
 printf "\n%s\n" "COPYING BASE SCRIPTS"
 for SCRIPT in \
-    ".profile" \
-    ".bashrc" \
-    ".bash_logout" \
-    ".vimrc" \
-    ".tmux.conf" \
-    "fetch.sh"
+    .profile \
+    .bashrc \
+    .bash_logout \
+    .vimrc \
+    .tmux.conf \
+    fetch.sh
 do
     printf "%s" "copying '$SCRIPT'"
     case $SCRIPT in
-        "fetch.sh")
+        fetch.sh)
             mkdir -p "$HOME/.local/bin/" >/dev/null 2>&1 || continue
             try_run cp "$SCRIPTPATH/base/$SCRIPT" "$HOME/.local/bin/"
             ;;
@@ -144,9 +186,7 @@ do
     esac
 done
 # ---
-if sudo_privilege; then
-    sudo chsh -s "$(command -v bash)" "$USER"
-fi
+sudo chsh -s "$(command -v bash)" "$USER"
 
 
 
