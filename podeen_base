@@ -149,8 +149,10 @@ done < /etc/os-release 2>/dev/null
 sudo sh -c '
     apt-get update &&
     apt-get upgrade -qq -y --allow-downgrades &&
-    apt-get purge -qq -y vim-tiny vim-gtk3 || true &&
-    apt-get install -qq -y '"$PACKAGES"' || true &&
+    apt-get purge -qq -y vim-tiny vim-gtk3 || true
+    for PKG in $PACKAGES; do
+        apt-get install -y -qq --no-install-recommends "$PKG" || true
+    done
     apt-get -qq -y autoremove --purge &&
     apt-get -qq -y autoclean
 ' || {
