@@ -1,10 +1,7 @@
 #!/usr/bin/env sh
 
-# Ctrlp      -> https://github.com/ctrlpvim/ctrlp.vim
-# Sandwich   -> https://github.com/machakann/vim-sandwich
-# Commentary -> https://github.com/tpope/vim-commentary
-# Lexima     -> https://github.com/cohama/lexima.vim
-# Context    -> https://github.com/wellle/context.vim
+# This script is ment to be used in a Debian or Debian-based distribution
+# to install few useful Vim plugins for a better coding experience.
 
 
 

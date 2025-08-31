@@ -1,4 +1,4 @@
-# POrtable DEbian ENvironment &nbsp;<a href="https://www.debian.org"><img src="https://www.debian.org/logos/officiallogo-nd.svg" style="height: 1em; vertical-align: top;"></a>
+# <span style="color: #A80030;">PO</span>rtable <span style="color: #A80030;">DE</span>bian <span style="color: #A80030;">EN</span>vironment &nbsp;<a href="https://www.debian.org"><img src="https://www.debian.org/logos/officiallogo-nd.svg" style="height: 1em; vertical-align: top;"></a>
 
 This repository contains a collection of configuration files and installation scripts for a complete and efficient minimal *UNIX* work environment based on any *Debian* or *Debian-based* distribution.
 
@@ -20,7 +20,7 @@ The only prerequisite you need to cover is a working *Debian* in any version or 
 
 This script installs the basic packages and configures *Bash*, *Vim* and *Tmux* for you: just run `./podeen_base` from the root of the repository, relaunch your terminal and you are good to go.
 
-If you are running *Bookworm*, this script adds *Trixie* repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system instead.
+If you are running [*Trixie*](https://www.debian.org/releases/trixie/), this script adds [*Forky*](https://www.debian.org/releases/forky/) repository to your sources-list; for any other running version (older, testing or unstable), it just updates and upgrades your system instead.
 
 
 
@@ -29,7 +29,7 @@ If you are running *Bookworm*, this script adds *Trixie* repository to your sour
 
 This one installs additional plugins for your *Vim* alongside a little *vimscript* configuration to glue them together: run `./podeen_plug` from the root of the repository, launch *Vim* and see the magic happen.
 
-You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have a working *Debian 12* by now.
+You need to have *Vim 9.0* or higher installed for this script to work, but it won't be an issue since you should have at least a working *Debian 12* by now with the 9.1 release available.
 
 
 

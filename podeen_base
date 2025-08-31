@@ -1,10 +1,7 @@
 #!/usr/bin/env sh
 
-# This base setup script will install a minimal work environment,
-# complete with all the bells and whistles needed to start working properly.
-# ---
-# Other packages not included here can be installed separately,
-# suggestions: x11-xkb-utils, qtile/i3, rioterm/kitty, input-remapper.
+# This script is ment to be used in a Debian or Debian-based distribution
+# to install a minimal UNIX work environment with some useful packages.
 
 
 
@@ -12,14 +9,6 @@
 ### Functions
 #############
 
-try_run () {
-    if "$@" >/dev/null 2>&1; then
-        printf "\n"
-    else
-        printf ": %s\n" "command failed"
-    fi
-}
-# ---
 sudo_privilege () {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
@@ -29,6 +18,14 @@ testing_setup() {
     REPO="deb http://deb.debian.org/debian testing main contrib"
     if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
         { echo "$REPO" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "$SCRIPTPATH/base/preferences" "/etc/apt/" >/dev/null 2>&1
+    fi
+}
+# ---
+try_run () {
+    if "$@" >/dev/null 2>&1; then
+        printf "\n"
+    else
+        printf ": %s\n" "command failed"
     fi
 }
 # ---

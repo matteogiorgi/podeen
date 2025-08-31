@@ -1,10 +1,7 @@
 #!/usr/bin/env sh
 
-# VSCode reset with just few tweaks and GitHub-Copilot extension:
-# https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
-# ---
-# VSCode is not included in the Debian repos,
-# install it separately: https://code.visualstudio.com/.
+# This script is ment to be used in a Debian or Debian-based distribution
+# to install a minimal VSCode work environment with some useful extensions.
 
 
 
@@ -12,16 +9,16 @@
 ### Functions
 #############
 
+sudo_privilege () {
+    id -Gn 2>/dev/null | grep -qw "sudo"
+}
+# ---
 try_run () {
     if "$@" >/dev/null 2>&1; then
         printf "\n"
     else
         printf ": %s\n" "command failed"
     fi
-}
-# ---
-sudo_privilege () {
-    id -Gn 2>/dev/null | grep -qw "sudo"
 }
 
 
