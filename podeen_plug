@@ -61,7 +61,7 @@ if sudo_privilege && command -v apt-get >/dev/null 2>&1; then
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
         apt-get purge -qq -y vim-tiny vim || true &&
-        apt-get install -qq -y git vim-gtk3 python3-full python3-pip black &&
+        apt-get install -qq -y fonts-cascadia-code git vim-gtk3 python3-full python3-pip black &&
         apt-get -qq -y autoremove --purge &&
         apt-get -qq -y autoclean
     ' || { printf "\n%s\n" "Package installation failed"; exit 1; }
