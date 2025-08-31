@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# This script is ment to be used in a Debian or Debian-based distribution
-# to install a minimal UNIX work environment with some useful packages.
+# This script is intended to be used on a Debian or Debian-based distribution
+# and installs a minimal UNIX work environment with some useful packages.
 
 
 

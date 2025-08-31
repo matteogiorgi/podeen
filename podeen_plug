@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# This script is ment to be used in a Debian or Debian-based distribution
-# to install few useful Vim plugins for a better coding experience.
+# This script is intended to be used on a Debian or Debian-based distribution
+# and installs few useful Vim plugins for a better coding experience.
 
 
 
