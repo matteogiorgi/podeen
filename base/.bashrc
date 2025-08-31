@@ -1,8 +1,8 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# See /usr/share/doc/bash/examples/startup-files in the
-# bash-doc package for examples.
-# ---
-# Bourne again shell - https://www.gnu.org/software/bash/
+# ~/.bashrc
+# ---------
+# Script executed by Bash at every interactive, non-login shell startup.
+# Read /etc/bash.bashrc and /usr/share/doc/bash/examples/startup-files
+# for system-wide configurations and examples (apt install bash-doc).
 
 
 

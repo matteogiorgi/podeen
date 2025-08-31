@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Simple bash script to display system information in a nice format.
-# It is meant to be used as a welcome message for the shell (~/.bashrc).
+# System information Bash script, thought as
+# welcome message for interactive shells.
 
 
 

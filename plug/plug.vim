@@ -1,11 +1,7 @@
-" plug.vim: simple viml-script that sets basic configuration
-" for the following plugins (Vim 9.0+ is preferred).
-" ---
-" Ctrlp*     -> https://github.com/ctrlpvim/ctrlp.vim
-" Sandwich*  -> https://github.com/machakann/vim-sandwich
-" Commentary -> https://github.com/tpope/vim-commentary
-" Lexima     -> https://github.com/cohama/lexima.vim
-" Context    -> https://github.com/wellle/context.vim
+" plug.vim
+" --------
+" Vim script containing extra settings,
+" keymaps and few plugins configuration.
 
 
 

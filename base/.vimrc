@@ -1,7 +1,7 @@
-" ~/.vimrc: simple Vim9 configuration file,
-" no plugin, just settings and keymaps
-" ---
-" Vim editor - https://www.vim.org
+" ~/.vimrc
+" --------
+" Vim9 script for settings and keymaps,
+" no plugins or external dependencies.
 
 
 
