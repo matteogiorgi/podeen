@@ -36,6 +36,6 @@ You need to have *Vim 9.0* or higher installed for this script to work, but it w
 
 ### Code
 
-This last script trims a little bit of the neckbear: it resets your *VSCode* configuration and installs a couple of extensions to make it the more vanilla possible. Run `./podeen_code` from the root of the repository ;)
+This last script trims a little bit of the neckbear: it resets your *VSCode* configuration and installs a couple of extensions to make it as loose as a goose and ready to roll in no time. Run `./podeen_code` from the root of the repository ;)
 
 You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com) for the deb package.

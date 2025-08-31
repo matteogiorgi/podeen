@@ -12,36 +12,51 @@
 ### Functions
 #############
 
+try_run () {
+    if "$@" >/dev/null 2>&1; then
+        printf "\n"
+    else
+        printf ": %s\n" "command failed"
+    fi
+}
+# ---
 sudo_privilege () {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
 # ---
 testing_setup() {
     [ -s /etc/apt/sources.list ] && grep '^[^#]' /etc/apt/sources.list >/dev/null || return
-    repo="deb http://deb.debian.org/debian testing main contrib"
+    REPO="deb http://deb.debian.org/debian testing main contrib"
     if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
-        { echo "$repo" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "${SCRIPTPATH}/base/preferences" "/etc/apt/" >/dev/null 2>&1
+        { echo "$REPO" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "$SCRIPTPATH/base/preferences" "/etc/apt/" >/dev/null 2>&1
     fi
 }
 # ---
 store_conf () {
     backup_conf () {
         if [ -f "$1" ]; then
+            printf "%s" "removing '$1'"
             if [ -L "$1" ]; then
-                unlink "$1"
+                try_run unlink "$1"
             else
-                mv "$1" "${RESTORE}/"
+                try_run mv "$1" "$RESTORE/"
             fi
         fi
     }
-    RESTORE="${HOME}/.podeen_recovery"
+    # ---
+    RESTORE="$HOME/.podeen_recovery"
     mkdir -p "$RESTORE"
-    backup_conf "${HOME}/.profile"
-    backup_conf "${HOME}/.bashrc"
-    backup_conf "${HOME}/.bash_logout"
-    backup_conf "${HOME}/.vimrc"
-    backup_conf "${HOME}/.tmux.conf"
-    backup_conf "${HOME}/.local/bin/fetch.sh"
+    printf "\n%s\n" "REMOVING BASE SCRIPTS"
+    for SCRIPT in \
+        ".profile" \
+        ".bashrc" \
+        ".bash_logout" \
+        ".vimrc" \
+        ".tmux.conf" \
+        ".local/bin/fetch.sh"
+    do
+        backup_conf "$HOME/$SCRIPT"
+    done
 }
 
 
@@ -59,7 +74,7 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 # ---
-if [ -d "${HOME}/.podeen_recovery" ]; then
+if [ -d "$HOME/.podeen_recovery" ]; then
     printf "\n%s"   "════════════════ Warning: podeen already set ════════════════"
     printf "\n%s\n" "Remove ~/.podeen_recovery directory and run this script again"
     exit 1
@@ -111,12 +126,26 @@ fi
 #########
 
 store_conf
-cp "${SCRIPTPATH}/base/.profile" "${HOME}/"
-cp "${SCRIPTPATH}/base/.bashrc" "${HOME}/"
-cp "${SCRIPTPATH}/base/.bash_logout" "${HOME}/"
-cp "${SCRIPTPATH}/base/.vimrc" "${HOME}/"
-cp "${SCRIPTPATH}/base/.tmux.conf" "${HOME}/"
-mkdir -p "${HOME}/.local/bin/" && cp "${SCRIPTPATH}/base/fetch.sh" "${HOME}/.local/bin/"
+printf "\n%s\n" "COPYING BASE SCRIPTS"
+for SCRIPT in \
+    ".profile" \
+    ".bashrc" \
+    ".bash_logout" \
+    ".vimrc" \
+    ".tmux.conf" \
+    "fetch.sh"
+do
+    printf "%s" "copying '$SCRIPT'"
+    case $SCRIPT in
+        "fetch.sh")
+            mkdir -p "$HOME/.local/bin/" >/dev/null 2>&1 || continue
+            try_run cp "$SCRIPTPATH/base/$SCRIPT" "$HOME/.local/bin/"
+            ;;
+        *)
+            try_run cp "$SCRIPTPATH/base/$SCRIPT" "$HOME/"
+            ;;
+    esac
+done
 # ---
 if sudo_privilege; then
     sudo chsh -s "$(command -v bash)" "$USER"

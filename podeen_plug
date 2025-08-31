@@ -83,13 +83,13 @@ set -- \
     "https://github.com/cohama/lexima.vim.git" \
     "https://github.com/wellle/context.vim.git"
 # ---
-VIM=${HOME}/.vim
-START="${VIM}/pack/plug/start"
+VIM=$HOME/.vim
+START="$VIM/pack/plug/start"
 FOUND=""
 # ---
-mkdir -p "$START" || exit 1
-if [ ! -d "${VIM}/plugin" ] && [ -d "${SCRIPTPATH}/plug" ]; then
-    cp -R "${SCRIPTPATH}/plug" "${VIM}/plugin"
+mkdir -p "$START" >/dev/null 2>&1 || { printf "\n%s\n" "'$START' failed makedir"; exit 1; }
+if [ ! -d "$VIM/plugin" ] && [ -d "$SCRIPTPATH/plug" ]; then
+    cp -R "$SCRIPTPATH/plug" "$VIM/plugin" >/dev/null 2>&1 || printf "%s\n" "'$VIM/plugin' failed copy"
 fi
 # ---
 for DIR in "$START"/*; do

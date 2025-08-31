@@ -12,6 +12,14 @@
 ### Functions
 #############
 
+try_run () {
+    if "$@" >/dev/null 2>&1; then
+        printf "\n"
+    else
+        printf ": %s\n" "command failed"
+    fi
+}
+# ---
 sudo_privilege () {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
@@ -77,12 +85,12 @@ fi
 printf "\n%s\n" "UNINSTALLING ALL EXTENSIONS"
 for EXTENSION in $(\code --list-extensions); do
     printf "%s" "uninstalling '$EXTENSION'"
-    \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1 && printf "\n" || printf ": %s\n" "uninstall failed"
+    try_run \code --uninstall-extension "$EXTENSION"
 done
-rm -rf "${HOME}/.config/Code/CachedExtensionVSIXs" \
-       "${HOME}/.vscode/extensions" 2>/dev/null || true
+rm -rf "$HOME/.config/Code/CachedExtensionVSIXs" \
+       "$HOME/.vscode/extensions" 2>/dev/null || true
 # ---
-printf "\n%s\n" "INSTALLING BASE EXTENSIONS"
+printf "\n%s\n" "INSTALLING CODE EXTENSIONS"
 for EXTENSION in \
     github.copilot \
     james-yu.latex-workshop \
@@ -91,13 +99,13 @@ for EXTENSION in \
     ms-toolsai.jupyter
 do
     printf "%s" "installing '$EXTENSION'"
-    \code --install-extension "$EXTENSION" >/dev/null 2>&1 && printf "\n" || printf ": %s\n" "install failed"
+    try_run \code --install-extension "$EXTENSION"
 done
 # ---
-BASE="${HOME}/.config/Code/User"
+BASE="$HOME/.config/Code/User"
 if mkdir -p "$BASE"; then
-    cat "${SCRIPTPATH}/code/settings.json" > "${BASE}/settings.json"
-    cat "${SCRIPTPATH}/code/keybindings.json" > "${BASE}/keybindings.json"
+    cat "$SCRIPTPATH/code/settings.json" > "$BASE/settings.json"
+    cat "$SCRIPTPATH/code/keybindings.json" > "$BASE/keybindings.json"
 fi
 
 
