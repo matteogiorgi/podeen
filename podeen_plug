@@ -90,12 +90,12 @@ sudo sh -c '
     apt-get update &&
     apt-get upgrade -qq -y --allow-downgrades &&
     apt-get purge -qq -y vim-tiny vim || true
-    for PKG in $PACKAGES; do
+    for PKG in "$@"; do
         apt-get install -y -qq --no-install-recommends "$PKG" || true
     done
     apt-get -qq -y autoremove --purge &&
     apt-get -qq -y autoclean
-' || {
+' _ $PACKAGES || {
     printf "\n%s\n" "packages installation failed"
     exit 1
 }
