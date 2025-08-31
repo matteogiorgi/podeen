@@ -74,14 +74,15 @@ fi
 ### Start
 #########
 
+printf "\n%s\n" "UNINSTALLING ALL EXTENSIONS"
 for EXTENSION in $(\code --list-extensions); do
-    if \code --list-extensions | grep -qx "$EXTENSION"; then
-        \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1 || printf "%s\n" "'$EXTENSION' uninstall failed (continuing)"
-    fi
+    printf "%s" "uninstalling '$EXTENSION'"
+    \code --uninstall-extension "$EXTENSION" >/dev/null 2>&1 && printf "\n" || printf ": %s\n" "uninstall failed"
 done
 rm -rf "${HOME}/.config/Code/CachedExtensionVSIXs" \
        "${HOME}/.vscode/extensions" 2>/dev/null || true
 # ---
+printf "\n%s\n" "INSTALLING BASE EXTENSIONS"
 for EXTENSION in \
     github.copilot \
     james-yu.latex-workshop \
@@ -89,7 +90,8 @@ for EXTENSION in \
     ms-python.black-formatter \
     ms-toolsai.jupyter
 do
-    \code --install-extension "$EXTENSION" || { printf "\n%s\n" "'$EXTENSION' install failed"; exit 1; }
+    printf "%s" "installing '$EXTENSION'"
+    \code --install-extension "$EXTENSION" >/dev/null 2>&1 && printf "\n" || printf ": %s\n" "install failed"
 done
 # ---
 BASE="${HOME}/.config/Code/User"
