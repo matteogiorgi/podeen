@@ -10,7 +10,10 @@
 ### Env-Variables (extend $PATH)
 ################################
 
-export TERM='xterm-256color'
+if [ -n "$DISPLAY" ] || expr "$XDG_SESSION_TYPE" : 'x11\|wayland' >/dev/null 2>&1; then
+    export TERM='xterm-256color'
+fi
+# ---
 export SHELL='/usr/bin/bash'
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vi'
@@ -22,8 +25,8 @@ export PATH="$PATH:$HOME/.local/bin"
 
 
 
-### Bourn-Again Shell integration
-#################################
+### Bash-Integration (bash package)
+###################################
 
 if [ -n "$BASH_VERSION" ]; then
     [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
@@ -32,9 +35,9 @@ fi
 
 
 
-### Keyboard remaps (x11-xkb-utils)
-###################################
+### Keyboard-Remaps (x11-xkb-utils package)
+###########################################
 
-if [ -x "$(command -v setxkbmap)" ]; then
+if [ -n "$DISPLAY" ] && command -v setxkbmap >/dev/null 2>&1; then
     setxkbmap -option "caps:escape"
 fi

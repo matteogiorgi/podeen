@@ -9,20 +9,21 @@
 ### Functions
 #############
 
-sudo_privileges () {
+sudo_privileges() {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
 # ---
-ask_user () {
+ask_user() {
     printf "%s\n" "$1"
+    local ANS
     read -r -p "wish to proceed anyway? [y/N] " ANS
     case "$ANS" in
-        y | Y | yes | YES) printf "\n%s\n" "setup resumed" ;;
-        *) printf "\n%s\n" "setup interrupted"; exit 1 ;;
+        y | Y | yes | YES) printf "\n%s\n" "setup resumed";;
+        *) printf "\n%s\n" "setup interrupted"; exit 1;;
     esac
 }
 # ---
-try_run () {
+try_run() {
     if "$@" >/dev/null 2>&1; then
         printf "\n"
     else

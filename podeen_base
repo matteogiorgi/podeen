@@ -9,28 +9,29 @@
 ### Functions
 #############
 
-sudo_privileges () {
+sudo_privileges() {
     id -Gn 2>/dev/null | grep -qw "sudo"
 }
 # ---
-ask_user () {
+ask_user() {
     printf "%s\n" "$1"
+    local ANS
     read -r -p "wish to proceed anyway? [y/N] " ANS
     case "$ANS" in
-        y | Y | yes | YES) printf "\n%s\n" "setup resumed" ;;
-        *) printf "\n%s\n" "setup interrupted"; exit 1 ;;
+        y | Y | yes | YES) printf "\n%s\n" "setup resumed";;
+        *) printf "\n%s\n" "setup interrupted"; exit 1;;
     esac
 }
 # ---
-testing_setup () {
+testing_setup() {
     [ -s /etc/apt/sources.list ] && grep '^[^#]' /etc/apt/sources.list >/dev/null || return
-    REPO="deb http://deb.debian.org/debian testing main contrib"
+    local REPO="deb http://deb.debian.org/debian testing main contrib"
     if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
         { echo "$REPO" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "$SCRIPTPATH/base/preferences" "/etc/apt/" >/dev/null 2>&1
     fi
 }
 # ---
-try_run () {
+try_run() {
     if "$@" >/dev/null 2>&1; then
         printf "\n"
     else
@@ -38,7 +39,7 @@ try_run () {
     fi
 }
 # ---
-store_conf () {
+store_conf() {
     backup_conf () {
         if [ -f "$1" ]; then
             printf "%s" "removing '$1'"
@@ -50,7 +51,7 @@ store_conf () {
         fi
     }
     # ---
-    RESTORE="$HOME/.podeen_recovery"
+    local SCRIPT RESTORE="$HOME/.podeen_recovery"
     mkdir -p "$RESTORE"
     printf "\n%s\n" "REMOVING BASE SCRIPTS"
     for SCRIPT in \
@@ -106,8 +107,8 @@ EOF
 ### Packages & Sudo
 ###################
 
-PACKAGES="git bash bash-completion fzy file fd-find xclip trash-cli \
-procps less tmux vim exuberant-ctags wamerican make gcc gdb valgrind"
+PACKAGES="git bash bash-completion fzy file fd-find xclip trash-cli procps \
+x11-xkb-utils less tmux vim exuberant-ctags wamerican make gcc gdb valgrind"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
@@ -131,8 +132,8 @@ fi
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 while IFS='' read -r OSRELEASELINE; do
     case "$OSRELEASELINE" in
-        ID=debian | VERSION_ID=\"13\" | "VERSION=\"13 (trixie)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 )) ;;
-        *) : ;;
+        ID=debian | VERSION_ID=\"13\" | "VERSION=\"13 (trixie)\"") LINECOUNT=$(( ${LINECOUNT:-0} + 1 ));;
+        *) :;;
     esac
     if [ "${LINECOUNT:-0}" -eq 3 ]; then
         testing_setup
