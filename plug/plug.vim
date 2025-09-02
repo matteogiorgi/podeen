@@ -25,6 +25,7 @@ if executable('black')
     endfunction
     " ---
     augroup python_cmd
+        autocmd!
         autocmd Filetype python command! -nargs=0 Black call <SID>Black()
         autocmd Filetype python nnoremap <buffer> <leader>d :call <SID>Black()<CR>
     augroup end
@@ -49,7 +50,6 @@ if executable('python3')
     endfunction
     " ---
     augroup python_cmd
-        autocmd!
         autocmd Filetype python command! -nargs=0 ExecPF call <SID>ExecPF()
         autocmd Filetype python command! -nargs=0 ExecPS call <SID>ExecPS()
         autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
