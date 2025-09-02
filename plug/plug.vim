@@ -17,12 +17,25 @@ let g:plugme = 1
 
 
 " Python {{{
+if executable('black')
+    function! s:Black()
+        silent! update
+        silent! execute '!black % 2>/dev/null'
+        redraw!|redrawstatus!|redrawtabline
+    endfunction
+    " ---
+    augroup python_cmd
+        autocmd Filetype python command! -nargs=0 Black call <SID>Black()
+        autocmd Filetype python nnoremap <buffer> <leader>d :call <SID>Black()<CR>
+    augroup end
+endif
+" ---
 if executable('python3')
     function! s:ExecPF()
         if exists(':Black')
             Black
-        elseif exists(':CleanUpdate')
-            CleanUpdate
+        elseif exists(':CleanBuf')
+            CleanBuf
         else
             silent! update
         endif
@@ -41,19 +54,6 @@ if executable('python3')
         autocmd Filetype python command! -nargs=0 ExecPS call <SID>ExecPS()
         autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
         autocmd Filetype python vnoremap <buffer> <leader>x :<C-U>call <SID>ExecPS()<CR>
-    augroup end
-endif
-" ---
-if executable('black')
-    function! s:Black()
-        silent! update
-        silent! execute '!black % 2>/dev/null'
-        redraw!|redrawstatus!|redrawtabline
-    endfunction
-    " ---
-    augroup python_cmd
-        autocmd Filetype python command! -nargs=0 Black call <SID>Black()
-        autocmd Filetype python nnoremap <buffer> <leader>d :call <SID>Black()<CR>
     augroup end
 endif
 " }}}

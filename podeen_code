@@ -94,19 +94,20 @@ fi
 ### Path & Dependencies
 #######################
 
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
-sudo sh -c '
-    apt-get update &&
-    apt-get upgrade -qq -y --allow-downgrades &&
-    for PKG in "$@"; do
-        apt-get install -y -qq --no-install-recommends "$PKG" || true
-    done
-    apt-get -qq -y autoremove --purge &&
-    apt-get -qq -y autoclean
-' _ $PACKAGES || {
-    printf "\n%s\n" "packages installation failed"
-    exit 1
-}
+if sudo_privileges; then
+    sudo sh -c '
+        apt-get update &&
+        apt-get upgrade -qq -y --allow-downgrades &&
+        for PKG in "$@"; do
+            apt-get install -y -qq --no-install-recommends "$PKG" || true
+        done
+        apt-get -qq -y autoremove --purge &&
+        apt-get -qq -y autoclean
+    ' _ $PACKAGES || {
+        printf "\n%s\n" "packages installation failed"
+        exit 1
+    }
+fi
 
 
 
@@ -135,6 +136,7 @@ do
 done
 # ---
 BASE="$HOME/.config/Code/User"
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )" || exit 1
 if mkdir -p "$BASE"; then
     cat "$SCRIPTPATH/code/settings.json" > "$BASE/settings.json"
     cat "$SCRIPTPATH/code/keybindings.json" > "$BASE/keybindings.json"

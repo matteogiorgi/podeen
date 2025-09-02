@@ -105,7 +105,7 @@ set timeoutlen=2000
 set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
 set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize
-set viminfo='100,<50,s10,h
+set viminfo-=/
 set cmdheight=1
 set nrformats-=alpha
 set fillchars=vert:┃,eob:╺
@@ -177,13 +177,28 @@ function! s:CopyClip()
     echo 'xclip not found'
 endfunction
 " ---
-function! s:CleanUpdate()
+function! s:CleanBuf()
     let l:pos = getpos(".")
     silent! %s/\s\+$//e
     silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
     silent! update
     echo 'buffer cleaned'
+endfunction
+" ---
+function! s:ExecSF()
+    if exists(':CleanBuf')
+        CleanBuf
+    else
+        silent! update
+    endif
+    execute '!sh %'
+endfunction
+" ---
+function! s:ExecSS()
+    let l:tmpfile = tempname()
+    silent! execute "'<,'>write " . l:tmpfile
+    execute '!sh ' . l:tmpfile
 endfunction
 " ---
 function! s:ToggleQF()
@@ -246,7 +261,7 @@ function! s:AddLineQF()
           \ }
     call add(l:qf_list, l:qf_entry)
     call setqflist(l:qf_list)
-    echo 'quickfix newly-added line'
+    echo 'quickfix newline added'
 endfunction
 " ---
 function! s:ResetQF()
@@ -255,7 +270,7 @@ function! s:ResetQF()
 endfunction
 " ---
 function! s:ResetSR()
-    let @/=""
+    let @/=''
     while histdel('search', -1) > 0
     endwhile
     echo 'search resetted'
@@ -317,8 +332,8 @@ function! s:GitDiff()
         echo "'" . getcwd() . "' is not in a git repo"
         return
     endif
-    if exists(':CleanUpdate')
-        CleanUpdate
+    if exists(':CleanBuf')
+        CleanBuf
     else
         silent! update
     endif
@@ -438,6 +453,14 @@ augroup viminfo_sync
     autocmd!
     autocmd TextYankPost * silent! wviminfo
 augroup end
+" ---
+augroup sh_cmd
+    autocmd!
+    autocmd Filetype sh command! -nargs=0 ExecSF call <SID>ExecSF()
+    autocmd Filetype sh command! -nargs=0 ExecSS call <SID>ExecSS()
+    autocmd Filetype sh nnoremap <buffer> <leader>x :call <SID>ExecSF()<CR>
+    autocmd Filetype sh vnoremap <buffer> <leader>x :<C-U>call <SID>ExecSS()<CR>
+augroup end
 " }}}
 
 
@@ -446,7 +469,7 @@ augroup end
 " Commands {{{
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
-command! -nargs=0 CleanUpdate call <SID>CleanUpdate()
+command! -nargs=0 CleanBuf call <SID>CleanBuf()
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 ToggleWM call <SID>ToggleWM()
@@ -497,7 +520,7 @@ nnoremap <leader>o :OSession<CR>
 nnoremap <leader>p :SSession<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
-nnoremap <leader>d :CleanUpdate<CR>
+nnoremap <leader>d :CleanBuf<CR>
 nnoremap <leader>g :GitDiff<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
