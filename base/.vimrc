@@ -183,7 +183,7 @@ function! s:CleanUpdate()
     silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
     silent! update
-    echo 'clean update'
+    echo 'buffer cleaned'
 endfunction
 " ---
 function! s:ToggleQF()
@@ -246,7 +246,7 @@ function! s:AddLineQF()
           \ }
     call add(l:qf_list, l:qf_entry)
     call setqflist(l:qf_list)
-    echo 'quickfix newline'
+    echo 'quickfix newly-added line'
 endfunction
 " ---
 function! s:ResetQF()
@@ -256,6 +256,8 @@ endfunction
 " ---
 function! s:ResetSR()
     let @/=""
+    while histdel('search', -1) > 0
+    endwhile
     echo 'search resetted'
 endfunction
 " ---
