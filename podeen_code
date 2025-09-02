@@ -69,8 +69,8 @@ EOF
 
 
 
-### Packages & Sudo
-###################
+### Packages
+############
 
 PACKAGES="git dash bash gnome-keyring pandoc texlive-full \
 python3-full python3-pip black fonts-cascadia-code"
@@ -91,8 +91,8 @@ fi
 
 
 
-### Path & Dependencies
-#######################
+### Dependencies
+################
 
 if sudo_privileges; then
     sudo sh -c '

@@ -65,9 +65,8 @@ EOF
 ### Packages
 ############
 
-PACKAGES="git python3-full python3-pip black"
-EXTRAPKG="vim-gtk3 fonts-cascadia-code"
-for PKG in $PACKAGES $EXTRAPKG; do
+PACKAGES="git python3-full python3-pip black vim-gtk3 fonts-cascadia-code"
+for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
     fi
@@ -91,36 +90,13 @@ if sudo_privileges; then
     sudo sh -c '
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get purge -qq -y vim-tiny || true
+        apt-get purge -qq -y vim-tiny vim || true
         for PKG in "$@"; do
             apt-get install -y -qq --no-install-recommends "$PKG" || true
         done
-    ' _ $PACKAGES || {
-        printf "\n%s\n" "packages installation failed"
-        exit 1
-    }
-    # ---
-    sudo sh -c '
-        printf "\n%s" "extra packages:"
-        for PKG in "$@"; do
-            printf "%s" " $PKG"
-        done
-        printf "\n"
-        read -r -p "wish to proceed installing them too? [y/N] " ANS
-        case "$ANS" in
-            y | Y | yes | YES)
-                for PKG in "$@"; do
-                    apt-get purge -qq -y vim || true
-                    apt-get install -y -qq --no-install-recommends "$PKG" || true
-                done
-                ;;
-            *)
-                apt-get install -y -qq --no-install-recommends vim || true
-                ;;
-        esac
         apt-get -qq -y autoremove --purge &&
         apt-get -qq -y autoclean
-    ' _ $EXTRAPKG || {
+    ' _ $PACKAGES || {
         printf "\n%s\n" "packages installation failed"
         exit 1
     }
