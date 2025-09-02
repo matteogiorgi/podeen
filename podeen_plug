@@ -91,7 +91,7 @@ if sudo_privileges; then
     sudo sh -c '
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get purge -qq -y vim-tiny vim || true
+        apt-get purge -qq -y vim-tiny || true
         for PKG in "$@"; do
             apt-get install -y -qq --no-install-recommends "$PKG" || true
         done
@@ -110,11 +110,12 @@ if sudo_privileges; then
         case "$ANS" in
             y | Y | yes | YES)
                 for PKG in "$@"; do
+                    apt-get purge -qq -y vim || true
                     apt-get install -y -qq --no-install-recommends "$PKG" || true
                 done
                 ;;
             *)
-                { :; }
+                apt-get install -y -qq --no-install-recommends vim || true
                 ;;
         esac
         apt-get -qq -y autoremove --purge &&
