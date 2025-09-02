@@ -10,7 +10,7 @@
 if v:version < 900
     finish
 elseif !isdirectory(expand('~/.vim'))
-    silent! execute "!mkdir -p ~/.vim &>/dev/null"
+    silent! execute "!mkdir -p ~/.vim >/dev/null 2>&1"
 endif
 " }}}
 
@@ -37,7 +37,7 @@ endif
 " Undodir {{{
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
-        silent! execute "!mkdir -p ~/.vim/undodir &>/dev/null"
+        silent! execute "!mkdir -p ~/.vim/undodir >/dev/null 2>&1"
     endif
     set undodir=${HOME}/.vim/undodir
     set undofile
@@ -273,6 +273,38 @@ function! s:ScratchBuffer()
     endif
 endfunction
 " ---
+function! s:SSession()
+    if !isdirectory(expand('~/.vim/sessiondir'))
+        silent! execute "!mkdir -p ~/.vim/sessiondir >/dev/null 2>&1"
+    endif
+    if executable('git')
+        let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
+        let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
+    else
+        let l:root = getcwd()
+    endif
+    let l:ans = input('save session as: ')|redraw!
+    let l:name = empty(l:ans) ? fnamemodify(l:root, ':t') : l:ans
+    let l:path = '~/.vim/sessiondir/' . l:name
+    silent! execute 'mksession! ' . fnameescape(l:path)
+    echo 'session ' . l:name . ' saved'
+endfunction
+" ---
+function! s:OSession()
+    let l:dir = expand('~/.vim/sessiondir')
+    let l:sessions = split(glob(l:dir . '/*'), '\n')
+    if !isdirectory(l:dir) || empty(l:sessions)
+        echo 'no session saved'
+        return
+    endif
+    let l:names = map(copy(l:sessions), 'fnamemodify(v:val, ":t")')
+    let l:choice = inputlist(['select session:'] + map(copy(l:names), 'v:key+1 . ") " . v:val'))
+    if l:choice > 0 || l:choice <= len(l:names)
+        let l:path = l:sessions[l:choice - 1]
+        execute 'source' fnameescape(l:path)
+    endif
+endfunction
+" ---
 function! s:GuiFont()
     if has('gui_running')
         silent! execute 'set guifont=*'
@@ -402,6 +434,8 @@ command! -nargs=0 AddLineQF call <SID>AddLineQF()
 command! -nargs=0 ResetQF call <SID>ResetQF()
 command! -nargs=0 ResetSR call <SID>ResetSR()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
+command! -nargs=0 SSession call <SID>SSession()
+command! -nargs=0 OSession call <SID>OSession()
 command! -nargs=0 GuiFont call <SID>GuiFont()
 " }}}
 
@@ -437,12 +471,14 @@ nnoremap <leader>w :ToggleWM<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
+nnoremap <leader>y :GuiFont<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
-nnoremap <leader>v :GuiFont<CR>
+nnoremap <leader>v :SSession<CR>
+nnoremap <leader>b :OSession<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
