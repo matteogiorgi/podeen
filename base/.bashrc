@@ -60,7 +60,7 @@ fexplore() {
     local FEXPLORE TMP="/tmp/fexplore$$"
     (
         while FEXPLORE="$(\ls -aF --ignore="." --ignore=".git" --group-directories-first | `
-              `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; do
+              `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git_branch "(%s)") > ")"; do
             FEXPLORE="$PWD/${FEXPLORE%[@|*|/]}"
             if [[ -d "$FEXPLORE" ]]; then
                 cd "$FEXPLORE" || return
@@ -137,7 +137,7 @@ fgit() {
     fi
     local FGIT
     if FGIT="$(\git log --graph --format="%h%d %s %cr" "$@" | `
-          `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git-branch "(%s)") > ")"; then
+          `\fzy -p "$(pwd | sed "s|^$HOME|~|")$(git_branch "(%s)") > ")"; then
         FGIT="$(echo "$FGIT" | grep -o '[a-f0-9]\{7\}')"
         \git diff "$FGIT"
     fi
