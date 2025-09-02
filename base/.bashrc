@@ -7,8 +7,8 @@
 
 
 
-### Interactive
-###############
+### Interactive-Shell
+#####################
 
 case $- in
     *i*) :;;

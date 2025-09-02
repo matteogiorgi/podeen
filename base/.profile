@@ -7,37 +7,35 @@
 
 
 
-### Env-Variables (extend $PATH)
-################################
+### Environment
+###############
 
-if [ -n "$DISPLAY" ] || expr "$XDG_SESSION_TYPE" : 'x11\|wayland' >/dev/null 2>&1; then
-    export TERM='xterm-256color'
-fi
-# ---
+mkdir -p "$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export SHELL='/usr/bin/bash'
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vi'
 export VISUAL='/usr/bin/vi'
-# ---
-mkdir -p "$HOME/.local/bin"
-export PATH="$PATH:$HOME/.local/bin"
 
 
 
 
-### Bash-Integration (bash package)
-###################################
+### Session
+###########
 
-if [ -n "$BASH_VERSION" ]; then
-    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+if [ -n "$DISPLAY" ] || expr "$XDG_SESSION_TYPE" : 'x11\|wayland' >/dev/null 2>&1; then
+    export TERM='xterm-256color'
+    if [ "$XDG_SESSION_TYPE" = "x11" ] && command -v setxkbmap >/dev/null 2>&1; then
+        setxkbmap -option "caps:escape"
+    fi
 fi
 
 
 
 
-### Keyboard-Remaps (x11-xkb-utils package)
-###########################################
+### Bourne-Again-Shell
+######################
 
-if [ -n "$DISPLAY" ] && command -v setxkbmap >/dev/null 2>&1; then
-    setxkbmap -option "caps:escape"
+if [ -n "$BASH_VERSION" ]; then
+    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 fi
