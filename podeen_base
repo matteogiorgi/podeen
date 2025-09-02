@@ -145,7 +145,7 @@ if sudo_privileges; then
     sudo sh -c '
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get purge -qq -y vim-tiny vim-gtk3 || true
+        apt-get purge -qq -y vim-tiny || true
         for PKG in "$@"; do
             apt-get install -y -qq --no-install-recommends "$PKG" || true
         done

@@ -65,7 +65,7 @@ EOF
 ### Packages
 ############
 
-PACKAGES="git python3-full python3-pip black vim-gtk3 fonts-cascadia-code"
+PACKAGES="git python3-full python3-pip black"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
@@ -90,7 +90,7 @@ if sudo_privileges; then
     sudo sh -c '
         apt-get update &&
         apt-get upgrade -qq -y --allow-downgrades &&
-        apt-get purge -qq -y vim-tiny vim || true
+        apt-get purge -qq -y vim-tiny || true
         for PKG in "$@"; do
             apt-get install -y -qq --no-install-recommends "$PKG" || true
         done
