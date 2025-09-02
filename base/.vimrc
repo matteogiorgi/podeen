@@ -20,7 +20,7 @@ endif
 " GVim {{{
 if has('gui_running')
     set vb t_vb=
-    set columns=120 lines=50
+    set columns=100 lines=40
     set guioptions=i
     set guicursor+=a:blinkon0
     set guifont=Monospace\ 10
@@ -491,14 +491,14 @@ nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
 nnoremap <leader>y :GuiFont<CR>
+nnoremap <leader>o :OSession<CR>
+nnoremap <leader>p :SSession<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
 nnoremap <leader>g :GitDiff<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
-nnoremap <leader>v :SSession<CR>
-nnoremap <leader>b :OSession<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et

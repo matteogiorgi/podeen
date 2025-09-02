@@ -79,8 +79,7 @@ if &rtp =~ 'ctrlp'
     augroup end
     " ---
     nnoremap <leader>u :CtrlPQuickfix<CR>
-    nnoremap <leader>i :CtrlPMixed<CR>
-    nnoremap <leader>o :CtrlPChangeAll<CR>
+    nnoremap <leader>i :CtrlPChangeAll<CR>
     nnoremap <leader>f :CtrlP<space>%:p:h<CR>
     nnoremap <leader>h :CtrlPMRUFiles<CR>
     nnoremap <leader>j :CtrlPBuffer<CR>
