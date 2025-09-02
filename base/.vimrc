@@ -34,13 +34,17 @@ endif
 
 
 
-" Undodir {{{
+" Undodir & Sessiondir {{{
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
         silent! execute "!mkdir -p ~/.vim/undodir >/dev/null 2>&1"
     endif
     set undodir=${HOME}/.vim/undodir
     set undofile
+endif
+" ---
+if !isdirectory(expand('~/.vim/sessiondir'))
+    silent! execute "!mkdir -p ~/.vim/sessiondir >/dev/null 2>&1"
 endif
 " }}}
 
@@ -274,9 +278,6 @@ function! s:ScratchBuffer()
 endfunction
 " ---
 function! s:SSession()
-    if !isdirectory(expand('~/.vim/sessiondir'))
-        silent! execute "!mkdir -p ~/.vim/sessiondir >/dev/null 2>&1"
-    endif
     if executable('git')
         let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
         let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
@@ -285,8 +286,12 @@ function! s:SSession()
     endif
     let l:ans = input('save session as: ')|redraw!
     let l:name = empty(l:ans) ? fnamemodify(l:root, ':t') : l:ans
-    let l:path = '~/.vim/sessiondir/' . l:name
-    silent! execute 'mksession! ' . fnameescape(l:path)
+    let l:dir = expand('~/.vim/sessiondir')
+    if !isdirectory(l:dir)
+        echo 'sessiondir not present'
+        return
+    endif
+    silent! execute 'mksession! ' . fnameescape(l:dir . '/' . l:name)
     echo 'session ' . l:name . ' saved'
 endfunction
 " ---
@@ -303,6 +308,19 @@ function! s:OSession()
         let l:path = l:sessions[l:choice - 1]
         execute 'source' fnameescape(l:path)
     endif
+endfunction
+" ---
+function! s:GitDiff()
+    if system('git rev-parse --is-inside-work-tree 2>/dev/null') !=# "true\n"
+        echo "'" . getcwd() . "' is not in a git repo"
+        return
+    endif
+    if exists(':CleanUpdate')
+        CleanUpdate
+    else
+        silent! update
+    endif
+    execute '!git diff %'
 endfunction
 " ---
 function! s:GuiFont()
@@ -436,6 +454,7 @@ command! -nargs=0 ResetSR call <SID>ResetSR()
 command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 command! -nargs=0 SSession call <SID>SSession()
 command! -nargs=0 OSession call <SID>OSession()
+command! -nargs=0 GitDiff call <SID>GitDiff()
 command! -nargs=0 GuiFont call <SID>GuiFont()
 " }}}
 
@@ -475,6 +494,7 @@ nnoremap <leader>y :GuiFont<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
 nnoremap <leader>d :CleanUpdate<CR>
+nnoremap <leader>g :GitDiff<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
 nnoremap <leader>v :SSession<CR>

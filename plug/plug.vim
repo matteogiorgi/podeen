@@ -61,31 +61,6 @@ endif
 
 
 
-" Git {{{
-if executable('git')
-    function! s:GitDiff()
-        if system('git rev-parse --is-inside-work-tree 2>/dev/null') !=# "true\n"
-            echo "'" . getcwd() . "' is not in a git repo"
-            return
-        endif
-        if exists(':Black')
-            Black
-        elseif exists(':CleanUpdate')
-            CleanUpdate
-        else
-            silent! update
-        endif
-        execute '!git diff %'
-    endfunction
-    " ---
-    command! -nargs=0 GitDiff call <SID>GitDiff()
-    nnoremap <leader>g :call <SID>GitDiff()<CR>
-endif
-"}}}
-
-
-
-
 " Ctrlp {{{
 if &rtp =~ 'ctrlp'
     let g:ctrlp_map = ''
