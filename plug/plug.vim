@@ -7,7 +7,7 @@
 
 
 " Init {{{
-if exists("g:plugme")
+if exists('g:plugme')
     finish
 endif
 let g:plugme = 1

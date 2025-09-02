@@ -10,7 +10,7 @@
 if v:version < 900
     finish
 elseif !isdirectory(expand('~/.vim'))
-    silent! execute "!mkdir -p ~/.vim >/dev/null 2>&1"
+    silent! execute '!mkdir -p ~/.vim >/dev/null 2>&1'
 endif
 " }}}
 
@@ -37,14 +37,14 @@ endif
 " Undodir & Sessiondir {{{
 if has('persistent_undo')
     if !isdirectory(expand('~/.vim/undodir'))
-        silent! execute "!mkdir -p ~/.vim/undodir >/dev/null 2>&1"
+        silent! execute '!mkdir -p ~/.vim/undodir >/dev/null 2>&1'
     endif
     set undodir=${HOME}/.vim/undodir
     set undofile
 endif
 " ---
 if !isdirectory(expand('~/.vim/sessiondir'))
-    silent! execute "!mkdir -p ~/.vim/sessiondir >/dev/null 2>&1"
+    silent! execute '!mkdir -p ~/.vim/sessiondir >/dev/null 2>&1'
 endif
 " }}}
 
@@ -158,7 +158,7 @@ function! s:CTags()
               \ )
         silent! execute '!' . l:cmd . ' 2>/dev/null'
         redraw!|redrawstatus!|redrawtabline
-        echo 'ctags executed @ ' . l:root
+        echo 'ctags executed @ "' . l:root . '"'
         return
     endif
     echo 'ctags not found'
@@ -178,7 +178,7 @@ function! s:CopyClip()
 endfunction
 " ---
 function! s:CleanBuf()
-    let l:pos = getpos(".")
+    let l:pos = getpos('.')
     silent! %s/\s\+$//e
     silent! %s/\n\+\%$//e
     call setpos('.', l:pos)
@@ -230,7 +230,7 @@ function! s:ToggleWM()
         silent! nunmap <buffer> $
         silent! xunmap <buffer> $
         silent! ounmap <buffer> $
-        echo "wrapmotion off"
+        echo 'wrapmotion off'
     else
         let b:wrapmotion = 1
         setlocal wrap
@@ -246,18 +246,18 @@ function! s:ToggleWM()
         nnoremap <buffer> $ g$
         xnoremap <buffer> $ g$
         onoremap <buffer> $ g$
-        echo "wrapmotion on"
+        echo 'wrapmotion on'
     endif
 endfunction
 " ---
 function! s:AddLineQF()
     let l:qf_list = getqflist()
     let l:qf_entry = {
-              \ 'bufnr': bufnr("%"),
-              \ 'lnum': line("."),
-              \ 'col': col("."),
-              \ 'text': getline("."),
-              \ 'filename': expand("%:p"),
+              \ 'bufnr': bufnr('%'),
+              \ 'lnum': line('.'),
+              \ 'col': col('.'),
+              \ 'text': getline('.'),
+              \ 'filename': expand('%:p'),
           \ }
     call add(l:qf_list, l:qf_entry)
     call setqflist(l:qf_list)
@@ -309,7 +309,7 @@ function! s:SSession()
         return
     endif
     silent! execute 'mksession! ' . fnameescape(l:dir . '/' . l:name)
-    echo 'session ' . l:name . ' saved'
+    echo 'session "' . l:name . '" saved'
 endfunction
 " ---
 function! s:OSession()
