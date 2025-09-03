@@ -36,6 +36,25 @@ You need to have *Vim 9.0* or higher installed for this script to work, but it w
 
 ### Code
 
-This last script trims a little bit of the neckbear: it resets your *VSCode* configuration and installs a couple of extensions to make it as loose as a goose and ready to roll in no time. Run `./podeen_code` any time you want from the root of the repository to clean *VSCode* for good ;)
+This last script trims a little bit of the neckbear: it resets your *VSCode* configuration and installs a couple of extensions to make it as loose as a goose and ready to roll in no time. Run `./podeen_code` any time you want from the root of the repository to clean *VSCode* for good.
 
 You need to have *VSCode* installed, check the [official website](https://code.visualstudio.com) for the deb package.
+
+
+
+
+## No-Install
+
+If you don't want to run any installer, you can just copy the main configuration files with the following command and you got yourself a minimal PODEEN. Copy-pasta this in your terminal and hit enter 😜
+```sh
+sh -c '
+    BASE="https://raw.githubusercontent.com/matteogiorgi/podeen/refs/heads/main/base"
+    FILES=".profile .bashrc .bash_logout .tmux.conf .vimrc"
+    command -v wget >/dev/null 2>&1 || { echo "ERROR: install wget"; exit 1; }
+    for FILE in $FILES; do
+        [ -f "$HOME/$FILE" ] && cp "$HOME/$FILE" "$HOME/$FILE.bak"
+        wget -qO "$HOME/$FILE" "$BASE/$FILE" && echo "$FILE copied"
+    done
+    echo "finish"
+'
+```
