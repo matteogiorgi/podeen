@@ -107,8 +107,8 @@ EOF
 ### Packages
 ############
 
-PACKAGES="git bash bash-completion fzy file fd-find xclip trash-cli procps \
-x11-xkb-utils less tmux vim exuberant-ctags wamerican make gcc gdb valgrind"
+PACKAGES="git bash bash-completion fzy file fd-find trash-cli xclip wl-clipboard \
+procps x11-xkb-utils less tmux vim exuberant-ctags wamerican make gcc gdb valgrind"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
@@ -185,7 +185,9 @@ do
     esac
 done
 # ---
-sudo chsh -s "$(command -v bash)" "$USER"
+if sudo_privileges; then
+    sudo chsh -s "$(command -v bash)" "$USER"
+fi
 
 
 

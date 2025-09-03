@@ -23,11 +23,9 @@ export VISUAL='/usr/bin/vi'
 ### Session
 ###########
 
-if [ -n "$DISPLAY" ] || expr "$XDG_SESSION_TYPE" : 'x11\|wayland' >/dev/null 2>&1; then
+if [ "${XDG_SESSION_TYPE:-}" = 'x11' ] || [ -n "${DISPLAY:-}" ]; then
     export TERM='xterm-256color'
-    if [ "$XDG_SESSION_TYPE" = "x11" ] && command -v setxkbmap >/dev/null 2>&1; then
-        setxkbmap -option "caps:escape"
-    fi
+    command -v setxkbmap >/dev/null 2>&1 && setxkbmap -option 'caps:escape'
 fi
 
 
