@@ -235,11 +235,11 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias fgrep='grep -F'
 alias egrep='grep -E'
-if [ "${XDG_SESSION_TYPE:-}" = 'x11' ] || [ -n "${DISPLAY:-}" ]; then
+if [ "${XDG_SESSION_TYPE:-}" = 'x11' ] && [ -n "${DISPLAY:-}" ]; then
     alias xcopy='xclip -in -selection clipboard'
     alias xpasta='xclip -out -selection clipboard'
-elif [ "${XDG_SESSION_TYPE:-}" = 'wayland' ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then
-    alias xcopy='wl-copy'
+elif [ "${XDG_SESSION_TYPE:-}" = 'wayland' ] && [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    alias xcopy='wl-copy <'
     alias xpasta='wl-paste'
 fi
 

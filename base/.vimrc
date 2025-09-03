@@ -169,11 +169,11 @@ function! s:CopyClip()
     let l:rin = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
     let [l:reg, l:src] = empty(l:rin) ? ['"', ''] : [l:rin[0], l:rin[0]]
     let l:text = getreg(l:src)
-    if (($XDG_SESSION_TYPE ==# 'x11') || exists('$DISPLAY')) && executable('xclip')
+    if (($XDG_SESSION_TYPE ==# 'x11') && exists('$DISPLAY')) && executable('xclip')
         call system('xclip -selection clipboard -i >/dev/null 2>&1', l:text)
         echom printf('xcopied from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
         return
-    elseif (($XDG_SESSION_TYPE ==# 'wayland') || exists('$WAYLAND_DISPLAY')) && executable('wl-copy')
+    elseif (($XDG_SESSION_TYPE ==# 'wayland') && exists('$WAYLAND_DISPLAY')) && executable('wl-copy')
         call system('wl-copy', l:text)
         echom printf('wcopied from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
         return
