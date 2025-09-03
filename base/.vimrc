@@ -290,10 +290,12 @@ function! s:ScratchBuffer()
         silent! execute target_window . 'wincmd w'
     else
         edit /tmp/scratchbuffer
+        if &l:filetype !=# 'scratch'
+            setlocal filetype=scratch
+        endif
         setlocal bufhidden=hide
         setlocal nobuflisted
         setlocal noswapfile
-        setlocal filetype=scratch
         setlocal nospell
     endif
 endfunction
@@ -434,7 +436,9 @@ augroup writer_filetype
           \ setlocal spell conceallevel=0|
           \ setlocal spelllang=en_us|
           \ setlocal foldmethod=manual|
-          \ silent! call <SID>ToggleWM()
+          \ if !exists('b:wrapmotion') || !b:wrapmotion|
+          \     silent! call <SID>ToggleWM()|
+          \ endif
 augroup end
 " ---
 augroup scratchbuffer_autosave
