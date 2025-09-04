@@ -298,7 +298,7 @@ function! s:ScratchBuffer() abort
     endif
 endfunction
 " ---
-function! s:CleanBuf() abort
+function! s:CleanBuffer() abort
     let l:pos = getpos('.')
     silent! %s/\s\+$//e
     silent! %s/\n\+\%$//e
@@ -308,8 +308,8 @@ function! s:CleanBuf() abort
 endfunction
 " ---
 function! s:ExecScript(cmd) abort
-    if exists(':CleanBuf')
-        CleanBuf
+    if exists(':CleanBuffer')
+        CleanBuffer
     else
         silent! update
     endif
@@ -336,8 +336,8 @@ function! s:GitDiff() abort
         echo "'" . getcwd() . "' is not in a git repo"
         return
     endif
-    if exists(':CleanBuf')
-        CleanBuf
+    if exists(':CleanBuffer')
+        CleanBuffer
     else
         silent! update
     endif
@@ -482,7 +482,7 @@ augroup end
 " Commands {{{
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
-command! -nargs=0 CleanBuf call <SID>CleanBuf()
+command! -nargs=0 CleanBuffer call <SID>CleanBuffer()
 command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<q-args>)
 command! -range -nargs=+ -complete=shellcmd ExecSnippet call <SID>ExecSnippet(<q-args>)
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
@@ -535,7 +535,7 @@ nnoremap <leader>o :OSession<CR>
 nnoremap <leader>p :SSession<CR>
 nnoremap <leader>a :AddLineQF<CR>
 nnoremap <leader>s :ScratchBuffer<CR>
-nnoremap <leader>d :CleanBuf<CR>
+nnoremap <leader>d :CleanBuffer<CR>
 nnoremap <leader>g :GitDiff<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
