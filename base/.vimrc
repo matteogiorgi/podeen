@@ -392,7 +392,9 @@ augroup end
 " ---
 augroup terminal_prettyfier
     autocmd!
-    autocmd TerminalOpen * setlocal nobuflisted bufhidden=wipe
+    autocmd TerminalOpen *
+          \ setlocal nobuflisted bufhidden=wipe|
+          \ setlocal nonumber norelativenumber
 augroup end
 " ---
 augroup syntax_prettyfier
