@@ -104,7 +104,7 @@ set updatetime=100
 set timeoutlen=2000
 set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
-set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize
+set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize,localoptions
 set viminfo-=/
 set cmdheight=1
 set nrformats-=alpha
@@ -405,8 +405,12 @@ augroup end
 " ---
 augroup linenumber_prettyfier
     autocmd!
+    autocmd BufWinEnter *
+          \ if !get(b:, 'wrapmotion', 0) && &l:wrap|
+          \     silent! call <SID>ToggleWM()|
+          \ endif
     autocmd InsertEnter *
-          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1 && !get(b:, 'wrapmotion', 0)|
+          \ if !get(b:, 'wrapmotion', 0)|
           \     let &l:colorcolumn = '121,'.join(range(121,999),',')|
           \ endif|
           \ setlocal nocursorline|
@@ -425,7 +429,7 @@ augroup writer_filetype
           \ setlocal spell conceallevel=0|
           \ setlocal spelllang=en_us|
           \ setlocal foldmethod=manual|
-          \ if !exists('b:wrapmotion') || !b:wrapmotion|
+          \ if !get(b:, 'wrapmotion', 0)|
           \     silent! call <SID>ToggleWM()|
           \ endif
 augroup end
