@@ -136,32 +136,31 @@ endif
 
 " Functions {{{
 function! s:CTags()
-    if executable('ctags')
-        if executable('git')
-            let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
-            let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
-        else
-            let l:root = getcwd()
-        endif
-        let l:cmd = printf(
-                  \ 'ctags -R -f %s/tags'
-                  \ . ' --exclude=.git'
-                  \ . ' --exclude=.hg'
-                  \ . ' --exclude=.svn'
-                  \ . ' --exclude=.mypy_cache'
-                  \ . ' --exclude=__pycache__'
-                  \ . ' --exclude=.venv'
-                  \ . ' --exclude=node_modules'
-                  \ . ' %s',
-                  \ shellescape(l:root),
-                  \ shellescape(l:root)
-              \ )
-        silent! execute '!' . l:cmd . ' 2>/dev/null'
-        redraw!|redrawstatus!|redrawtabline
-        echo 'ctags executed @ "' . l:root . '"'
-        return
+    if !executable('ctags')
+      echo 'ctags not found'
+      return
     endif
-    echo 'ctags not found'
+    let l:root = getcwd()
+    if executable('git')
+        let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
+        let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
+    endif
+    let l:cmd = printf(
+              \ 'ctags -R -f %s/tags'
+              \ . ' --exclude=.git'
+              \ . ' --exclude=.hg'
+              \ . ' --exclude=.svn'
+              \ . ' --exclude=.mypy_cache'
+              \ . ' --exclude=__pycache__'
+              \ . ' --exclude=.venv'
+              \ . ' --exclude=node_modules'
+              \ . ' %s',
+              \ shellescape(l:root),
+              \ shellescape(l:root)
+          \ )
+    silent! execute '!' . l:cmd . ' 2>/dev/null'
+    redraw!|redrawstatus!|redrawtabline
+    echo 'ctags executed @ "' . l:root . '"'
 endfunction
 " ---
 function! s:CopyClip()
@@ -219,39 +218,29 @@ function! s:ToggleFC()
 endfunction
 " ---
 function! s:ToggleWM()
-    if exists('b:wrapmotion') && b:wrapmotion
+    if get(b:, 'wrapmotion', 0)
         unlet b:wrapmotion
         setlocal nowrap
-        silent! nunmap <buffer> j
-        silent! xunmap <buffer> j
-        silent! ounmap <buffer> j
-        silent! nunmap <buffer> k
-        silent! xunmap <buffer> k
-        silent! ounmap <buffer> k
-        silent! nunmap <buffer> 0
-        silent! xunmap <buffer> 0
-        silent! ounmap <buffer> 0
-        silent! nunmap <buffer> $
-        silent! xunmap <buffer> $
-        silent! ounmap <buffer> $
+        for m in ['n', 'x', 'o']
+            execute m . 'unmap <buffer> j'
+            execute m . 'unmap <buffer> k'
+            execute m . 'unmap <buffer> 0'
+            execute m . 'unmap <buffer> $'
+        endfor
         echo 'wrapmotion off'
-    else
-        let b:wrapmotion = 1
-        setlocal wrap
-        nnoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
-        xnoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
-        onoremap <buffer> <expr> j (v:count == 0 ? 'gj' : 'j')
-        nnoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
-        xnoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
-        onoremap <buffer> <expr> k (v:count == 0 ? 'gk' : 'k')
-        nnoremap <buffer> 0 g0
-        xnoremap <buffer> 0 g0
-        onoremap <buffer> 0 g0
-        nnoremap <buffer> $ g$
-        xnoremap <buffer> $ g$
-        onoremap <buffer> $ g$
-        echo 'wrapmotion on'
+        return
     endif
+    let b:wrapmotion = 1
+    setlocal wrap
+    for m in ['n', 'x', 'o']
+        execute m . 'noremap <buffer> <expr> j (v:count == 0 ? "gj" : "j")'
+        execute m . 'noremap <buffer> <expr> k (v:count == 0 ? "gk" : "k")'
+    endfor
+    for m in ['n', 'x', 'o']
+        execute m . 'noremap <buffer> 0 g0'
+        execute m . 'noremap <buffer> $ g$'
+    endfor
+    echo 'wrapmotion on'
 endfunction
 " ---
 function! s:AddLineQF()
