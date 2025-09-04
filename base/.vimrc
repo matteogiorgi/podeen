@@ -318,17 +318,7 @@ function! s:ExecScript(cmd) abort
         echo 'empty file'
         return
     endif
-    execute '!' . a:cmd . ' ' . fnameescape(l:file)
-endfunction
-" ---
-function! s:ExecSnippet(cmd) range abort
-    let l:tmpfile = tempname()
-    silent! execute a:firstline . ',' . a:lastline . 'write ' . fnameescape(l:tmpfile)
-    try
-        execute '!' . a:cmd . ' ' . fnameescape(l:tmpfile)
-    finally
-        call delete(l:tmpfile)
-    endtry
+    execute 'terminal ' . a:cmd . ' ' . fnameescape(l:file)
 endfunction
 " ---
 function! s:GitDiff() abort
@@ -382,36 +372,6 @@ augroup netrw_prettyfier
     let g:netrw_altv = 0
 augroup end
 " ---
-augroup syntax_complete
-    autocmd!
-    autocmd FileType * set omnifunc=syntaxcomplete#Complete
-augroup end
-" ---
-augroup syntax_prettyfier
-    autocmd!
-    autocmd VimEnter,ColorScheme *
-          \ hi! LineNr ctermbg=NONE guibg=NONE|
-          \ hi! Folded ctermbg=NONE guibg=NONE|
-          \ hi! FoldColumn ctermbg=NONE guibg=NONE|
-          \ hi! SignColumn ctermbg=NONE guibg=NONE|
-          \ hi! CursorLine cterm=NONE gui=NONE|
-          \ hi! CursorLineNr cterm=bold ctermbg=NONE gui=bold guibg=NONE|
-          \ hi! MatchParen cterm=underline ctermbg=NONE gui=underline guibg=NONE|
-          \ hi! VertSplit cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-augroup end
-" ---
-augroup fold_autoload
-    autocmd!
-    autocmd BufWinEnter *
-          \ if expand('%:t') != ''|
-          \     silent! loadview|
-          \ endif
-    autocmd BufWinLeave *
-          \ if expand('%:t') != ''|
-          \     silent! mkview|
-          \ endif
-augroup end
-" ---
 augroup linenumber_prettyfier
     autocmd!
     autocmd BufWinEnter *
@@ -428,6 +388,42 @@ augroup linenumber_prettyfier
           \ setlocal colorcolumn=|
           \ setlocal cursorline|
           \ setlocal number relativenumber
+augroup end
+" ---
+augroup terminal_prettyfier
+    autocmd!
+    autocmd BufEnter * setlocal termwinsize=20x0
+    autocmd TerminalOpen * setlocal nobuflisted bufhidden=wipe
+augroup end
+" ---
+augroup syntax_prettyfier
+    autocmd!
+    autocmd VimEnter,ColorScheme *
+          \ hi! LineNr ctermbg=NONE guibg=NONE|
+          \ hi! Folded ctermbg=NONE guibg=NONE|
+          \ hi! FoldColumn ctermbg=NONE guibg=NONE|
+          \ hi! SignColumn ctermbg=NONE guibg=NONE|
+          \ hi! CursorLine cterm=NONE gui=NONE|
+          \ hi! CursorLineNr cterm=bold ctermbg=NONE gui=bold guibg=NONE|
+          \ hi! MatchParen cterm=underline ctermbg=NONE gui=underline guibg=NONE|
+          \ hi! VertSplit cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
+augroup end
+" ---
+augroup syntax_complete
+    autocmd!
+    autocmd FileType * set omnifunc=syntaxcomplete#Complete
+augroup end
+" ---
+augroup fold_autoload
+    autocmd!
+    autocmd BufWinEnter *
+          \ if expand('%:t') != ''|
+          \     silent! loadview|
+          \ endif
+    autocmd BufWinLeave *
+          \ if expand('%:t') != ''|
+          \     silent! mkview|
+          \ endif
 augroup end
 " ---
 augroup writer_filetype
@@ -471,7 +467,6 @@ augroup exec_cmd
           \     ['awk', 'awk -f'],
           \ ]
         execute 'autocmd FileType ' . ft . ' nnoremap <buffer> <leader>x :ExecScript ' . cmd . '<CR>'
-        execute 'autocmd FileType ' . ft . ' vnoremap <buffer> <leader>x :<C-U>ExecSnippet ' . cmd . '<CR>'
     endfor
 augroup end
 " }}}
@@ -484,7 +479,6 @@ command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
 command! -nargs=0 CleanBuffer call <SID>CleanBuffer()
 command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<q-args>)
-command! -range -nargs=+ -complete=shellcmd ExecSnippet call <SID>ExecSnippet(<q-args>)
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 ToggleWM call <SID>ToggleWM()
