@@ -17,45 +17,23 @@ let g:plugme = 1
 
 
 " Python {{{
-if executable('black')
-    function! s:Black()
-        silent! update
-        silent! execute '!black % 2>/dev/null'
-        redraw!|redrawstatus!|redrawtabline
-    endfunction
-    " ---
-    augroup python_cmd
-        autocmd!
-        autocmd Filetype python command! -nargs=0 Black call <SID>Black()
-        autocmd Filetype python nnoremap <buffer> <leader>d :call <SID>Black()<CR>
-    augroup end
-endif
+function! s:Black() abort
+    if !executable('black')
+        echo 'black not found'
+        return
+    endif
+    silent! update
+    silent! execute '!black % 2>/dev/null'
+    redraw!|redrawstatus!|redrawtabline
+endfunction
 " ---
-if executable('python3')
-    function! s:ExecPF()
-        if exists(':Black')
-            Black
-        elseif exists(':CleanBuf')
-            CleanBuf
-        else
-            silent! update
-        endif
-        execute '!python3 %'
-    endfunction
-    " ---
-    function! s:ExecPS()
-        let l:tmpfile = tempname()
-        silent! execute "'<,'>write " . l:tmpfile
-        execute '!python3 ' . l:tmpfile
-    endfunction
-    " ---
-    augroup python_cmd
-        autocmd Filetype python command! -nargs=0 ExecPF call <SID>ExecPF()
-        autocmd Filetype python command! -nargs=0 ExecPS call <SID>ExecPS()
-        autocmd Filetype python nnoremap <buffer> <leader>x :call <SID>ExecPF()<CR>
-        autocmd Filetype python vnoremap <buffer> <leader>x :<C-U>call <SID>ExecPS()<CR>
-    augroup end
-endif
+augroup python_cmd
+    autocmd!
+    autocmd Filetype python command! -nargs=0 Black call <SID>Black()
+    autocmd Filetype python nnoremap <buffer> <leader>d :Black<CR>
+    autocmd FileType python nnoremap <buffer> <leader>x :Black|ExecScript python3<CR>
+    autocmd FileType python nnoremap <buffer> <leader>x :<C-U>ExecSnippet python3<CR>
+augroup end
 " }}}
 
 

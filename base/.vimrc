@@ -135,10 +135,10 @@ endif
 
 
 " Functions {{{
-function! s:CTags()
+function! s:CTags() abort
     if !executable('ctags')
-      echo 'ctags not found'
-      return
+        echo 'ctags not found'
+        return
     endif
     let l:root = getcwd()
     if executable('git')
@@ -163,7 +163,7 @@ function! s:CTags()
     echo 'ctags executed @ "' . l:root . '"'
 endfunction
 " ---
-function! s:CopyClip()
+function! s:CopyClip() abort
     let l:ans = input('copy from register: ')|redraw!
     let l:rin = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
     let [l:reg, l:src] = empty(l:rin) ? ['"', ''] : [l:rin[0], l:rin[0]]
@@ -180,44 +180,11 @@ function! s:CopyClip()
     echo 'xclip|wl-copy not found'
 endfunction
 " ---
-function! s:CleanBuf()
-    let l:pos = getpos('.')
-    silent! %s/\s\+$//e
-    silent! %s/\n\+\%$//e
-    call setpos('.', l:pos)
-    silent! update
-    echo 'buffer cleaned'
-endfunction
-" ---
-function! s:ExecSF()
-    if exists(':CleanBuf')
-        CleanBuf
-    else
-        silent! update
-    endif
-    execute '!sh %'
-endfunction
-" ---
-function! s:ExecSS()
-    let l:tmpfile = tempname()
-    silent! execute "'<,'>write " . l:tmpfile
-    execute '!sh ' . l:tmpfile
-endfunction
-" ---
-function! s:ToggleQF()
-    silent! lclose
-    if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
-        silent! copen
-        return
-    endif
-    silent! cclose
-endfunction
-" ---
-function! s:ToggleFC()
+function! s:ToggleFC() abort
     let &foldcolumn = (&foldcolumn + 1) % 2
 endfunction
 " ---
-function! s:ToggleWM()
+function! s:ToggleWM() abort
     if get(b:, 'wrapmotion', 0)
         unlet b:wrapmotion
         setlocal nowrap
@@ -243,7 +210,16 @@ function! s:ToggleWM()
     echo 'wrapmotion on'
 endfunction
 " ---
-function! s:AddLineQF()
+function! s:ToggleQF() abort
+    silent! lclose
+    if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") ==# "qf"'))
+        silent! copen
+        return
+    endif
+    silent! cclose
+endfunction
+" ---
+function! s:AddLineQF() abort
     let l:qf_list = getqflist()
     let l:qf_entry = {
               \ 'bufnr': bufnr('%'),
@@ -257,19 +233,52 @@ function! s:AddLineQF()
     echo 'quickfix newline added'
 endfunction
 " ---
-function! s:ResetQF()
+function! s:ResetQF() abort
     call setqflist([])
     echo 'quickfix resetted'
 endfunction
 " ---
-function! s:ResetSR()
+function! s:ResetSR() abort
     let @/=''
     while histdel('search', -1) > 0
     endwhile
     echo 'search resetted'
 endfunction
 " ---
-function! s:ScratchBuffer()
+function! s:SSession() abort
+    if executable('git')
+        let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
+        let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
+    else
+        let l:root = getcwd()
+    endif
+    let l:ans = input('save session as: ')|redraw!
+    let l:name = empty(l:ans) ? fnamemodify(l:root, ':t') : l:ans
+    let l:dir = expand('~/.vim/sessiondir')
+    if !isdirectory(l:dir)
+        echo 'sessiondir not present'
+        return
+    endif
+    silent! execute 'mksession! ' . fnameescape(l:dir . '/' . l:name)
+    echo 'session "' . l:name . '" saved'
+endfunction
+" ---
+function! s:OSession() abort
+    let l:dir = expand('~/.vim/sessiondir')
+    let l:sessions = split(glob(l:dir . '/*'), '\n')
+    if !isdirectory(l:dir) || empty(l:sessions)
+        echo 'no session saved'
+        return
+    endif
+    let l:names = map(copy(l:sessions), 'fnamemodify(v:val, ":t")')
+    let l:choice = inputlist(['select session:'] + map(copy(l:names), 'v:key+1 . ") " . v:val'))
+    if l:choice > 0 && l:choice <= len(l:names)
+        let l:path = l:sessions[l:choice - 1]
+        execute 'source' fnameescape(l:path)
+    endif
+endfunction
+" ---
+function! s:ScratchBuffer() abort
     if &filetype ==# 'scratch'
         b#|return
     endif
@@ -289,40 +298,40 @@ function! s:ScratchBuffer()
     endif
 endfunction
 " ---
-function! s:SSession()
-    if executable('git')
-        let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
-        let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
+function! s:CleanBuf() abort
+    let l:pos = getpos('.')
+    silent! %s/\s\+$//e
+    silent! %s/\n\+\%$//e
+    call setpos('.', l:pos)
+    silent! update
+    echo 'buffer cleaned'
+endfunction
+" ---
+function! s:ExecScript(cmd) abort
+    if exists(':CleanBuf')
+        CleanBuf
     else
-        let l:root = getcwd()
+        silent! update
     endif
-    let l:ans = input('save session as: ')|redraw!
-    let l:name = empty(l:ans) ? fnamemodify(l:root, ':t') : l:ans
-    let l:dir = expand('~/.vim/sessiondir')
-    if !isdirectory(l:dir)
-        echo 'sessiondir not present'
+    let l:file = expand('%:p')
+    if empty(l:file)
+        echo 'empty file'
         return
     endif
-    silent! execute 'mksession! ' . fnameescape(l:dir . '/' . l:name)
-    echo 'session "' . l:name . '" saved'
+    execute '!' . a:cmd . ' ' . fnameescape(l:file)
 endfunction
 " ---
-function! s:OSession()
-    let l:dir = expand('~/.vim/sessiondir')
-    let l:sessions = split(glob(l:dir . '/*'), '\n')
-    if !isdirectory(l:dir) || empty(l:sessions)
-        echo 'no session saved'
-        return
-    endif
-    let l:names = map(copy(l:sessions), 'fnamemodify(v:val, ":t")')
-    let l:choice = inputlist(['select session:'] + map(copy(l:names), 'v:key+1 . ") " . v:val'))
-    if l:choice > 0 && l:choice <= len(l:names)
-        let l:path = l:sessions[l:choice - 1]
-        execute 'source' fnameescape(l:path)
-    endif
+function! s:ExecSnippet(cmd) range abort
+    let l:tmpfile = tempname()
+    silent! execute a:firstline . ',' . a:lastline . 'write ' . fnameescape(l:tmpfile)
+    try
+        execute '!' . a:cmd . ' ' . fnameescape(l:tmpfile)
+    finally
+        call delete(l:tmpfile)
+    endtry
 endfunction
 " ---
-function! s:GitDiff()
+function! s:GitDiff() abort
     if system('git rev-parse --is-inside-work-tree 2>/dev/null') !=# "true\n"
         echo "'" . getcwd() . "' is not in a git repo"
         return
@@ -335,7 +344,7 @@ function! s:GitDiff()
     execute '!git diff %'
 endfunction
 " ---
-function! s:GuiFont()
+function! s:GuiFont() abort
     if has('gui_running')
         silent! execute 'set guifont=*'
     else
@@ -455,12 +464,16 @@ augroup viminfo_sync
     autocmd TextYankPost * silent! wviminfo
 augroup end
 " ---
-augroup sh_cmd
+augroup exec_cmd
     autocmd!
-    autocmd Filetype sh command! -nargs=0 ExecSF call <SID>ExecSF()
-    autocmd Filetype sh command! -nargs=0 ExecSS call <SID>ExecSS()
-    autocmd Filetype sh nnoremap <buffer> <leader>x :call <SID>ExecSF()<CR>
-    autocmd Filetype sh vnoremap <buffer> <leader>x :<C-U>call <SID>ExecSS()<CR>
+    for [ft, cmd] in [
+          \     ['sh', 'sh'],
+          \     ['awk', 'awk -f'],
+          \     ['sed', 'awk -f'],
+          \ ]
+        execute 'autocmd FileType ' . ft . ' nnoremap <buffer> <leader>x :ExecScript ' . cmd . '<CR>'
+        execute 'autocmd FileType ' . ft . ' vnoremap <buffer> <leader>x :<C-U>ExecSnippet ' . cmd . '<CR>'
+    endfor
 augroup end
 " }}}
 
@@ -471,6 +484,8 @@ augroup end
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
 command! -nargs=0 CleanBuf call <SID>CleanBuf()
+command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<q-args>)
+command! -range -nargs=+ -complete=shellcmd ExecSnippet call <SID>ExecSnippet(<q-args>)
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 ToggleWM call <SID>ToggleWM()
