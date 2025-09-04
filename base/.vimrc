@@ -469,7 +469,6 @@ augroup exec_cmd
     for [ft, cmd] in [
           \     ['sh', 'sh'],
           \     ['awk', 'awk -f'],
-          \     ['sed', 'awk -f'],
           \ ]
         execute 'autocmd FileType ' . ft . ' nnoremap <buffer> <leader>x :ExecScript ' . cmd . '<CR>'
         execute 'autocmd FileType ' . ft . ' vnoremap <buffer> <leader>x :<C-U>ExecSnippet ' . cmd . '<CR>'
