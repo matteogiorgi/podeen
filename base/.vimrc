@@ -318,7 +318,7 @@ function! s:ExecScript(cmd) abort
         echo 'empty file'
         return
     endif
-    execute 'terminal ' . a:cmd . ' ' . fnameescape(l:file)
+    execute 'terminal ++curwin ' . a:cmd . ' ' . fnameescape(l:file)
 endfunction
 " ---
 function! s:GitDiff() abort
@@ -392,7 +392,6 @@ augroup end
 " ---
 augroup terminal_prettyfier
     autocmd!
-    autocmd BufEnter * setlocal termwinsize=20x0
     autocmd TerminalOpen * setlocal nobuflisted bufhidden=wipe
 augroup end
 " ---
