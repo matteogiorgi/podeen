@@ -104,7 +104,7 @@ set updatetime=100
 set timeoutlen=2000
 set ttimeoutlen=0
 set termencoding=utf-8 encoding=utf-8 | scriptencoding utf-8
-set sessionoptions=blank,buffers,curdir,folds,tabpages,help,options,winsize,localoptions
+set sessionoptions=blank,buffers,curdir,folds,tabpages,help,winsize,options,localoptions
 set viminfo-=/
 set cmdheight=1
 set nrformats-=alpha
