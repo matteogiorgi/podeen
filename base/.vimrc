@@ -406,8 +406,8 @@ augroup end
 augroup linenumber_prettyfier
     autocmd!
     autocmd InsertEnter *
-          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1|
-          \     let &colorcolumn = '121,'.join(range(121,999),',')|
+          \ if index(['tex', 'markdown', 'html', 'text', 'scratch'], &filetype) == -1 && !get(b:, 'wrapmotion', 0)|
+          \     let &l:colorcolumn = '121,'.join(range(121,999),',')|
           \ endif|
           \ setlocal nocursorline|
           \ setlocal number norelativenumber
