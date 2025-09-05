@@ -195,7 +195,7 @@ function! s:PastaClip() abort
     let l:rout = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
     let [l:reg, l:src] = empty(l:rout) ? ['"', ''] : [l:rout[0], l:rout[0]]
     call setreg(l:reg, l:text)
-    echom printf(l:who . 'pasted into register "%s"', l:reg)
+    echom printf(l:who . 'pasted from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
 endfunction
 " ---
 function! s:ToggleFC() abort
