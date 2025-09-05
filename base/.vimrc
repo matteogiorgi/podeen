@@ -169,7 +169,7 @@ function! s:CopyClip() abort
     let [l:reg, l:src] = empty(l:rin) ? ['"', ''] : [l:rin[0], l:rin[0]]
     let l:text = getreg(l:src)
     if (($XDG_SESSION_TYPE ==# 'x11') && exists('$DISPLAY')) && executable('xclip')
-        call system('xclip -selection clipboard -i >/dev/null 2>&1', l:text)
+        call system('xclip -selection clipboard -in >/dev/null 2>&1', l:text)
         echom printf('xcopied from register "%s"', l:reg ==# '"' ? 'unnamed' : l:reg)
         return
     elseif (($XDG_SESSION_TYPE ==# 'wayland') && exists('$WAYLAND_DISPLAY')) && executable('wl-copy')
@@ -178,6 +178,24 @@ function! s:CopyClip() abort
         return
     endif
     echo 'xclip|wl-copy not found'
+endfunction
+" ---
+function! s:PastaClip() abort
+    if (($XDG_SESSION_TYPE ==# 'x11') && exists('$DISPLAY')) && executable('xclip')
+        let l:text = systemlist('xclip -selection clipboard -out')
+        let l:who = 'x'
+    elseif (($XDG_SESSION_TYPE ==# 'wayland') && exists('$WAYLAND_DISPLAY')) && executable('wl-paste')
+        let l:text = systemlist('wl-paste')
+        let l:who = 'w'
+    else
+        echo 'xclip|wl-paste not found'
+        return
+    endif
+    let l:ans = input('paste into register: ')|redraw!
+    let l:rout = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
+    let [l:reg, l:src] = empty(l:rout) ? ['"', ''] : [l:rout[0], l:rout[0]]
+    call setreg(l:reg, l:text)
+    echom printf(l:who . 'pasted into register "%s"', l:reg)
 endfunction
 " ---
 function! s:ToggleFC() abort
@@ -478,6 +496,7 @@ augroup end
 " Commands {{{
 command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
+command! -nargs=0 PastaClip call <SID>PastaClip()
 command! -nargs=0 CleanBuffer call <SID>CleanBuffer()
 command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<q-args>)
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
@@ -534,6 +553,7 @@ nnoremap <leader>d :CleanBuffer<CR>
 nnoremap <leader>g :GitDiff<CR>
 nnoremap <leader>z :ToggleFC<CR>
 nnoremap <leader>c :CopyClip<CR>
+nnoremap <leader>v :PastaClip<CR>
 " }}}
 
 " vim: fdm=marker:sw=2:sts=2:et
