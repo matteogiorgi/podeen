@@ -165,9 +165,6 @@ endfunction
 " ---
 function! s:CopyClip() abort
     let l:ans = input('copy from register: ')|redraw!
-    if l:ans ==# "\<Esc>"
-        return
-    endif
     let l:rin = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
     let [l:reg, l:src] = empty(l:rin) ? ['"', ''] : [l:rin[0], l:rin[0]]
     let l:text = getreg(l:src)
@@ -195,9 +192,6 @@ function! s:PastaClip() abort
         return
     endif
     let l:ans = input('paste into register: ')|redraw!
-    if l:ans ==# "\<Esc>"
-        return
-    endif
     let l:rout = empty(l:ans) ? '"' : (l:ans =~# '^"' ? l:ans[1:] : l:ans)
     let [l:reg, l:src] = empty(l:rout) ? ['"', ''] : [l:rout[0], l:rout[0]]
     call setreg(l:reg, l:text)
