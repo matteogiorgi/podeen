@@ -35,7 +35,7 @@ augroup python_cmd
     autocmd!
     autocmd FileType python command! -buffer -bar -nargs=0 Black call <SID>Black()
     autocmd Filetype python nnoremap <buffer> <leader>d :Black<CR>
-    autocmd FileType python nnoremap <buffer> <leader>x :Black\|ExecScript python3<CR>
+    autocmd FileType python nnoremap <buffer> <leader>x :ExecScript python3<CR>
 augroup end
 " }}}
 
