@@ -1,7 +1,7 @@
 " ~/.vimrc
 " --------
-" Vim9 script for settings and keymaps,
-" no plugins or external dependencies.
+" Vim script for general settings, no external dependencies.
+" Still in legacy version but not compatible with Vim8.
 
 
 
@@ -11,23 +11,6 @@ if v:version < 900
     finish
 elseif !isdirectory(expand('~/.vim'))
     silent! execute '!mkdir -p ~/.vim >/dev/null 2>&1'
-endif
-" }}}
-
-
-
-
-" GVim {{{
-if has('gui_running')
-    set vb t_vb=
-    set columns=100 lines=40
-    set guioptions=i
-    set guicursor+=a:blinkon0
-    set guifont=Monospace\ 10
-    " ---
-    if system('fc-list') =~ 'Cascadia Code'
-        set guifont=Cascadia\ Code\ 10
-    endif
 endif
 " }}}
 
@@ -351,14 +334,6 @@ function! s:GitDiff() abort
     endif
     execute '!git diff %'
 endfunction
-" ---
-function! s:GuiFont() abort
-    if has('gui_running')
-        silent! execute 'set guifont=*'
-    else
-        echo 'not in gvim'
-    endif
-endfunction
 " }}}
 
 
@@ -509,7 +484,6 @@ command! -nargs=0 ScratchBuffer call <SID>ScratchBuffer()
 command! -nargs=0 SSession call <SID>SSession()
 command! -nargs=0 OSession call <SID>OSession()
 command! -nargs=0 GitDiff call <SID>GitDiff()
-command! -nargs=0 GuiFont call <SID>GuiFont()
 " }}}
 
 
@@ -544,7 +518,6 @@ nnoremap <leader>w :ToggleWM<CR>
 nnoremap <leader>e :ResetSR<CR>
 nnoremap <leader>r :ResetQF<CR>
 nnoremap <leader>t :CTags<CR>
-nnoremap <leader>y :GuiFont<CR>
 nnoremap <leader>o :OSession<CR>
 nnoremap <leader>p :SSession<CR>
 nnoremap <leader>a :AddLineQF<CR>
