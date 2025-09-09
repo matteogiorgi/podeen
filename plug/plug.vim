@@ -19,7 +19,11 @@ let g:plugme = 1
 " Python {{{
 function! s:Black() abort
     if !executable('black')
-        echo 'black not found'
+        if !exists(':CleanBuffer')
+            silent! update
+            return
+        endif
+        CleanBuffer
         return
     endif
     silent! update
