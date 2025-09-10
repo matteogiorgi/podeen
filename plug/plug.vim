@@ -18,17 +18,16 @@ let g:plugme = 1
 
 " Python {{{
 function! s:Black() abort
-    if !executable('black')
-        if !exists(':CleanBuffer')
-            silent! update
-            return
-        endif
+    if executable('black')
+        silent! update
+        silent! execute '!black % 2>/dev/null'
+        redraw!|redrawstatus!|redrawtabline
+    elseif exists(':CleanBuffer')
         CleanBuffer
-        return
+    else
+        silent! update
     endif
-    silent! update
-    silent! execute '!black % 2>/dev/null'
-    redraw!|redrawstatus!|redrawtabline
+    echo 'buffer cleaned'
 endfunction
 " ---
 augroup python_cmd
