@@ -118,16 +118,21 @@ endif
 
 
 " Functions {{{
-function! s:CTags() abort
-    if !executable('ctags')
-        echo 'ctags not found'
-        return
-    endif
+function! s:RootDir() abort
     let l:root = getcwd()
     if executable('git')
         let l:root = system('git rev-parse --show-toplevel 2>/dev/null')
         let l:root = v:shell_error == 0 ? substitute(l:root, '\n\+$', '', '') : getcwd()
     endif
+    return l:root
+endfunction
+" ---
+function! s:CTags() abort
+    if !executable('ctags')
+        echo 'ctags not found'
+        return
+    endif
+    let l:root = <SID>RootDir()
     let l:cmd = printf(
               \ 'ctags -R -f %s/tags'
               \ . ' --exclude=.git'
@@ -444,7 +449,7 @@ augroup end
 augroup ctags_onsave
     autocmd!
     autocmd BufWritePost *
-          \ if filereadable('tags')|
+          \ if filereadable(<SID>RootDir() . '/tags')|
           \     silent! call <SID>CTags()|
           \ endif
 augroup end
