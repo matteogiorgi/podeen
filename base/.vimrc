@@ -492,7 +492,6 @@ command! -nargs=0 GitDiff call <SID>GitDiff()
 " Keymaps {{{
 nnoremap <silent><C-n> :bnext<CR>
 nnoremap <silent><C-p> :bprev<CR>
-nnoremap <silent><C-b> :tabnew%<CR>
 nnoremap <silent><Tab> :buffer#<CR>
 " ---
 noremap <silent><C-h> (
@@ -512,6 +511,7 @@ xnoremap <silent>K :move '<-2<CR>gv=gv
 " ---
 nnoremap <silent>Y y$
 nnoremap <silent>ZU :update<BAR>rviminfo<CR>
+nnoremap <silent>ZO :tabnew%<CR>
 " ---
 nnoremap <leader>q :ToggleQF<CR>
 nnoremap <leader>w :ToggleWM<CR>
