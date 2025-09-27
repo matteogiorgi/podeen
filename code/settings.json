@@ -122,5 +122,7 @@
     "notebook.formatOnSave.enabled": true,
     "notebook.stickyScroll.enabled": true,
     "notebook.outline.showCodeCells": true,
-    "notebook.showFoldingControls": "always"
+    "notebook.showFoldingControls": "always",
+    "notebook.insertToolbarLocation": "hidden",
+    "notebook.cellToolbarVisibility": "hover"
 }
