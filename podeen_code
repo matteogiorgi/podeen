@@ -126,10 +126,12 @@ rm -rf "$HOME/.config/Code/CachedExtensionVSIXs" \
 printf "\n%s\n" "INSTALLING CODE EXTENSIONS"
 for EXTENSION in \
     github.copilot \
+    openai.chatgpt \
     james-yu.latex-workshop \
     ms-python.python \
     ms-python.black-formatter \
-    ms-toolsai.jupyter
+    ms-toolsai.jupyter \
+    ms-toolsai.datawrangler
 do
     printf "%s" "installing '$EXTENSION'"
     try_run \code --install-extension "$EXTENSION"
