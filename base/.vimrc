@@ -463,6 +463,7 @@ augroup end
 augroup exec_cmd
     autocmd!
     for [ft, cmd] in [
+          \     ['scheme', 'scheme --script'],
           \     ['sh', 'sh'],
           \     ['awk', 'awk -f'],
           \ ]

@@ -72,8 +72,8 @@ EOF
 ### Packages
 ############
 
-PACKAGES="git dash bash gnome-keyring fonts-cascadia-code \
-pandoc texlive-full python3-full python3-pip python3-dev black"
+PACKAGES="git dash bash gnome-keyring fonts-cascadia-code pandoc texlive-full \
+python3-full python3-pip python3-dev black default-jdk default-jdk-doc maven"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
@@ -128,6 +128,7 @@ for EXTENSION in \
     github.copilot \
     openai.chatgpt \
     james-yu.latex-workshop \
+    vscjava.vscode-java-pack \
     ms-python.python \
     ms-python.black-formatter \
     ms-toolsai.jupyter \
