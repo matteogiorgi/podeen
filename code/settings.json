@@ -104,8 +104,14 @@
     "python.analysis.completeFunctionParens": true,
     "python.analysis.diagnosticMode": "openFilesOnly",
     "python.analysis.diagnosticsSource": "Pylance",
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 120,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
     "[latex]": {

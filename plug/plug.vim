@@ -16,12 +16,12 @@ let g:plugme = 1
 
 
 
-" Python {{{
-function! s:Black() abort
-    if executable('black')
+" Formatters {{{
+function! s:Formatter(bin, cmd) abort
+    if executable(a:bin)
         silent! update
-        silent! execute '!black % 2>/dev/null'
-        redraw!|redrawstatus!|redrawtabline
+        execute 'silent! !' . a:cmd . ' % >/dev/null 2>&1'
+        redraw! | redrawstatus! | redrawtabline
     elseif exists(':CleanBuffer')
         CleanBuffer
     else
@@ -32,9 +32,16 @@ endfunction
 " ---
 augroup python_cmd
     autocmd!
-    autocmd FileType python command! -buffer -bar -nargs=0 Black call <SID>Black()
-    autocmd Filetype python nnoremap <buffer> <leader>d :Black<CR>
+    autocmd FileType python command! -buffer -bar -nargs=0 Black call <SID>Formatter('black', 'black')
+    autocmd FileType python nnoremap <buffer> <leader>d :Black<CR>
     autocmd FileType python nnoremap <buffer> <leader>x :ExecScript python3<CR>
+augroup end
+" ---
+augroup javascript_cmd
+    autocmd!
+    autocmd FileType javascript command! -buffer -bar -nargs=0 Prettier call <SID>Formatter('prettier', 'prettier --write --tab-width 4 --print-width 120')
+    autocmd FileType javascript nnoremap <buffer> <leader>d :Prettier<CR>
+    autocmd FileType javascript nnoremap <buffer> <leader>x :ExecScript node<CR>
 augroup end
 " }}}
 
