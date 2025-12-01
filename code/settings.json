@@ -85,10 +85,10 @@
     "workbench.list.openMode": "doubleClick",
     "workbench.tree.renderIndentGuides": "none",
     "workbench.tree.indent": 20,
-    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
-    "workbench.preferredLightColorTheme": "Visual Studio Light",
-    "workbench.colorTheme": "Visual Studio Light",
-    "workbench.iconTheme": "vs-seti",
+    "workbench.preferredDarkColorTheme": "Monokai Pro",
+    "workbench.preferredLightColorTheme": "Monokai Pro Light",
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.iconTheme": "Monokai Pro Icons",
     "workbench.productIconTheme": "Default",
     "workbench.layoutControl.enabled": false,
     "workbench.tips.enabled": false,
@@ -104,14 +104,8 @@
     "python.analysis.completeFunctionParens": true,
     "python.analysis.diagnosticMode": "openFilesOnly",
     "python.analysis.diagnosticsSource": "Pylance",
-    "prettier.tabWidth": 4,
-    "prettier.printWidth": 120,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
     "[latex]": {

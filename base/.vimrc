@@ -51,7 +51,7 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-set background=light
+set background=dark
 silent! colorscheme lunaperche
 " }}}
 
@@ -463,7 +463,6 @@ augroup end
 augroup exec_cmd
     autocmd!
     for [ft, cmd] in [
-          \     ['scheme', 'scheme --script'],
           \     ['sh', 'sh'],
           \     ['awk', 'awk -f'],
           \ ]
