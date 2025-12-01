@@ -51,7 +51,7 @@ endif
 " Syntax & Filetype {{{
 syntax on
 filetype plugin indent on
-set background=dark
+set background=light
 silent! colorscheme lunaperche
 " }}}
 
