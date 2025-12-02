@@ -30,6 +30,13 @@ function! s:Formatter(bin, cmd) abort
     echo 'buffer cleaned'
 endfunction
 " ---
+augroup go_cmd
+    autocmd!
+    autocmd FileType go command! -buffer -bar -nargs=0 GoFmt call <SID>Formatter('gofmt', 'gofmt -w')
+    autocmd FileType go nnoremap <buffer> <leader>d :GoFmt<CR>
+    autocmd FileType go nnoremap <buffer> <leader>x :ExecScript go run<CR>
+augroup end
+" ---
 augroup python_cmd
     autocmd!
     autocmd FileType python command! -buffer -bar -nargs=0 Black call <SID>Formatter('black', 'black')
