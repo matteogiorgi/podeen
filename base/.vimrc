@@ -313,18 +313,18 @@ function! s:CleanBuffer() abort
     echo 'buffer cleaned'
 endfunction
 " ---
-function! s:ExecScript(cmd) abort
+function! s:ExecScript(cmd, target) abort
     if exists(':CleanBuffer')
         CleanBuffer
     else
         silent! update
     endif
-    let l:file = expand('%:p')
-    if empty(l:file)
-        echo 'empty file'
+    let l:target = expand(a:target)
+    if empty(l:target)
+        echo 'empty target'
         return
     endif
-    execute 'terminal ++curwin ' . a:cmd . ' ' . fnameescape(l:file)
+    execute 'terminal ++curwin ' . a:cmd . ' ' . fnameescape(l:target)
 endfunction
 " ---
 function! s:GitDiff() abort
@@ -466,7 +466,7 @@ augroup exec_cmd
           \     ['sh', 'sh'],
           \     ['awk', 'awk -f'],
           \ ]
-        execute 'autocmd FileType ' . ft . ' nnoremap <buffer> <leader>x :ExecScript ' . cmd . '<CR>'
+        execute 'autocmd FileType ' . ft . ' nnoremap <buffer> <leader>x :ExecScript ' . escape(cmd, ' ') . ' %<CR>'
     endfor
 augroup end
 " }}}
@@ -479,7 +479,7 @@ command! -nargs=0 CTags call <SID>CTags()
 command! -nargs=0 CopyClip call <SID>CopyClip()
 command! -nargs=0 PastaClip call <SID>PastaClip()
 command! -nargs=0 CleanBuffer call <SID>CleanBuffer()
-command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<q-args>)
+command! -nargs=+ -complete=shellcmd ExecScript call <SID>ExecScript(<f-args>)
 command! -nargs=0 ToggleQF call <SID>ToggleQF()
 command! -nargs=0 ToggleFC call <SID>ToggleFC()
 command! -nargs=0 ToggleWM call <SID>ToggleWM()
