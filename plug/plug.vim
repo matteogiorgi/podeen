@@ -30,13 +30,6 @@ function! s:Formatter(bin, cmd) abort
     echo 'buffer cleaned'
 endfunction
 " ---
-augroup go_cmd
-    autocmd!
-    autocmd FileType go command! -buffer -bar -nargs=0 GoFmt call <SID>Formatter('gofmt', 'gofmt -w')
-    autocmd FileType go nnoremap <buffer> <leader>d :GoFmt<CR>
-    autocmd FileType go nnoremap <buffer> <leader>x :ExecScript go\ run %:p:h<CR>
-augroup end
-" ---
 augroup python_cmd
     autocmd!
     autocmd FileType python command! -buffer -bar -nargs=0 Black call <SID>Formatter('black', 'black')
@@ -49,6 +42,13 @@ augroup javascript_cmd
     autocmd FileType javascript command! -buffer -bar -nargs=0 Prettier call <SID>Formatter('prettier', 'prettier --write --tab-width 4 --print-width 120')
     autocmd FileType javascript nnoremap <buffer> <leader>d :Prettier<CR>
     autocmd FileType javascript nnoremap <buffer> <leader>x :ExecScript node %<CR>
+augroup end
+" ---
+augroup go_cmd
+    autocmd!
+    autocmd FileType go command! -buffer -bar -nargs=0 GoFmt call <SID>Formatter('gofmt', 'gofmt -w')
+    autocmd FileType go nnoremap <buffer> <leader>d :GoFmt<CR>
+    autocmd FileType go nnoremap <buffer> <leader>x :ExecScript go\ run %:p:h<CR>
 augroup end
 " }}}
 
