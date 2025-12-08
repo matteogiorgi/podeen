@@ -25,10 +25,30 @@ ask_user() {
 # ---
 testing_setup() {
     [ -s /etc/apt/sources.list ] && grep '^[^#]' /etc/apt/sources.list >/dev/null || return
-    local REPO="deb http://deb.debian.org/debian testing main contrib"
-    if ! grep -E "^deb[[:space:]]*http://deb.debian.org/debian[[:space:]]*(testing|unstable)" /etc/apt/sources.list >/dev/null 2>&1; then
-        { echo "$REPO" | sudo tee -a /etc/apt/sources.list >/dev/null; } && sudo cp "$SCRIPTPATH/base/preferences" "/etc/apt/" >/dev/null 2>&1
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.podeen.bak 2>/dev/null || true
+    local REPO="deb https://deb.debian.org/debian testing main contrib non-free"
+    if ! grep -E \
+        '^[[:space:]]*deb[[:space:]]+https?://deb\.debian\.org/debian[[:space:]]+(testing|unstable)\b' \
+        /etc/apt/sources.list \
+        >/dev/null 2>&1
+    then
+        echo "$REPO" \
+            | sudo tee -a /etc/apt/sources.list >/dev/null \
+            && sudo cp "$SCRIPTPATH/base/preferences" "/etc/apt/" >/dev/null 2>&1
     fi
+    sudo awk '
+    /^[[:space:]]*deb[[:space:]].*(testing|unstable)/ {
+        line = $0
+        if (line !~ /[[:space:]]contrib([[:space:]]|$)/)
+            line = line " contrib"
+        if (line !~ /[[:space:]]non-free([[:space:]]|$)/)
+            line = line " non-free"
+        print line
+        next
+    }
+    { print }
+    ' /etc/apt/sources.list | sudo tee /etc/apt/sources.list.podeen.tmp >/dev/null \
+      && sudo mv /etc/apt/sources.list.podeen.tmp /etc/apt/sources.list
 }
 # ---
 try_run() {
