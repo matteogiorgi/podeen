@@ -43,6 +43,8 @@ testing_setup() {
             line = line " contrib"
         if (line !~ /[[:space:]]non-free([[:space:]]|$)/)
             line = line " non-free"
+        if (line !~ /[[:space:]]non-free-firmware([[:space:]]|$)/)
+            line = line " non-free-firmware"
         print line
         next
     }
@@ -128,7 +130,7 @@ EOF
 ############
 
 PACKAGES="git bash bash-completion fzy less file fd-find trash-cli xclip wl-clipboard procps x11-xkb-utils \
-tmux vim exuberant-ctags wamerican build-essential gdb manpages-dev pkg-config valgrind strace ltrace"
+tmux vim exuberant-ctags wamerican build-essential gcc-doc gdb manpages-dev pkg-config valgrind strace ltrace"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
