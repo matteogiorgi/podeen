@@ -16,7 +16,7 @@
     "window.density.editorTabHeight": "default",
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
-    "window.autoDetectColorScheme": true,
+    "window.autoDetectColorScheme": false,
     "editor.formatOnSave": false,
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
