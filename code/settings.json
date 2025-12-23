@@ -54,6 +54,7 @@
     "editor.minimap.side": "right",
     "editor.hover.enabled": false,
     "editor.lightbulb.enabled": "off",
+    "editor.inlayHints.enabled": "off",
     "extensions.ignoreRecommendations": true,
     "debug.terminal.clearBeforeReusing": true,
     "terminal.explorerKind": "external",
