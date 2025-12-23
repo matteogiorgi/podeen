@@ -108,9 +108,13 @@
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true
     },
-    "[latex]": {
-        "editor.formatOnSave": true
-    },
+    "notebook.defaultFormatter": "ms-python.black-formatter",
+    "notebook.formatOnSave.enabled": true,
+    "notebook.stickyScroll.enabled": true,
+    "notebook.outline.showCodeCells": true,
+    "notebook.showFoldingControls": "always",
+    "notebook.insertToolbarLocation": "hidden",
+    "notebook.cellToolbarVisibility": "hover",
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.view.pdf.zoom": "page-width",
     "latex-workshop.view.pdf.color.dark.backgroundColor": "#f5f6f7",
@@ -118,11 +122,7 @@
     "latex-workshop.view.pdf.color.light.backgroundColor": "#f5f6f7",
     "latex-workshop.view.pdf.color.light.pageBorderColor": "#f5f6f7",
     "latex-workshop.formatting.latex": "latexindent",
-    "notebook.defaultFormatter": "ms-python.black-formatter",
-    "notebook.formatOnSave.enabled": true,
-    "notebook.stickyScroll.enabled": true,
-    "notebook.outline.showCodeCells": true,
-    "notebook.showFoldingControls": "always",
-    "notebook.insertToolbarLocation": "hidden",
-    "notebook.cellToolbarVisibility": "hover"
+    "[latex]": {
+        "editor.formatOnSave": true
+    }
 }
