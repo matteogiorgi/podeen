@@ -72,8 +72,8 @@ EOF
 ### Packages
 ############
 
-PACKAGES="git dash bash gnome-keyring fonts-cascadia-code libyaml-tiny-perl libfile-homedir-perl \
-pandoc texlive-full python3-full python3-pip python3-dev black default-jdk default-jdk-doc maven"
+PACKAGES="git dash bash gnome-keyring fonts-cascadia-code libyaml-tiny-perl libfile-homedir-perl pandoc texlive-full \
+python3-full python3-pip python3-dev black nodejs nodejs-doc npm default-jdk default-jdk-doc maven golang delve"
 for PKG in $PACKAGES; do
     if ! apt-get -s install "$PKG" >/dev/null 2>&1; then
         PROBLEMS="${PROBLEMS:+$PROBLEMS }$PKG"
@@ -130,6 +130,9 @@ for EXTENSION in \
     monokai.theme-monokai-pro-vscode \
     james-yu.latex-workshop \
     vscjava.vscode-java-pack \
+    golang.go \
+    dbaeumer.vscode-eslint \
+    esbenp.prettier-vscode \
     ms-python.python \
     ms-python.black-formatter \
     ms-toolsai.jupyter \
