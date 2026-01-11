@@ -1,6 +1,6 @@
 # POrtable DEbian ENvironment &nbsp;<a href="https://www.debian.org"><img src="https://www.debian.org/logos/officiallogo-nd.svg" style="height: 1em; vertical-align: top;"></a>
 
-**This repo is no longer maintained, use [PUTS](https://github.com/matteogiorgi/puts) and [GUTS](https://github.com/matteogiorgi/guts) instead.**
+**This repo is no longer maintained, use [ULPE](https://github.com/matteogiorgi/ulpe) and [COBE](https://github.com/matteogiorgi/cobe) instead.**
 
 This repository contains a collection of configuration files and installation scripts for a complete and efficient minimal *UNIX* work environment based on any *Debian* or *Debian-based* distribution.
 
